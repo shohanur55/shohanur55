@@ -8,8 +8,8 @@ Welcome to my GitHub profile! I'm a passionate software engineer who loves build
 
 ### 🛠️ Tech Stack
 
-- **Languages:** Dart,Java,C,C++,C# 
-- **Frameworks & Tools:** Flutter, Git,Dot Net, REST APIs
+- **Languages:** Dart, Java, C, C++, C# 
+- **Frameworks & Tools:** Flutter, Git, Dot Net, REST APIs
 - **Interests:** Mobile App Development, Cross-Platform Solutions, Open Source
 
 ---
