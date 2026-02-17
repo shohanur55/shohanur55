@@ -1,0 +1,21 @@
+[
+    {
+        "id": "1",
+        "company": "Genuine Technology and Research Ltd (GTR)",
+        "role": "Flutter Mobile App Developer - Jr. Programmer",
+        "duration": "Nov 2023 - Present",
+        "description": [
+            "Working as a Flutter Mobile App Developer.",
+            "Contributed to key projects including Jogajog, Halda, and Atrai.",
+            "Implemented features using GetX for state management and MVC/MVVM patterns.",
+            "Integrated REST APIs and Firebase for backend connectivity."
+        ],
+        "technologies": [
+            "Flutter",
+            "Dart",
+            "GetX",
+            "REST API",
+            "Firebase"
+        ]
+    }
+]

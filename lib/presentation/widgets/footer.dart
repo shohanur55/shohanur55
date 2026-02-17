@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../core/theme/app_theme.dart';
+
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 32),
+      color: AppTheme.backgroundColor,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildSocialIcon(
+                FontAwesomeIcons.github,
+                "https://github.com/shohanur55",
+              ),
+              const SizedBox(width: 24),
+              _buildSocialIcon(
+                FontAwesomeIcons.linkedin,
+                "https://www.linkedin.com/in/md-shohanur-rahaman-a56999292/",
+              ),
+              const SizedBox(width: 24),
+              _buildSocialIcon(
+                FontAwesomeIcons.envelope,
+                "mailto:mshohan088@gmail.com",
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'Designed & Built by Muhammad Shohan',
+            style: GoogleFonts.firaCode(
+              color: AppTheme.secondaryColor,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialIcon(IconData icon, String url) {
+    return IconButton(
+      onPressed: () => _launchURL(url),
+      icon: FaIcon(icon, size: 20, color: AppTheme.secondaryColor),
+    );
+  }
+
+  Future<void> _launchURL(String url) async {
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri)) throw 'Could not launch $url';
+  }
+}
