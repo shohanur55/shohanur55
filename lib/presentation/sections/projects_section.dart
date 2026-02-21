@@ -91,7 +91,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
-                      childAspectRatio: 0.75,
+                      mainAxisExtent: 520.h,
                       crossAxisSpacing: 24.w,
                       mainAxisSpacing: 24.h,
                     ),

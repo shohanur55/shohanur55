@@ -174,7 +174,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 6.h),
 
                     // Technologies
                     Text(
@@ -199,7 +199,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 16.h),
+                    // SizedBox(height: 16.h),
 
                     // Read More Button
                     Align(
