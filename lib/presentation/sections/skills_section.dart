@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dotlottie_flutter/dotlottie_flutter.dart';
 import '../../core/theme/app_theme.dart';
 import '../widgets/section_container.dart';
 import '../../data/repositories/portfolio_repository.dart';
@@ -22,8 +24,11 @@ class _SkillsSectionState extends State<SkillsSection> {
     _skillsFuture = _repository.getSkills();
   }
 
+  static const String _lottieAsset = 'assets/lottie/fnoDIUWfiv.lottie';
+
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width > 900;
     return SectionContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,26 +39,59 @@ class _SkillsSectionState extends State<SkillsSection> {
                 '01. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 'My Skills',
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32,
+                  fontSize: 32.sp,
                 ),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20.w),
               const Expanded(
                 child: Divider(color: AppTheme.cardColor, thickness: 1),
               ),
+              if (isDesktop) ...[
+                SizedBox(width: 24.w),
+                SizedBox(
+                  width: 500.w,
+                  height: 380.h,
+                  child: IgnorePointer(
+                    child: DotLottieView(
+                      sourceType: 'asset',
+                      source: _lottieAsset,
+                      autoplay: true,
+                      loop: true,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
-          const SizedBox(height: 40),
+          if (!isDesktop) ...[
+            SizedBox(height: 24.h),
+            Center(
+              child: SizedBox(
+                width: 160.w,
+                height: 160.h,
+                child: IgnorePointer(
+                  child: DotLottieView(
+                    sourceType: 'asset',
+                    source: _lottieAsset,
+                    autoplay: true,
+                    loop: true,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16.h),
+          ],
+          SizedBox(height: 40.h),
           FutureBuilder<List<SkillModel>>(
             future: _skillsFuture,
             builder: (context, snapshot) {
@@ -74,8 +112,8 @@ class _SkillsSectionState extends State<SkillsSection> {
               // Group skills by category if needed, or just display all
               // For now, let's just display all in a nice wrap
               return Wrap(
-                spacing: 16,
-                runSpacing: 16,
+                spacing: 16.w,
+                runSpacing: 16.h,
                 children: skills
                     .map((skill) => _buildSkillChip(skill))
                     .toList(),
@@ -89,11 +127,11 @@ class _SkillsSectionState extends State<SkillsSection> {
 
   Widget _buildSkillChip(SkillModel skill) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
       decoration: BoxDecoration(
         color: AppTheme.cardColor,
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: AppTheme.primaryColor.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(4.r),
+        border: Border.all(color: AppTheme.primaryColor.withValues(alpha: 0.2)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -105,13 +143,13 @@ class _SkillsSectionState extends State<SkillsSection> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.code, color: AppTheme.primaryColor, size: 20),
-          const SizedBox(width: 8),
+          Icon(Icons.code, color: AppTheme.primaryColor, size: 20.sp),
+          SizedBox(width: 8.w),
           Text(
             skill.name,
             style: GoogleFonts.firaCode(
               color: AppTheme.primaryColor,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500,
             ),
           ),

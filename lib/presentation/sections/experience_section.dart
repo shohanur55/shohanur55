@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../widgets/section_container.dart';
@@ -34,17 +35,17 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 '03. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 'Where I’ve Worked',
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32,
+                  fontSize: 32.sp,
                 ),
               ),
               const SizedBox(width: 20),
@@ -53,7 +54,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
               ),
             ],
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: 40.h),
           FutureBuilder<List<ExperienceModel>>(
             future: _experienceFuture,
             builder: (context, snapshot) {
@@ -85,11 +86,11 @@ class _ExperienceSectionState extends State<ExperienceSection> {
 
   Widget _buildExperienceCard(ExperienceModel experience) {
     return Container(
-      padding: const EdgeInsets.all(24),
-      margin: const EdgeInsets.only(bottom: 24),
+      padding: EdgeInsets.all(24.r),
+      margin: EdgeInsets.only(bottom: 24.h),
       decoration: BoxDecoration(
         color: AppTheme.cardColor,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(6.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -113,16 +114,16 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       experience.role,
                       style: GoogleFonts.inter(
                         color: AppTheme.textColor,
-                        fontSize: 22,
+                        fontSize: 22.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       experience.company,
                       style: GoogleFonts.firaCode(
                         color: AppTheme.primaryColor,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ],
@@ -132,30 +133,30 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 experience.duration,
                 style: GoogleFonts.firaCode(
                   color: AppTheme.secondaryColor,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           ...experience.description.map(
             (desc) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.only(bottom: 8.h),
               child: _buildDescriptionPoint(desc),
             ),
           ),
           if (experience.technologies.isNotEmpty) ...[
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Wrap(
-              spacing: 12,
-              runSpacing: 8,
+              spacing: 12.w,
+              runSpacing: 8.h,
               children: experience.technologies
                   .map(
                     (tech) => Text(
                       tech,
                       style: GoogleFonts.firaCode(
                         color: AppTheme.secondaryColor,
-                        fontSize: 13,
+                        fontSize: 13.sp,
                       ),
                     ),
                   )
@@ -172,13 +173,13 @@ class _ExperienceSectionState extends State<ExperienceSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(Icons.arrow_right, color: AppTheme.primaryColor, size: 20),
-        const SizedBox(width: 8),
+        SizedBox(width: 8.w),
         Expanded(
           child: Text(
             text,
             style: GoogleFonts.inter(
               color: AppTheme.secondaryColor,
-              fontSize: 16,
+              fontSize: 16.sp,
               height: 1.6,
             ),
           ),

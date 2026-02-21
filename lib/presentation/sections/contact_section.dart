@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
@@ -20,19 +21,19 @@ class ContactSection extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           Text(
             'Get In Touch',
             style: GoogleFonts.inter(
               color: AppTheme.textColor,
-              fontSize: 50,
+              fontSize: 50.sp,
               fontWeight: FontWeight.bold,
               letterSpacing: -1.0,
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           SizedBox(
-            width: 600,
+            width: 600.w,
             child: Text(
               'Although I’m not currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!',
               textAlign: TextAlign.center,
@@ -43,23 +44,23 @@ class ContactSection extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: 50.h),
           OutlinedButton(
             onPressed: () {
               _launchURL('mailto:mshohan088@gmail.com');
             },
             style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 22),
+              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 22.h),
               side: const BorderSide(color: AppTheme.primaryColor, width: 1.5),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
             ),
             child: Text(
               'Say Hello',
               style: GoogleFonts.firaCode(
                 color: AppTheme.primaryColor,
-                fontSize: 16,
+                fontSize: 16.sp,
               ),
             ),
           ),

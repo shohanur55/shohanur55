@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 
@@ -23,7 +24,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               Builder(
                 builder: (context) => IconButton(
-                  icon: const Icon(Icons.menu, color: AppTheme.primaryColor),
+                  icon: Icon(Icons.menu, color: AppTheme.primaryColor, size: 24.sp),
                   onPressed: () => Scaffold.of(context).openEndDrawer(),
                 ),
               ),
@@ -34,14 +35,14 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               _buildNavLink(context, '03. Experience', 3),
               _buildNavLink(context, '04. Work', 4),
               _buildNavLink(context, '05. Contact', 5),
-              const SizedBox(width: 20),
+              SizedBox(width: 20.w),
               OutlinedButton(
                 onPressed: () {
                   // Resume download or similar action
                 },
                 child: const Text('Resume'),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20.w),
             ],
     );
   }
@@ -53,14 +54,14 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         text,
         style: GoogleFonts.robotoMono(
           color: AppTheme.secondaryColor,
-          fontSize: 14,
+          fontSize: 14.sp,
         ),
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(60.h);
 }
 
 class MobileDrawer extends StatelessWidget {
@@ -81,7 +82,7 @@ class MobileDrawer extends StatelessWidget {
             _buildDrawerLink(context, '03. Experience', 3),
             _buildDrawerLink(context, '04. Work', 4),
             _buildDrawerLink(context, '05. Contact', 5),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             OutlinedButton(onPressed: () {}, child: const Text('Resume')),
           ],
         ),
@@ -91,7 +92,7 @@ class MobileDrawer extends StatelessWidget {
 
   Widget _buildDrawerLink(BuildContext context, String text, int index) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: TextButton(
         onPressed: () {
           Navigator.pop(context); // Close drawer
@@ -101,7 +102,7 @@ class MobileDrawer extends StatelessWidget {
           text,
           style: GoogleFonts.robotoMono(
             color: AppTheme.secondaryColor,
-            fontSize: 16,
+            fontSize: 16.sp,
           ),
         ),
       ),

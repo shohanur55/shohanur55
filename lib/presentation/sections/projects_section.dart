@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/models/project_model.dart';
@@ -35,26 +36,26 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 '04. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8.w),
               Text(
                 'Some Things I’ve Built',
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32,
+                  fontSize: 32.sp,
                 ),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20.w),
               const Expanded(
                 child: Divider(color: AppTheme.cardColor, thickness: 1),
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          SizedBox(height: 50.h),
           FutureBuilder<List<Project>>(
             future: _projectsFuture,
             builder: (context, snapshot) {
@@ -90,9 +91,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
-                      childAspectRatio: 0.75, // Taller cards
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
+                      childAspectRatio: 0.75,
+                      crossAxisSpacing: 24.w,
+                      mainAxisSpacing: 24.h,
                     ),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {

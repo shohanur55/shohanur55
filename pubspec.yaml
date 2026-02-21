@@ -39,6 +39,10 @@ dependencies:
   flutter_animate: ^4.5.2
   font_awesome_flutter: ^10.12.0
   animated_text_kit: ^4.3.0
+  lottie: ^3.1.0
+  dotlottie_flutter: ^0.0.2
+  carousel_slider: ^5.0.0
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +70,9 @@ flutter:
   assets:
     - assets/data/
     - assets/images/
+    - assets/images/projects/halda/
+    - assets/images/projects/atrai/
+    - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

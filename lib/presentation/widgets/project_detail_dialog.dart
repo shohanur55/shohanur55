@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
@@ -20,12 +22,12 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
   Widget build(BuildContext context) {
     // Determine dialog width based on screen size
     final double dialogWidth = MediaQuery.of(context).size.width > 800
-        ? 800
+        ? 800.w
         : MediaQuery.of(context).size.width * 0.9;
 
     return Dialog(
       backgroundColor: AppTheme.cardColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       child: Container(
         width: dialogWidth,
         constraints: BoxConstraints(
@@ -36,7 +38,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
           children: [
             // Header with Close Button
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.r),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -44,7 +46,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     widget.project.title,
                     style: GoogleFonts.roboto(
                       color: AppTheme.secondaryColor,
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -60,40 +62,45 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
             // Scrollable Content
             Flexible(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24.0),
+                padding: EdgeInsets.all(24.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image Carousel
+                    // Image Carousel with auto-slide
                     if (widget.project.images.isNotEmpty) ...[
-                      SizedBox(
-                        height: 400,
-                        child: PageView.builder(
-                          itemCount: widget.project.images.length,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _currentImageIndex = index;
-                            });
-                          },
-                          itemBuilder: (context, index) {
-                            final image = widget.project.images[index];
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 4),
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(
-                                  image: image.startsWith('http')
-                                      ? NetworkImage(image) as ImageProvider
-                                      : AssetImage(image),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            );
+                      CarouselSlider.builder(
+                        itemCount: widget.project.images.length,
+                        options: CarouselOptions(
+                          height: 400.h,
+                          viewportFraction: 1.0,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.easeInOut,
+                          enlargeCenterPage: false,
+                          onPageChanged: (index, reason) {
+                            setState(() => _currentImageIndex = index);
                           },
                         ),
+                        itemBuilder: (context, index, realIndex) {
+                          final image = widget.project.images[index];
+                          return Container(
+                            margin: EdgeInsets.symmetric(horizontal: 4.w),
+                            decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(8.r),
+                              image: DecorationImage(
+                                image: image.startsWith('http')
+                                    ? NetworkImage(image) as ImageProvider
+                                    : AssetImage(image),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       // Indicators
                       if (widget.project.images.length > 1)
                         Row(
@@ -101,9 +108,9 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                           children: List.generate(
                             widget.project.images.length,
                             (index) => Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 4),
-                              width: 8,
-                              height: 8,
+                              margin: EdgeInsets.symmetric(horizontal: 4.w),
+                              width: 8.w,
+                              height: 8.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: _currentImageIndex == index
@@ -113,7 +120,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                             ),
                           ),
                         ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                     ],
 
                     // Description
@@ -121,11 +128,11 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                       widget.project.description,
                       style: GoogleFonts.roboto(
                         color: AppTheme.textColor,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         height: 1.6,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24.h),
 
                     // Technologies
                     Text(
@@ -133,13 +140,13 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                       style: GoogleFonts.robotoMono(
                         color: AppTheme.primaryColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
+                      spacing: 8.w,
+                      runSpacing: 8.h,
                       children: widget.project.technologies
                           .map(
                             (tech) => Chip(
@@ -147,7 +154,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                                 tech,
                                 style: GoogleFonts.robotoMono(
                                   color: AppTheme.primaryColor,
-                                  fontSize: 12,
+                                  fontSize: 12.sp,
                                 ),
                               ),
                               backgroundColor: AppTheme.primaryColor
@@ -157,7 +164,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                           )
                           .toList(),
                     ),
-                    const SizedBox(height: 32),
+                    SizedBox(height: 32.h),
 
                     // Links
                     Row(
@@ -216,7 +223,7 @@ class _LinkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: _launchUrl,
-      icon: Icon(icon, size: 18),
+      icon: Icon(icon, size: 18.sp),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         backgroundColor: isPrimary ? AppTheme.primaryColor : Colors.transparent,
@@ -224,7 +231,7 @@ class _LinkButton extends StatelessWidget {
             ? AppTheme.backgroundColor
             : AppTheme.primaryColor,
         side: isPrimary ? null : const BorderSide(color: AppTheme.primaryColor),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         textStyle: GoogleFonts.robotoMono(fontWeight: FontWeight.bold),
       ),
     );

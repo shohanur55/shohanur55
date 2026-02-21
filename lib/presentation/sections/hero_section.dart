@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,8 +26,8 @@ class HeroSection extends StatelessWidget {
     final isDesktop = size.width > 900;
     final isTablet = size.width > 600;
     final minHeight = size.height * 0.88;
-    final horizontalPadding = isDesktop ? 150.0 : (isTablet ? 80.0 : 20.0);
-    final verticalPadding = isDesktop ? 50.0 : 30.0;
+    final horizontalPadding = isDesktop ? 150.w : (isTablet ? 80.w : 20.w);
+    final verticalPadding = isDesktop ? 50.h : 30.h;
 
     return Container(
       width: double.infinity,
@@ -94,18 +95,18 @@ class HeroSection extends StatelessWidget {
               vertical: verticalPadding,
             ),
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1200),
+              constraints: BoxConstraints(maxWidth: 1200.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: isDesktop ? 10 : 16),
+                  SizedBox(height: isDesktop ? 10.h : 16.h),
                   isDesktop
                       ? _buildDesktopLayout(context, isTablet)
                       : _buildMobileLayout(context),
-                  const SizedBox(height: 60),
+                  SizedBox(height: 60.h),
                   _buildScrollIndicator(context),
-                  SizedBox(height: isDesktop ? 40 : 24),
+                  SizedBox(height: isDesktop ? 40.h : 24.h),
                 ],
               ),
             ),
@@ -232,7 +233,7 @@ class HeroSection extends StatelessWidget {
           'Md. Shohanur Rahaman.',
           style: GoogleFonts.inter(
             color: AppTheme.textColor,
-            fontSize: isDesktop ? 64 : 42,
+            fontSize: (isDesktop ? 64 : 42).sp,
             fontWeight: FontWeight.w800,
             height: 1.05,
             letterSpacing: -1.2,

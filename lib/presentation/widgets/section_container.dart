@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionContainer extends StatelessWidget {
   final Widget child;
@@ -20,8 +21,8 @@ class SectionContainer extends StatelessWidget {
     final isDesktop = size.width > 1000;
     final isTablet = size.width > 600 && size.width <= 1000;
 
-    double horizontalPadding = isDesktop ? 150 : (isTablet ? 80 : 20);
-    double verticalPadding = isDesktop ? 80 : 50;
+    double horizontalPadding = isDesktop ? 150.w : (isTablet ? 80.w : 20.w);
+    double verticalPadding = isDesktop ? 80.h : 50.h;
 
     return Container(
       width: double.infinity,
@@ -35,7 +36,7 @@ class SectionContainer extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: width ?? 1200, // Max width for content
+            maxWidth: width ?? 1200.w,
           ),
           child: child,
         ),

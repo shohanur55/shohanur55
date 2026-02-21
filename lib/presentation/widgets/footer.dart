@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
 
@@ -10,7 +11,7 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 32),
+      padding: EdgeInsets.symmetric(vertical: 32.h),
       color: AppTheme.backgroundColor,
       child: Column(
         children: [
@@ -21,24 +22,24 @@ class Footer extends StatelessWidget {
                 FontAwesomeIcons.github,
                 "https://github.com/shohanur55",
               ),
-              const SizedBox(width: 24),
+              SizedBox(width: 24.w),
               _buildSocialIcon(
                 FontAwesomeIcons.linkedin,
                 "https://www.linkedin.com/in/md-shohanur-rahaman-a56999292/",
               ),
-              const SizedBox(width: 24),
+              SizedBox(width: 24.w),
               _buildSocialIcon(
                 FontAwesomeIcons.envelope,
                 "mailto:mshohan088@gmail.com",
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           Text(
             'Designed & Built by Muhammad Shohan',
             style: GoogleFonts.firaCode(
               color: AppTheme.secondaryColor,
-              fontSize: 14,
+              fontSize: 14.sp,
             ),
           ),
         ],
@@ -49,7 +50,7 @@ class Footer extends StatelessWidget {
   Widget _buildSocialIcon(IconData icon, String url) {
     return IconButton(
       onPressed: () => _launchURL(url),
-      icon: FaIcon(icon, size: 20, color: AppTheme.secondaryColor),
+      icon: FaIcon(icon, size: 20.sp, color: AppTheme.secondaryColor),
     );
   }
 

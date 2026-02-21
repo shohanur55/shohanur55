@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
@@ -17,6 +19,7 @@ class ProjectCard extends StatefulWidget {
 
 class _ProjectCardState extends State<ProjectCard> {
   bool _isHovered = false;
+  int _currentImageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -28,64 +31,115 @@ class _ProjectCardState extends State<ProjectCard> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           transform: Matrix4.identity()
-            ..translate(0.0, _isHovered ? -5.0 : 0.0),
+            ..translate(0.0, _isHovered ? -5.h : 0.0),
           decoration: BoxDecoration(
             color: AppTheme.cardColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(8.r),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(_isHovered ? 0.2 : 0.1),
-                blurRadius: _isHovered ? 12 : 6,
-                offset: Offset(0, _isHovered ? 8 : 4),
+                blurRadius: _isHovered ? 12.r : 6.r,
+                offset: Offset(0, _isHovered ? 8.h : 4.h),
               ),
             ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Area
+              // Image Slider Area
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(8),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(8.r),
                     ),
-                    child: Container(
-                      height: 180,
+                    child: SizedBox(
+                      height: 180.h,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryColor.withOpacity(0.1),
-                        image: DecorationImage(
-                          image: widget.project.images.isNotEmpty
-                              ? (widget.project.images.first.startsWith('http')
-                                    ? NetworkImage(widget.project.images.first)
-                                          as ImageProvider
-                                    : AssetImage(widget.project.images.first))
-                              : const AssetImage(
-                                  AppConstants.profileImage,
-                                ), // Fallback
-                          fit: BoxFit.cover,
+                      child: widget.project.images.isEmpty
+                          ? Container(
+                              color: AppTheme.primaryColor.withOpacity(0.1),
+                              child: Image.asset(
+                                AppConstants.profileImage,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : CarouselSlider.builder(
+                              itemCount: widget.project.images.length,
+                              options: CarouselOptions(
+                                height: 180.h,
+                                viewportFraction: 1.0,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 3),
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.easeInOut,
+                                enlargeCenterPage: false,
+                                onPageChanged: (index, reason) {
+                                  setState(() => _currentImageIndex = index);
+                                },
+                              ),
+                              itemBuilder: (context, index, realIndex) {
+                                final image = widget.project.images[index];
+                                return Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        AppTheme.primaryColor.withOpacity(0.1),
+                                    image: DecorationImage(
+                                      image: image.startsWith('http')
+                                          ? NetworkImage(image)
+                                              as ImageProvider
+                                          : AssetImage(image),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                  ),
+                  // Dot indicators for multiple images
+                  if (widget.project.images.length > 1)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 8.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          widget.project.images.length,
+                          (index) => Container(
+                            margin: EdgeInsets.symmetric(horizontal: 4.w),
+                            width: 6.w,
+                            height: 6.h,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentImageIndex == index
+                                  ? Colors.white
+                                  : Colors.white.withOpacity(0.5),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
                   // GitHub Link Overlay
                   if (widget.project.githubUrl != null)
                     Positioned(
-                      top: 10,
-                      right: 10,
+                      top: 10.h,
+                      right: 10.w,
                       child: Material(
                         color: Colors.black54,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(20.r),
                         child: InkWell(
                           onTap: () => _launchUrl(widget.project.githubUrl!),
-                          borderRadius: BorderRadius.circular(20),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
+                          borderRadius: BorderRadius.circular(20.r),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.r),
                             child: Icon(
                               Icons.code,
                               color: Colors.white,
-                              size: 20,
+                              size: 20.sp,
                             ),
                           ),
                         ),
@@ -96,7 +150,7 @@ class _ProjectCardState extends State<ProjectCard> {
 
               // Content Area
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,20 +159,20 @@ class _ProjectCardState extends State<ProjectCard> {
                       widget.project.title,
                       style: GoogleFonts.roboto(
                         color: AppTheme.secondaryColor,
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
 
                     // Technologies
                     Text(
                       widget.project.technologies.join(', '),
                       style: GoogleFonts.robotoMono(
                         color: AppTheme.primaryColor,
-                        fontSize: 12,
+                        fontSize: 12.sp,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -136,7 +190,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16.h),
 
                     // Read More Button
                     Align(
@@ -159,8 +213,8 @@ class _ProjectCardState extends State<ProjectCard> {
                                 decoration: TextDecoration.underline,
                               ),
                             ),
-                            const SizedBox(width: 4),
-                            const Icon(Icons.arrow_forward_ios, size: 12),
+                            SizedBox(width: 4.w),
+                            Icon(Icons.arrow_forward_ios, size: 12.sp),
                           ],
                         ),
                       ),
