@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dotlottie_flutter/dotlottie_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +50,26 @@ class HeroSection extends StatelessWidget {
         children: [
           // Subtle decorative glow
           if (isDesktop) ...[
+            // Lottie animation on left side as background decoration
+            Positioned(
+              left: 10,
+              top: 100,
+              child: Opacity(
+                opacity: 0.15,
+                child: SizedBox(
+                  width: 400.w,
+                  height: 400.h,
+                  child: IgnorePointer(
+                    child: DotLottieView(
+                      sourceType: 'asset',
+                      source: 'assets/lottie/fnoDIUWfiv.lottie',
+                      autoplay: true,
+                      loop: true,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               top: -80,
               right: -80,
@@ -104,8 +125,6 @@ class HeroSection extends StatelessWidget {
                   isDesktop
                       ? _buildDesktopLayout(context, isTablet)
                       : _buildMobileLayout(context),
-                  SizedBox(height: 60.h),
-                  _buildScrollIndicator(context),
                   SizedBox(height: isDesktop ? 40.h : 24.h),
                 ],
               ),

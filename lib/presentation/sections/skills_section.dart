@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dotlottie_flutter/dotlottie_flutter.dart';
 import '../../core/theme/app_theme.dart';
 import '../widgets/section_container.dart';
 import '../../data/repositories/portfolio_repository.dart';
@@ -23,8 +22,6 @@ class _SkillsSectionState extends State<SkillsSection> {
     super.initState();
     _skillsFuture = _repository.getSkills();
   }
-
-  static const String _lottieAsset = 'assets/lottie/fnoDIUWfiv.lottie';
 
   @override
   Widget build(BuildContext context) {
@@ -56,41 +53,8 @@ class _SkillsSectionState extends State<SkillsSection> {
               const Expanded(
                 child: Divider(color: AppTheme.cardColor, thickness: 1),
               ),
-              if (isDesktop) ...[
-                SizedBox(width: 24.w),
-                SizedBox(
-                  width: 500.w,
-                  height: 380.h,
-                  child: IgnorePointer(
-                    child: DotLottieView(
-                      sourceType: 'asset',
-                      source: _lottieAsset,
-                      autoplay: true,
-                      loop: true,
-                    ),
-                  ),
-                ),
-              ],
             ],
           ),
-          if (!isDesktop) ...[
-            SizedBox(height: 24.h),
-            Center(
-              child: SizedBox(
-                width: 160.w,
-                height: 160.h,
-                child: IgnorePointer(
-                  child: DotLottieView(
-                    sourceType: 'asset',
-                    source: _lottieAsset,
-                    autoplay: true,
-                    loop: true,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 16.h),
-          ],
           SizedBox(height: 40.h),
           FutureBuilder<List<SkillModel>>(
             future: _skillsFuture,
