@@ -33,7 +33,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           Row(
             children: [
               Text(
-                '04. ',
+                '01. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
                   fontSize: 20.sp,

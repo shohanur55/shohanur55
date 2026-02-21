@@ -16,7 +16,7 @@ class AboutSection extends StatelessWidget {
           Row(
             children: [
               Text(
-                '02. ',
+                '03. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
                   fontSize: 20.sp,

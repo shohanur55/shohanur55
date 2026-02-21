@@ -1,0 +1,42 @@
+PODS:
+  - dotlottie_flutter (0.0.2):
+    - Flutter
+    - LottieFiles-dotLottie-iOS (~> 0.11.1)
+  - Flutter (1.0.0)
+  - LottieFiles-dotLottie-iOS (0.11.1)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - dotlottie_flutter (from `.symlinks/plugins/dotlottie_flutter/ios`)
+  - Flutter (from `Flutter`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - LottieFiles-dotLottie-iOS
+
+EXTERNAL SOURCES:
+  dotlottie_flutter:
+    :path: ".symlinks/plugins/dotlottie_flutter/ios"
+  Flutter:
+    :path: Flutter
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  dotlottie_flutter: 6b89a06e6e4978daef766c529ca452a20708abe2
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  LottieFiles-dotLottie-iOS: e9b34e7cff6d04f5affd97336c2dab934b86e6fb
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
+
+COCOAPODS: 1.16.2

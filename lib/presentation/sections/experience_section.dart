@@ -32,7 +32,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
           Row(
             children: [
               Text(
-                '03. ',
+                '04. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
                   fontSize: 20.sp,

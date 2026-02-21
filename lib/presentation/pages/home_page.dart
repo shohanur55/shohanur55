@@ -34,16 +34,16 @@ class _HomePageState extends State<HomePage> {
         key = _heroKey;
         break;
       case 1:
-        key = _skillsKey;
+        key = _projectsKey;
         break;
       case 2:
-        key = _aboutKey;
+        key = _skillsKey;
         break;
       case 3:
-        key = _experienceKey;
+        key = _aboutKey;
         break;
       case 4:
-        key = _projectsKey;
+        key = _experienceKey;
         break;
       case 5:
         key = _contactKey;
@@ -72,10 +72,10 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             HeroSection(key: _heroKey),
+            ProjectsSection(key: _projectsKey),
             SkillsSection(key: _skillsKey),
             AboutSection(key: _aboutKey),
             ExperienceSection(key: _experienceKey),
-            ProjectsSection(key: _projectsKey),
             ContactSection(key: _contactKey),
             const Footer(),
           ],

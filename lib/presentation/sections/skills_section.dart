@@ -36,7 +36,7 @@ class _SkillsSectionState extends State<SkillsSection> {
           Row(
             children: [
               Text(
-                '01. ',
+                '02. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
                   fontSize: 20.sp,

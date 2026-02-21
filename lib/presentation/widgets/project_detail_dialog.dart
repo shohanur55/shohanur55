@@ -66,42 +66,58 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image Carousel with auto-slide
+                    // Image Carousel - same design as project card (multiple images, dots outside)
                     if (widget.project.images.isNotEmpty) ...[
-                      CarouselSlider.builder(
-                        itemCount: widget.project.images.length,
-                        options: CarouselOptions(
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.r),
+                        child: SizedBox(
                           height: 400.h,
-                          viewportFraction: 1.0,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 3),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.easeInOut,
-                          enlargeCenterPage: false,
-                          onPageChanged: (index, reason) {
-                            setState(() => _currentImageIndex = index);
-                          },
-                        ),
-                        itemBuilder: (context, index, realIndex) {
-                          final image = widget.project.images[index];
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4.w),
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(8.r),
-                              image: DecorationImage(
-                                image: image.startsWith('http')
-                                    ? NetworkImage(image) as ImageProvider
-                                    : AssetImage(image),
-                                fit: BoxFit.contain,
-                              ),
+                          width: double.infinity,
+                          child: CarouselSlider.builder(
+                            itemCount: widget.project.images.length,
+                            options: CarouselOptions(
+                              height: 400.h,
+                              viewportFraction: 1.0,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.easeInOut,
+                              enlargeCenterPage: false,
+                              enableInfiniteScroll: true,
+                              onPageChanged: (index, reason) {
+                                setState(() => _currentImageIndex = index);
+                              },
                             ),
-                          );
-                        },
+                            itemBuilder: (context, index, realIndex) {
+                              final image = widget.project.images[index];
+                              return Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.primaryColor.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(4.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.15),
+                                      blurRadius: 6,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                    image: image.startsWith('http')
+                                        ? NetworkImage(image) as ImageProvider
+                                        : AssetImage(image),
+                                    fit: BoxFit.contain,
+                                    alignment: Alignment.center,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                       SizedBox(height: 16.h),
-                      // Indicators
+                      // Dot indicators - outside/below image area (same as project card)
                       if (widget.project.images.length > 1)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -109,13 +125,13 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                             widget.project.images.length,
                             (index) => Container(
                               margin: EdgeInsets.symmetric(horizontal: 4.w),
-                              width: 8.w,
-                              height: 8.h,
+                              width: 6.w,
+                              height: 6.h,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: _currentImageIndex == index
                                     ? AppTheme.primaryColor
-                                    : Colors.grey.withOpacity(0.5),
+                                    : AppTheme.secondaryColor.withOpacity(0.4),
                               ),
                             ),
                           ),

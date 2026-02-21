@@ -46,7 +46,7 @@ class _ProjectCardState extends State<ProjectCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Slider Area
+              // Image Slider Area - multiple images visible together
               Stack(
                 children: [
                   ClipRRect(
@@ -54,7 +54,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       top: Radius.circular(8.r),
                     ),
                     child: SizedBox(
-                      height: 180.h,
+                      height: 280.h,
                       width: double.infinity,
                       child: widget.project.images.isEmpty
                           ? Container(
@@ -67,14 +67,16 @@ class _ProjectCardState extends State<ProjectCard> {
                           : CarouselSlider.builder(
                               itemCount: widget.project.images.length,
                               options: CarouselOptions(
-                                height: 180.h,
-                                viewportFraction: 1.0,
+                                height: 280.h,
+                                viewportFraction: 0.32,
                                 autoPlay: true,
                                 autoPlayInterval: const Duration(seconds: 3),
-                                autoPlayAnimationDuration:
-                                    const Duration(milliseconds: 800),
+                                autoPlayAnimationDuration: const Duration(
+                                  milliseconds: 800,
+                                ),
                                 autoPlayCurve: Curves.easeInOut,
                                 enlargeCenterPage: false,
+                                padEnds: false,
                                 onPageChanged: (index, reason) {
                                   setState(() => _currentImageIndex = index);
                                 },
@@ -82,16 +84,25 @@ class _ProjectCardState extends State<ProjectCard> {
                               itemBuilder: (context, index, realIndex) {
                                 final image = widget.project.images[index];
                                 return Container(
-                                  width: double.infinity,
+                                  margin: const EdgeInsets.only(right: 2),
                                   decoration: BoxDecoration(
-                                    color:
-                                        AppTheme.primaryColor.withOpacity(0.1),
+                                    color: AppTheme.primaryColor.withOpacity(
+                                      0.1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(4.r),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.15),
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ],
                                     image: DecorationImage(
                                       image: image.startsWith('http')
-                                          ? NetworkImage(image)
-                                              as ImageProvider
+                                          ? NetworkImage(image) as ImageProvider
                                           : AssetImage(image),
                                       fit: BoxFit.cover,
+                                      alignment: Alignment.topCenter,
                                     ),
                                   ),
                                 );
@@ -99,30 +110,6 @@ class _ProjectCardState extends State<ProjectCard> {
                             ),
                     ),
                   ),
-                  // Dot indicators for multiple images
-                  if (widget.project.images.length > 1)
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 8.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          widget.project.images.length,
-                          (index) => Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4.w),
-                            width: 6.w,
-                            height: 6.h,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentImageIndex == index
-                                  ? Colors.white
-                                  : Colors.white.withOpacity(0.5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                   // GitHub Link Overlay
                   if (widget.project.githubUrl != null)
                     Positioned(
@@ -147,6 +134,28 @@ class _ProjectCardState extends State<ProjectCard> {
                     ),
                 ],
               ),
+              // Dot indicators - outside/below the image area
+              if (widget.project.images.length > 1)
+                Padding(
+                  padding: EdgeInsets.only(top: 12.h, bottom: 4.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      widget.project.images.length,
+                      (index) => Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4.w),
+                        width: 6.w,
+                        height: 6.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _currentImageIndex == index
+                              ? AppTheme.primaryColor
+                              : AppTheme.secondaryColor.withOpacity(0.4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
               // Content Area
               Padding(

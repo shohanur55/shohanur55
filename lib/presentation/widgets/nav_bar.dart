@@ -30,10 +30,10 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ]
           : [
-              _buildNavLink(context, '01. Skills', 1),
-              _buildNavLink(context, '02. About', 2),
-              _buildNavLink(context, '03. Experience', 3),
-              _buildNavLink(context, '04. Work', 4),
+              _buildNavLink(context, '01. Work', 1),
+              _buildNavLink(context, '02. Skills', 2),
+              _buildNavLink(context, '03. About', 3),
+              _buildNavLink(context, '04. Experience', 4),
               _buildNavLink(context, '05. Contact', 5),
               SizedBox(width: 20.w),
               OutlinedButton(
@@ -77,10 +77,10 @@ class MobileDrawer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildDrawerLink(context, '01. Skills', 1),
-            _buildDrawerLink(context, '02. About', 2),
-            _buildDrawerLink(context, '03. Experience', 3),
-            _buildDrawerLink(context, '04. Work', 4),
+            _buildDrawerLink(context, '01. Work', 1),
+            _buildDrawerLink(context, '02. Skills', 2),
+            _buildDrawerLink(context, '03. About', 3),
+            _buildDrawerLink(context, '04. Experience', 4),
             _buildDrawerLink(context, '05. Contact', 5),
             SizedBox(height: 40.h),
             OutlinedButton(onPressed: () {}, child: const Text('Resume')),
