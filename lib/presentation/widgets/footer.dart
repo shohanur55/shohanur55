@@ -39,7 +39,7 @@ class Footer extends StatelessWidget {
             'Designed & Built by Muhammad Shohan',
             style: GoogleFonts.firaCode(
               color: AppTheme.secondaryColor,
-              fontSize: 14.sp,
+              fontSize: 14.sp.clamp(12.0, 18.0),
             ),
           ),
         ],
@@ -50,7 +50,11 @@ class Footer extends StatelessWidget {
   Widget _buildSocialIcon(IconData icon, String url) {
     return IconButton(
       onPressed: () => _launchURL(url),
-      icon: FaIcon(icon, size: 20.sp, color: AppTheme.secondaryColor),
+      icon: FaIcon(
+        icon,
+        size: 20.sp.clamp(16.0, 24.0),
+        color: AppTheme.secondaryColor,
+      ),
     );
   }
 

@@ -21,7 +21,7 @@ class SectionContainer extends StatelessWidget {
     final isDesktop = size.width > 1000;
     final isTablet = size.width > 600 && size.width <= 1000;
 
-    double horizontalPadding = isDesktop ? 150.w : (isTablet ? 80.w : 20.w);
+    double horizontalPadding = isDesktop ? 120.w : (isTablet ? 50.w : 10.w);
     double verticalPadding = isDesktop ? 80.h : 50.h;
 
     return Container(
@@ -35,9 +35,7 @@ class SectionContainer extends StatelessWidget {
           ),
       child: Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: width ?? 1200.w,
-          ),
+          constraints: BoxConstraints(maxWidth: width ?? 1200.w),
           child: child,
         ),
       ),

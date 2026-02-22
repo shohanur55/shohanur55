@@ -16,12 +16,12 @@ class ProjectsSection extends StatefulWidget {
 
 class _ProjectsSectionState extends State<ProjectsSection> {
   final PortfolioRepository _repository = PortfolioRepository();
-  late Future<List<Project>> _projectsFuture;
+  late List<Project> _projects;
 
   @override
   void initState() {
     super.initState();
-    _projectsFuture = _repository.getProjects();
+    _projects = _repository.getProjects();
   }
 
   @override
@@ -36,7 +36,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 '01. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20.sp,
+                  fontSize: 20.sp.clamp(18.0, 24.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -46,7 +46,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32.sp,
+                  fontSize: 20.sp.clamp(24.0, 40.0),
                 ),
               ),
               SizedBox(width: 20.w),
@@ -56,54 +56,39 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             ],
           ),
           SizedBox(height: 50.h),
-          FutureBuilder<List<Project>>(
-            future: _projectsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Failed to load projects',
-                    style: TextStyle(color: AppTheme.errorColor),
-                  ),
-                );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Center(
-                  child: Text(
-                    'No projects found.',
-                    style: GoogleFonts.firaCode(color: AppTheme.secondaryColor),
-                  ),
-                );
-              }
+          if (_projects.isEmpty)
+            Center(
+              child: Text(
+                'No projects found.',
+                style: GoogleFonts.firaCode(color: AppTheme.secondaryColor),
+              ),
+            )
+          else
+            LayoutBuilder(
+              builder: (context, constraints) {
+                int crossAxisCount = 1;
+                if (constraints.maxWidth > 1100) {
+                  crossAxisCount = 3;
+                } else if (constraints.maxWidth > 700) {
+                  crossAxisCount = 2;
+                }
 
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  int crossAxisCount = 1;
-                  if (constraints.maxWidth > 1100) {
-                    crossAxisCount = 3;
-                  } else if (constraints.maxWidth > 700) {
-                    crossAxisCount = 2;
-                  }
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      mainAxisExtent: 520.h,
-                      crossAxisSpacing: 24.w,
-                      mainAxisSpacing: 24.h,
-                    ),
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return ProjectCard(project: snapshot.data![index]);
-                    },
-                  );
-                },
-              );
-            },
-          ),
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisExtent: 520.h,
+                    crossAxisSpacing: 24.w,
+                    mainAxisSpacing: 24.h,
+                  ),
+                  itemCount: _projects.length,
+                  itemBuilder: (context, index) {
+                    return ProjectCard(project: _projects[index]);
+                  },
+                );
+              },
+            ),
         ],
       ),
     );

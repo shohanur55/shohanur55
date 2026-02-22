@@ -19,7 +19,7 @@ class AboutSection extends StatelessWidget {
                 '03. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20.sp,
+                  fontSize: 20.sp.clamp(18.0, 24.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -29,7 +29,7 @@ class AboutSection extends StatelessWidget {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32.sp,
+                  fontSize: 32.sp.clamp(24.0, 40.0),
                 ),
               ),
               SizedBox(width: 20.w),
@@ -53,34 +53,38 @@ class AboutSection extends StatelessWidget {
           "Hello! I’m Shohan, a Flutter-focused Software Engineer who loves turning real-world problems into polished mobile experiences. My journey into mobile development started back in 2019 when I began experimenting with custom themes and small UI tweaks — those early experiments quickly grew into a deep passion for building complete apps with Dart & Flutter.",
           style: GoogleFonts.inter(
             color: AppTheme.secondaryColor,
-            fontSize: 18.sp,
+            fontSize: 18.sp.clamp(14.0, 18.0),
             height: 1.6,
           ),
+          textAlign: TextAlign.justify,
         ),
         SizedBox(height: 20.h),
         Text(
           "Fast-forward to today, I’m working as a Flutter Mobile App Developer at Genuine Technology and Research Ltd (GTR), where I’ve contributed to products like Jogajog, Halda, and Atrai. I enjoy owning features end-to-end — from shaping the UX, integrating REST APIs and Firebase, to making sure the app feels smooth and reliable in production.",
           style: GoogleFonts.inter(
             color: AppTheme.secondaryColor,
-            fontSize: 18.sp,
+            fontSize: 18.sp.clamp(14.0, 18.0),
             height: 1.6,
           ),
+          textAlign: TextAlign.justify,
         ),
         SizedBox(height: 20.h),
         Text(
           "I care a lot about clean, maintainable architecture (MVC/MVVM, proper state management) and writing code that other engineers enjoy working with. Here are some of the technologies and tools I’ve been working with recently:",
           style: GoogleFonts.inter(
             color: AppTheme.secondaryColor,
-            fontSize: 18.sp,
+            fontSize: 18.sp.clamp(14.0, 18.0),
             height: 1.6,
           ),
+          textAlign: TextAlign.justify,
         ),
         const SizedBox(height: 16),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Wrap(
+          spacing: 30.w,
+          runSpacing: 10.h,
+          crossAxisAlignment: WrapCrossAlignment.start,
           children: [
             _buildTechList(['Flutter', 'Dart', 'Firebase']),
-            SizedBox(width: 30.w),
             _buildTechList(['Kotlin', 'Swift', 'Rest API']),
           ],
         ),
@@ -118,4 +122,3 @@ class AboutSection extends StatelessWidget {
     );
   }
 }
-

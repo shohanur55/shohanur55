@@ -15,17 +15,16 @@ class SkillsSection extends StatefulWidget {
 
 class _SkillsSectionState extends State<SkillsSection> {
   final PortfolioRepository _repository = PortfolioRepository();
-  late Future<List<SkillModel>> _skillsFuture;
+  late List<SkillModel> _skills;
 
   @override
   void initState() {
     super.initState();
-    _skillsFuture = _repository.getSkills();
+    _skills = _repository.getSkills();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width > 900;
     return SectionContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +35,7 @@ class _SkillsSectionState extends State<SkillsSection> {
                 '02. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20.sp,
+                  fontSize: 20.sp.clamp(18.0, 24.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -46,7 +45,7 @@ class _SkillsSectionState extends State<SkillsSection> {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32.sp,
+                  fontSize: 32.sp.clamp(24.0, 40.0),
                 ),
               ),
               SizedBox(width: 20.w),
@@ -56,34 +55,14 @@ class _SkillsSectionState extends State<SkillsSection> {
             ],
           ),
           SizedBox(height: 40.h),
-          FutureBuilder<List<SkillModel>>(
-            future: _skillsFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Failed to load skills',
-                    style: TextStyle(color: AppTheme.errorColor),
-                  ),
-                );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const SizedBox();
-              }
-
-              final skills = snapshot.data!;
-              // Group skills by category if needed, or just display all
-              // For now, let's just display all in a nice wrap
-              return Wrap(
-                spacing: 16.w,
-                runSpacing: 16.h,
-                children: skills
-                    .map((skill) => _buildSkillChip(skill))
-                    .toList(),
-              );
-            },
-          ),
+          if (_skills.isEmpty)
+            const SizedBox()
+          else
+            Wrap(
+              spacing: 16.w,
+              runSpacing: 16.h,
+              children: _skills.map((skill) => _buildSkillChip(skill)).toList(),
+            ),
         ],
       ),
     );
@@ -107,13 +86,17 @@ class _SkillsSectionState extends State<SkillsSection> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.code, color: AppTheme.primaryColor, size: 20.sp),
+          Icon(
+            Icons.code,
+            color: AppTheme.primaryColor,
+            size: 20.sp.clamp(16.0, 24.0),
+          ),
           SizedBox(width: 8.w),
           Text(
             skill.name,
             style: GoogleFonts.firaCode(
               color: AppTheme.primaryColor,
-              fontSize: 15.sp,
+              fontSize: 15.sp.clamp(13.0, 18.0),
               fontWeight: FontWeight.w500,
             ),
           ),

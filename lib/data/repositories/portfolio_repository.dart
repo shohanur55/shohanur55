@@ -1,47 +1,18 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
 import '../models/project_model.dart';
 import '../models/experience_model.dart';
 import '../models/skill_model.dart';
-import '../../core/utils/constants.dart';
+import '../static/static_portfolio_data.dart';
 
 class PortfolioRepository {
-  Future<List<Project>> getProjects() async {
-    try {
-      final String response = await rootBundle.loadString(
-        AppConstants.projectsDataPath,
-      );
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => Project.fromJson(json)).toList();
-    } catch (e) {
-      print('Error loading projects: $e');
-      return [];
-    }
+  List<Project> getProjects() {
+    return StaticPortfolioData.projects;
   }
 
-  Future<List<ExperienceModel>> getExperience() async {
-    try {
-      final String response = await rootBundle.loadString(
-        AppConstants.experienceDataPath,
-      );
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => ExperienceModel.fromJson(json)).toList();
-    } catch (e) {
-      print('Error loading experience: $e');
-      return [];
-    }
+  List<ExperienceModel> getExperience() {
+    return StaticPortfolioData.experience;
   }
 
-  Future<List<SkillModel>> getSkills() async {
-    try {
-      final String response = await rootBundle.loadString(
-        AppConstants.skillsDataPath,
-      );
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => SkillModel.fromJson(json)).toList();
-    } catch (e) {
-      print('Error loading skills: $e');
-      return [];
-    }
+  List<SkillModel> getSkills() {
+    return StaticPortfolioData.skills;
   }
 }

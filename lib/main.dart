@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/app_theme.dart';
@@ -13,14 +12,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Web/Desktop: 1920x1080 for proper scaling on large screens
-    // Mobile: 375x812 for phone-friendly layout
-    final designSize = kIsWeb ? const Size(1920, 1080) : const Size(375, 812);
+    // Dynamic design size based on actual window size
+    final size = MediaQueryData.fromView(View.of(context)).size;
+    final isMobile = size.width < 850;
+    final designSize = isMobile ? const Size(375, 812) : const Size(1920, 1080);
 
     return ScreenUtilInit(
       designSize: designSize,
       minTextAdapt: true,
-      splitScreenMode: true,
       builder: (_, child) => MaterialApp(
         title: 'Shohan Project',
         theme: AppTheme.darkTheme,

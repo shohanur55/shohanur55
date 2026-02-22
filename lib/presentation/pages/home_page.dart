@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage>
                       'Created with Flutter',
                       style: GoogleFonts.robotoMono(
                         color: Colors.white,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5,
                       ),
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage>
               'Scroll',
               style: GoogleFonts.robotoMono(
                 color: AppTheme.primaryColor,
-                fontSize: 12.sp,
+                fontSize: 12,
                 letterSpacing: 2,
                 fontWeight: FontWeight.w500,
               ),
@@ -220,7 +220,7 @@ class _HomePageState extends State<HomePage>
               child: Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: AppTheme.primaryColor,
-                size: 24.sp,
+                size: 24,
               ),
             ),
           ],

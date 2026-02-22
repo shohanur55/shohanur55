@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/responsive.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final Function(int) onNavTap;
@@ -10,7 +11,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 900;
+    final isMobile = Responsive.isMobile(context);
 
     return AppBar(
       title: Text(
@@ -24,7 +25,11 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
               Builder(
                 builder: (context) => IconButton(
-                  icon: Icon(Icons.menu, color: AppTheme.primaryColor, size: 24.sp),
+                  icon: Icon(
+                    Icons.menu,
+                    color: AppTheme.primaryColor,
+                    size: 24.sp.clamp(20.0, 32.0),
+                  ),
                   onPressed: () => Scaffold.of(context).openEndDrawer(),
                 ),
               ),
@@ -54,7 +59,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         text,
         style: GoogleFonts.robotoMono(
           color: AppTheme.secondaryColor,
-          fontSize: 14.sp,
+          fontSize: 14.sp.clamp(14.0, 18.0),
         ),
       ),
     );
@@ -102,7 +107,7 @@ class MobileDrawer extends StatelessWidget {
           text,
           style: GoogleFonts.robotoMono(
             color: AppTheme.secondaryColor,
-            fontSize: 16.sp,
+            fontSize: 16.sp.clamp(14.0, 20.0),
           ),
         ),
       ),

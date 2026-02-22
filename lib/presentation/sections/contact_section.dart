@@ -26,14 +26,14 @@ class ContactSection extends StatelessWidget {
             'Get In Touch',
             style: GoogleFonts.inter(
               color: AppTheme.textColor,
-              fontSize: 50.sp,
+              fontSize: 50.sp.clamp(32.0, 60.0),
               fontWeight: FontWeight.bold,
               letterSpacing: -1.0,
             ),
           ),
           SizedBox(height: 24.h),
-          SizedBox(
-            width: 600.w,
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
             child: Text(
               'Although I’m not currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!',
               textAlign: TextAlign.center,
@@ -60,7 +60,7 @@ class ContactSection extends StatelessWidget {
               'Say Hello',
               style: GoogleFonts.firaCode(
                 color: AppTheme.primaryColor,
-                fontSize: 16.sp,
+                fontSize: 16.sp.clamp(14.0, 20.0),
               ),
             ),
           ),

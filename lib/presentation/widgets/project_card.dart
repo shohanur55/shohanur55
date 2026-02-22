@@ -126,7 +126,7 @@ class _ProjectCardState extends State<ProjectCard> {
                             child: Icon(
                               Icons.code,
                               color: Colors.white,
-                              size: 20.sp,
+                              size: 20.sp.clamp(16.0, 24.0),
                             ),
                           ),
                         ),
@@ -168,7 +168,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       widget.project.title,
                       style: GoogleFonts.roboto(
                         color: AppTheme.secondaryColor,
-                        fontSize: 20.sp,
+                        fontSize: 20.sp.clamp(16.0, 24.0),
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
@@ -181,7 +181,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       widget.project.technologies.join(', '),
                       style: GoogleFonts.robotoMono(
                         color: AppTheme.primaryColor,
-                        fontSize: 12.sp,
+                        fontSize: 12.sp.clamp(10.0, 16.0),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -198,6 +198,7 @@ class _ProjectCardState extends State<ProjectCard> {
                       ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
                     ),
                     // SizedBox(height: 16.h),
 
@@ -223,7 +224,10 @@ class _ProjectCardState extends State<ProjectCard> {
                               ),
                             ),
                             SizedBox(width: 4.w),
-                            Icon(Icons.arrow_forward_ios, size: 12.sp),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 12.sp.clamp(10.0, 16.0),
+                            ),
                           ],
                         ),
                       ),

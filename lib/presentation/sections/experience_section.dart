@@ -15,12 +15,12 @@ class ExperienceSection extends StatefulWidget {
 
 class _ExperienceSectionState extends State<ExperienceSection> {
   final PortfolioRepository _repository = PortfolioRepository();
-  late Future<List<ExperienceModel>> _experienceFuture;
+  late List<ExperienceModel> _experienceList;
 
   @override
   void initState() {
     super.initState();
-    _experienceFuture = _repository.getExperience();
+    _experienceList = _repository.getExperience();
   }
 
   @override
@@ -35,7 +35,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 '04. ',
                 style: GoogleFonts.firaCode(
                   color: AppTheme.primaryColor,
-                  fontSize: 20.sp,
+                  fontSize: 20.sp.clamp(18.0, 24.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -45,7 +45,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 32.sp,
+                  fontSize: 28.sp.clamp(24.0, 40.0),
                 ),
               ),
               const SizedBox(width: 20),
@@ -55,30 +55,14 @@ class _ExperienceSectionState extends State<ExperienceSection> {
             ],
           ),
           SizedBox(height: 40.h),
-          FutureBuilder<List<ExperienceModel>>(
-            future: _experienceFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(
-                    'Failed to load experience',
-                    style: TextStyle(color: AppTheme.errorColor),
-                  ),
-                );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const SizedBox();
-              }
-
-              final experienceList = snapshot.data!;
-              return Column(
-                children: experienceList
-                    .map((exp) => _buildExperienceCard(exp))
-                    .toList(),
-              );
-            },
-          ),
+          if (_experienceList.isEmpty)
+            const SizedBox()
+          else
+            Column(
+              children: _experienceList
+                  .map((exp) => _buildExperienceCard(exp))
+                  .toList(),
+            ),
         ],
       ),
     );
@@ -114,7 +98,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       experience.role,
                       style: GoogleFonts.inter(
                         color: AppTheme.textColor,
-                        fontSize: 22.sp,
+                        fontSize: 22.sp.clamp(18.0, 26.0),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -123,7 +107,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                       experience.company,
                       style: GoogleFonts.firaCode(
                         color: AppTheme.primaryColor,
-                        fontSize: 16.sp,
+                        fontSize: 16.sp.clamp(14.0, 20.0),
                       ),
                     ),
                   ],
@@ -133,7 +117,7 @@ class _ExperienceSectionState extends State<ExperienceSection> {
                 experience.duration,
                 style: GoogleFonts.firaCode(
                   color: AppTheme.secondaryColor,
-                  fontSize: 14.sp,
+                  fontSize: 14.sp.clamp(12.0, 18.0),
                 ),
               ),
             ],
@@ -179,9 +163,10 @@ class _ExperienceSectionState extends State<ExperienceSection> {
             text,
             style: GoogleFonts.inter(
               color: AppTheme.secondaryColor,
-              fontSize: 16.sp,
+              fontSize: 16.sp.clamp(14.0, 18.0),
               height: 1.6,
             ),
+            textAlign: TextAlign.justify,
           ),
         ),
       ],

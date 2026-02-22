@@ -46,7 +46,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     widget.project.title,
                     style: GoogleFonts.roboto(
                       color: AppTheme.secondaryColor,
-                      fontSize: 24.sp,
+                      fontSize: 20.sp.clamp(20.0, 32.0),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -80,8 +80,9 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                               viewportFraction: 1.0,
                               autoPlay: true,
                               autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  const Duration(milliseconds: 800),
+                              autoPlayAnimationDuration: const Duration(
+                                milliseconds: 800,
+                              ),
                               autoPlayCurve: Curves.easeInOut,
                               enlargeCenterPage: false,
                               enableInfiniteScroll: true,
@@ -144,9 +145,10 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                       widget.project.description,
                       style: GoogleFonts.roboto(
                         color: AppTheme.textColor,
-                        fontSize: 16.sp,
+                        fontSize: 16.sp.clamp(14.0, 18.0),
                         height: 1.6,
                       ),
+                      textAlign: TextAlign.justify,
                     ),
                     SizedBox(height: 24.h),
 
@@ -156,7 +158,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                       style: GoogleFonts.robotoMono(
                         color: AppTheme.primaryColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14.sp,
+                        fontSize: 14.sp.clamp(12.0, 18.0),
                       ),
                     ),
                     SizedBox(height: 12.h),
@@ -170,7 +172,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                                 tech,
                                 style: GoogleFonts.robotoMono(
                                   color: AppTheme.primaryColor,
-                                  fontSize: 12.sp,
+                                  fontSize: 12.sp.clamp(10.0, 16.0),
                                 ),
                               ),
                               backgroundColor: AppTheme.primaryColor
@@ -239,7 +241,7 @@ class _LinkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: _launchUrl,
-      icon: Icon(icon, size: 18.sp),
+      icon: Icon(icon, size: 18.sp.clamp(16.0, 24.0)),
       label: Text(label),
       style: ElevatedButton.styleFrom(
         backgroundColor: isPrimary ? AppTheme.primaryColor : Colors.transparent,

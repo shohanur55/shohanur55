@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/constants.dart';
+import '../../core/utils/responsive.dart';
 import '../widgets/section_container.dart';
 
 class HeroSection extends StatelessWidget {
@@ -24,10 +25,10 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isDesktop = size.width > 900;
-    final isTablet = size.width > 600;
+    final isDesktop = Responsive.isDesktop(context);
+    final isTablet = Responsive.isTablet(context);
     final minHeight = size.height * 0.88;
-    final horizontalPadding = isDesktop ? 150.w : (isTablet ? 80.w : 20.w);
+    final horizontalPadding = isDesktop ? 150.w : (isTablet ? 80.w : 10.w);
     final verticalPadding = isDesktop ? 50.h : 30.h;
 
     return Container(
@@ -182,7 +183,7 @@ class HeroSection extends StatelessWidget {
       children: [
         Expanded(flex: 5, child: _buildContent(context, true, isTablet)),
         const SizedBox(width: 48),
-        Expanded(flex: 2, child: _buildHeroProfileImage()),
+        Expanded(flex: 2, child: _buildHeroProfileImage(true)),
       ],
     );
   }
@@ -191,7 +192,7 @@ class HeroSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildHeroProfileImage(),
+        Center(child: _buildHeroProfileImage(false)),
         const SizedBox(height: 32),
         _buildContent(context, false, false),
       ],
@@ -228,7 +229,7 @@ class HeroSection extends StatelessWidget {
               'Hi, my name is',
               style: GoogleFonts.firaCode(
                 color: AppTheme.primaryColor,
-                fontSize: isDesktop ? 18 : 16,
+                fontSize: (isDesktop ? 18.0 : 16.sp).clamp(14.0, 20.0),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -252,7 +253,7 @@ class HeroSection extends StatelessWidget {
           'Md. Shohanur Rahaman.',
           style: GoogleFonts.inter(
             color: AppTheme.textColor,
-            fontSize: (isDesktop ? 64 : 42).sp,
+            fontSize: (isDesktop ? 64.0 : 42.0).sp.clamp(32.0, 80.0),
             fontWeight: FontWeight.w800,
             height: 1.05,
             letterSpacing: -1.2,
@@ -321,7 +322,7 @@ class HeroSection extends StatelessWidget {
               TextSpan(
                 style: GoogleFonts.inter(
                   color: AppTheme.secondaryColor,
-                  fontSize: isDesktop ? 18 : 16,
+                  fontSize: (isDesktop ? 18.0 : 16.sp).clamp(14.0, 20.0),
                   height: 1.7,
                 ),
                 children: [
@@ -380,6 +381,7 @@ class HeroSection extends StatelessWidget {
                   ),
                 ],
               ),
+              textAlign: TextAlign.justify,
             )
             .animate()
             .fadeIn(delay: 450.ms, duration: 600.ms)
@@ -425,7 +427,7 @@ class HeroSection extends StatelessWidget {
               'Core Stack',
               style: GoogleFonts.firaCode(
                 color: AppTheme.secondaryColor.withOpacity(0.9),
-                fontSize: isDesktop ? 13 : 12,
+                fontSize: (isDesktop ? 13.0 : 12.sp).clamp(12.0, 16.0),
               ),
             ),
             const SizedBox(height: 10),
@@ -466,7 +468,7 @@ class HeroSection extends StatelessWidget {
             label,
             style: GoogleFonts.firaCode(
               color: AppTheme.textColor,
-              fontSize: isDesktop ? 12 : 11,
+              fontSize: (isDesktop ? 12.0 : 11.sp).clamp(10.0, 14.0),
             ),
           ),
         ],
@@ -499,7 +501,7 @@ class HeroSection extends StatelessWidget {
           if (icon != null) ...[
             FaIcon(
               icon,
-              size: isDesktop ? 16 : 14,
+              size: (isDesktop ? 16.0 : 14.sp).clamp(12.0, 20.0),
               color: AppTheme.primaryColor.withOpacity(0.9),
             ),
             const SizedBox(width: 8),
@@ -508,7 +510,7 @@ class HeroSection extends StatelessWidget {
             value,
             style: GoogleFonts.firaCode(
               color: AppTheme.primaryColor,
-              fontSize: isDesktop ? 15 : 13,
+              fontSize: (isDesktop ? 15.0 : 13.sp).clamp(12.0, 18.0),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -517,7 +519,7 @@ class HeroSection extends StatelessWidget {
             label,
             style: GoogleFonts.inter(
               color: AppTheme.secondaryColor.withOpacity(0.9),
-              fontSize: isDesktop ? 13 : 12,
+              fontSize: (isDesktop ? 13.0 : 12.sp).clamp(11.0, 16.0),
             ),
           ),
         ],
@@ -526,14 +528,15 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildActions(BuildContext context, bool isDesktop) {
-    return Row(
+    return Wrap(
+          spacing: 14,
+          runSpacing: 14,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             _buildResumeButton(isDesktop),
-            const SizedBox(width: 20),
+            if (isDesktop) const SizedBox(width: 6),
             _buildSocialIcon(FontAwesomeIcons.github, _githubUrl),
-            const SizedBox(width: 14),
             _buildSocialIcon(FontAwesomeIcons.linkedin, _linkedInUrl),
-            const SizedBox(width: 14),
             _buildSocialIcon(FontAwesomeIcons.envelope, _email),
           ],
         )
@@ -560,7 +563,7 @@ class HeroSection extends StatelessWidget {
             'Download Resume',
             style: GoogleFonts.firaCode(
               color: AppTheme.primaryColor,
-              fontSize: isDesktop ? 15 : 14,
+              fontSize: (isDesktop ? 15.0 : 14.sp).clamp(12.0, 18.0),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -591,7 +594,10 @@ class HeroSection extends StatelessWidget {
         .moveY(begin: 0, end: -4, duration: 2.seconds, curve: Curves.easeInOut);
   }
 
-  Widget _buildHeroProfileImage() {
+  Widget _buildHeroProfileImage(bool isDesktop) {
+    final double outerSize = isDesktop ? 280 : 220;
+    final double innerSize = isDesktop ? 260 : 200;
+
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
@@ -600,8 +606,8 @@ class HeroSection extends StatelessWidget {
           children: [
             // Glow border
             Container(
-              width: 280,
-              height: 280,
+              width: outerSize,
+              height: outerSize,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
@@ -615,8 +621,8 @@ class HeroSection extends StatelessWidget {
             ),
             // Image container
             Container(
-                  width: 260,
-                  height: 260,
+                  width: innerSize,
+                  height: innerSize,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
