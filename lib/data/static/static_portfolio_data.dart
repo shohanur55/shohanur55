@@ -16,7 +16,8 @@ class StaticPortfolioData {
         "https://ui-avatars.com/api/?name=Jogajog&background=e74c3c&color=fff&size=512",
       ],
       githubUrl: null,
-      liveUrl:
+      liveUrl: null,
+      playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.gtrbd.androidteam.jogajog",
     ),
     Project(
@@ -32,7 +33,8 @@ class StaticPortfolioData {
         "assets/images/projects/halda/3.png",
       ],
       githubUrl: null,
-      liveUrl:
+      liveUrl: null,
+      playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
     ),
     Project(
@@ -53,7 +55,8 @@ class StaticPortfolioData {
         "assets/images/projects/atrai/8.png",
       ],
       githubUrl: null,
-      liveUrl:
+      liveUrl: null,
+      playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.atrai",
     ),
     Project(
@@ -62,16 +65,67 @@ class StaticPortfolioData {
       description:
           "Any organization transportation service that operates on a fixed route. Live location sharing for hosts and specific user tracking.",
       technologies: ["Dart", "Flutter", "Firebase", "GetX"],
-      imageUrl:
-          "https://ui-avatars.com/api/?name=Shuttle+Bus&background=f1c40f&color=fff&size=512",
+      imageUrl: "assets/images/projects/shuttle_bus/1.png",
       images: [
-        "https://ui-avatars.com/api/?name=Shuttle+Bus&background=f1c40f&color=fff&size=512",
+        "assets/images/projects/shuttle_bus/1.png",
+        "assets/images/projects/shuttle_bus/2.png",
+        "assets/images/projects/shuttle_bus/3.png",
+        "assets/images/projects/shuttle_bus/4.png",
+        "assets/images/projects/shuttle_bus/5.png",
+        "assets/images/projects/shuttle_bus/6.png",
+        "assets/images/projects/shuttle_bus/7.png",
+        "assets/images/projects/shuttle_bus/8.png",
+        "assets/images/projects/shuttle_bus/9.png",
+        "assets/images/projects/shuttle_bus/10.png",
+        "assets/images/projects/shuttle_bus/11.png",
+        "assets/images/projects/shuttle_bus/12.png",
+        "assets/images/projects/shuttle_bus/13.png",
       ],
       githubUrl: null,
       liveUrl: null,
     ),
     Project(
       id: "5",
+      title: "Easy HR",
+      description:
+          '''Empower your workforce with our Flutter-based HR application. Seamlessly manage attendance, view records, and access a range of functionalities. Whether you're an admin or employee, easily maintain and monitor your team. Contact the app owner for access. Built with Flutter, GetX, and API integration for a streamlined experience.
+
+* Developed an advanced HR application using Flutter, GetX, and API integration.
+
+* Designed for seamless attendance management, user-friendly for admins and employees alike.
+
+* Empowered users to maintain employee records and access diverse functionalities.
+
+* Contact app owner for easy access and efficient team management.
+
+* Ensured smooth performance and state management using the GetX package.
+
+* Optimized user experience with Flutter's local storage for quick data access.
+
+* Secured user logins with Google authentication for enhanced privacy.
+
+* Overcame challenges in data retrieval and display for improved functionality.
+
+* Utilized Firebase for robust data storage and management capabilities.
+
+* Implemented version control and collaboration via GitHub for efficient development.
+
+* Open-sourced the app to foster community exploration and feedback.''',
+      technologies: ["Dart", "Flutter", "Rest API", "GetX"],
+      imageUrl: "assets/images/projects/easy_hr/1.png",
+      images: [
+        "assets/images/projects/easy_hr/1.png",
+        "assets/images/projects/easy_hr/2.png",
+        "assets/images/projects/easy_hr/3.png",
+        "assets/images/projects/easy_hr/4.png",
+        "assets/images/projects/easy_hr/5.png",
+        "assets/images/projects/easy_hr/6.png",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+    ),
+    Project(
+      id: "6",
       title: "Office Management System",
       description:
           "A system that includes attendance, leave application, leave approval, salary management, and task management for various departments.",

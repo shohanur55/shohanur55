@@ -72,6 +72,8 @@ flutter:
     - assets/images/
     - assets/images/projects/halda/
     - assets/images/projects/atrai/
+    - assets/images/projects/shuttle_bus/
+    - assets/images/projects/easy_hr/
     - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see

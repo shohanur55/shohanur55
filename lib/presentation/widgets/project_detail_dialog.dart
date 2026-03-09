@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/models/project_model.dart';
@@ -185,8 +186,10 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     SizedBox(height: 32.h),
 
                     // Links
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    Wrap(
+                      spacing: 16.w,
+                      runSpacing: 16.h,
+                      alignment: WrapAlignment.end,
                       children: [
                         if (widget.project.githubUrl != null)
                           _LinkButton(
@@ -194,14 +197,25 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                             label: 'View Code',
                             url: widget.project.githubUrl!,
                           ),
-                        if (widget.project.githubUrl != null &&
-                            widget.project.liveUrl != null)
-                          const SizedBox(width: 16),
                         if (widget.project.liveUrl != null)
                           _LinkButton(
                             icon: Icons.open_in_new,
                             label: 'Live Demo',
                             url: widget.project.liveUrl!,
+                            isPrimary: true,
+                          ),
+                        if (widget.project.playStoreUrl != null)
+                          _LinkButton(
+                            icon: FontAwesomeIcons.googlePlay,
+                            label: 'Play Store',
+                            url: widget.project.playStoreUrl!,
+                            isPrimary: true,
+                          ),
+                        if (widget.project.appStoreUrl != null)
+                          _LinkButton(
+                            icon: FontAwesomeIcons.appStoreIos,
+                            label: 'App Store',
+                            url: widget.project.appStoreUrl!,
                             isPrimary: true,
                           ),
                       ],

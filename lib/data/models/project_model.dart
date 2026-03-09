@@ -6,6 +6,8 @@ class Project {
   final String imageUrl;
   final String? githubUrl;
   final String? liveUrl;
+  final String? playStoreUrl;
+  final String? appStoreUrl;
 
   final List<String> images; // New field for gallery
 
@@ -18,6 +20,8 @@ class Project {
     List<String>? images, // Optional in constructor
     this.githubUrl,
     this.liveUrl,
+    this.playStoreUrl,
+    this.appStoreUrl,
   }) : images = images ?? [imageUrl]; // Default to single image if not provided
 
   factory Project.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,8 @@ class Project {
       images: images,
       githubUrl: json['githubUrl'] as String?,
       liveUrl: json['liveUrl'] as String?,
+      playStoreUrl: json['playStoreUrl'] as String?,
+      appStoreUrl: json['appStoreUrl'] as String?,
     );
   }
 }

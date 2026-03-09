@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/constants.dart';
@@ -163,16 +164,36 @@ class _ProjectCardState extends State<ProjectCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Title
-                    Text(
-                      widget.project.title,
-                      style: GoogleFonts.roboto(
-                        color: AppTheme.secondaryColor,
-                        fontSize: 20.sp.clamp(16.0, 24.0),
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    // Title and Store Links
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.project.title,
+                            style: GoogleFonts.roboto(
+                              color: AppTheme.secondaryColor,
+                              fontSize: 20.sp.clamp(16.0, 24.0),
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (widget.project.playStoreUrl != null) ...[
+                          SizedBox(width: 8.w),
+                          _buildStoreIcon(
+                            icon: FontAwesomeIcons.googlePlay,
+                            url: widget.project.playStoreUrl!,
+                          ),
+                        ],
+                        if (widget.project.appStoreUrl != null) ...[
+                          SizedBox(width: 8.w),
+                          _buildStoreIcon(
+                            icon: FontAwesomeIcons.appStoreIos,
+                            url: widget.project.appStoreUrl!,
+                          ),
+                        ],
+                      ],
                     ),
                     SizedBox(height: 6.h),
 
@@ -254,5 +275,44 @@ class _ProjectCardState extends State<ProjectCard> {
     if (!await launchUrl(uri)) {
       throw 'Could not launch $url';
     }
+  }
+
+  Widget _buildStoreIcon({required IconData icon, required String url}) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => _launchUrl(url),
+        borderRadius: BorderRadius.circular(6.r),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppTheme.primaryColor.withOpacity(0.5)),
+            borderRadius: BorderRadius.circular(6.r),
+            color: AppTheme.primaryColor.withOpacity(0.1),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FaIcon(
+                icon,
+                size: 14.sp.clamp(12.0, 16.0),
+                color: AppTheme.primaryColor,
+              ),
+              SizedBox(width: 4.w),
+              Text(
+                icon == FontAwesomeIcons.googlePlay
+                    ? 'Play Store'
+                    : 'App Store',
+                style: GoogleFonts.robotoMono(
+                  color: AppTheme.primaryColor,
+                  fontSize: 10.sp.clamp(8.0, 12.0),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
