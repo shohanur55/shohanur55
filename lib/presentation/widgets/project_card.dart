@@ -217,7 +217,7 @@ class _ProjectCardState extends State<ProjectCard> {
                         fontSize: 14,
                         height: 1.5,
                       ),
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.justify,
                     ),

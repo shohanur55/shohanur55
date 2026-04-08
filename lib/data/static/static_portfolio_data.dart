@@ -20,6 +20,7 @@ class StaticPortfolioData {
       playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.gtrbd.androidteam.jogajog",
     ),
+
     Project(
       id: "2",
       title: "Halda",
@@ -137,6 +138,27 @@ class StaticPortfolioData {
       ],
       githubUrl: null,
       liveUrl: null,
+    ),
+    Project(
+      id: "7",
+      title: "Multifix",
+      description:
+          "Easily manage home repairs — connect customers, contractors & consultants.",
+      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      imageUrl: "assets/images/projects/multifix/1.jpg",
+      images: [
+        "assets/images/projects/multifix/1.jpg",
+        "assets/images/projects/multifix/2.jpg",
+        "assets/images/projects/multifix/3.jpg",
+        "assets/images/projects/multifix/4.jpg",
+        "assets/images/projects/multifix/5.jpg",
+        "assets/images/projects/multifix/6.jpg",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+      playStoreUrl:
+          "https://play.google.com/store/apps/details?id=com.app.multifix.multifix&pcampaignid=web_share",
+      appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
     ),
   ];
 
