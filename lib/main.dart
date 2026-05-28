@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/app_theme.dart';
@@ -5,6 +6,19 @@ import 'presentation/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+class PortfolioScrollBehavior extends MaterialScrollBehavior {
+  const PortfolioScrollBehavior();
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.stylus,
+        PointerDeviceKind.trackpad,
+        PointerDeviceKind.unknown,
+      };
 }
 
 class MyApp extends StatelessWidget {
@@ -22,12 +36,10 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       builder: (_, child) => MaterialApp(
         title: 'Shohan Project',
+        scrollBehavior: const PortfolioScrollBehavior(),
         theme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        onGenerateRoute: (settings) {
-          return MaterialPageRoute(builder: (_) => const HomePage());
-        },
+        home: const HomePage(),
       ),
     );
   }

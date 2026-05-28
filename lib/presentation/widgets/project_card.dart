@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,56 +57,19 @@ class _ProjectCardState extends State<ProjectCard> {
                       height: 280.h,
                       width: double.infinity,
                       child: widget.project.images.isEmpty
-                          ? Container(
-                              color: AppTheme.primaryColor.withOpacity(0.1),
-                              child: Image.asset(
-                                AppConstants.profileImage,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : CarouselSlider.builder(
-                              itemCount: widget.project.images.length,
-                              options: CarouselOptions(
-                                height: 280.h,
-                                viewportFraction: 0.32,
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 3),
-                                autoPlayAnimationDuration: const Duration(
-                                  milliseconds: 800,
-                                ),
-                                autoPlayCurve: Curves.easeInOut,
-                                enlargeCenterPage: false,
-                                padEnds: false,
-                                onPageChanged: (index, reason) {
-                                  setState(() => _currentImageIndex = index);
-                                },
-                              ),
-                              itemBuilder: (context, index, realIndex) {
-                                final image = widget.project.images[index];
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 2),
-                                  decoration: BoxDecoration(
-                                    color: AppTheme.primaryColor.withOpacity(
-                                      0.1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(4.r),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.15),
-                                        blurRadius: 6,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                    image: DecorationImage(
-                                      image: image.startsWith('http')
-                                          ? NetworkImage(image) as ImageProvider
-                                          : AssetImage(image),
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.topCenter,
-                                    ),
+                          ? _buildFallbackImage()
+                          : Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                _buildProjectImage(widget.project.images.first),
+                                if (widget.project.images.length > 1)
+                                  Positioned(
+                                    left: 12.w,
+                                    right: 12.w,
+                                    bottom: 12.h,
+                                    child: _buildThumbnailStrip(),
                                   ),
-                                );
-                              },
+                              ],
                             ),
                     ),
                   ),
@@ -275,6 +237,104 @@ class _ProjectCardState extends State<ProjectCard> {
     if (!await launchUrl(uri)) {
       throw 'Could not launch $url';
     }
+  }
+
+  Widget _buildFallbackImage() {
+    return Container(
+      color: AppTheme.primaryColor.withOpacity(0.08),
+      alignment: Alignment.center,
+      child: Image.asset(
+        AppConstants.profileImage,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        height: double.infinity,
+        filterQuality: FilterQuality.low,
+      ),
+    );
+  }
+
+  Widget _buildProjectImage(String imagePath) {
+    return Container(
+      color: AppTheme.primaryColor.withOpacity(0.08),
+      child: imagePath.startsWith('http')
+          ? Image.network(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              filterQuality: FilterQuality.low,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  color: AppTheme.primaryColor.withOpacity(0.08),
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: AppTheme.primaryColor,
+                  ),
+                );
+              },
+              errorBuilder: (_, __, ___) => _buildFallbackImage(),
+            )
+          : Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              filterQuality: FilterQuality.low,
+              gaplessPlayback: true,
+              errorBuilder: (_, __, ___) => _buildFallbackImage(),
+            ),
+    );
+  }
+
+  Widget _buildThumbnailStrip() {
+    return SizedBox(
+      height: 64.h,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.12),
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.all(6.r),
+          itemCount: widget.project.images.length,
+          separatorBuilder: (_, __) => SizedBox(width: 6.w),
+          itemBuilder: (context, index) {
+            final imagePath = widget.project.images[index];
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Container(
+                width: 54.w,
+                color: AppTheme.backgroundColor.withOpacity(0.55),
+                child: imagePath.startsWith('http')
+                    ? Image.network(
+                        imagePath,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.low,
+                        errorBuilder: (_, __, ___) => const Icon(
+                          Icons.image_not_supported_outlined,
+                          color: AppTheme.primaryColor,
+                          size: 18,
+                        ),
+                      )
+                    : Image.asset(
+                        imagePath,
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.low,
+                        errorBuilder: (_, __, ___) => const Icon(
+                          Icons.image_not_supported_outlined,
+                          color: AppTheme.primaryColor,
+                          size: 18,
+                        ),
+                      ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 
   Widget _buildStoreIcon({required IconData icon, required String url}) {

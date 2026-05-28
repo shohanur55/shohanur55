@@ -35,10 +35,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   url_launcher: ^6.2.1
-  google_fonts: ^6.1.0
+  google_fonts: ^8.1.0
   flutter_animate: ^4.5.2
   font_awesome_flutter: ^10.12.0
-  animated_text_kit: ^4.3.0
   lottie: ^3.1.0
   dotlottie_flutter: ^0.0.2
   carousel_slider: ^5.0.0
@@ -70,6 +69,7 @@ flutter:
   assets:
     - assets/data/
     - assets/images/
+    - assets/images/projects/multifix/
     - assets/images/projects/halda/
     - assets/images/projects/atrai/
     - assets/images/projects/shuttle_bus/

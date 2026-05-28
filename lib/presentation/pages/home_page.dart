@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/constants.dart';
+import '../../data/repositories/portfolio_repository.dart';
 
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
@@ -25,6 +27,8 @@ class _HomePageState extends State<HomePage>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   bool _showScrollIndicator = true;
+  bool _assetsPrecached = false;
+  final ValueNotifier<double> _scrollProgress = ValueNotifier(0);
 
   // Keys for scrolling to sections
   final GlobalKey _heroKey = GlobalKey();
@@ -49,11 +53,44 @@ class _HomePageState extends State<HomePage>
     _scrollController.addListener(_onScroll);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_assetsPrecached) {
+      _assetsPrecached = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) {
+          return;
+        }
+        _precacheStartupAssets(context);
+      });
+    }
+  }
+
+  Future<void> _precacheStartupAssets(BuildContext context) async {
+    final providers = <ImageProvider<Object>>[
+      const AssetImage(AppConstants.profileImage),
+      ...PortfolioRepository().getProjects().map((project) {
+        final image = project.imageUrl;
+        return image.startsWith('http')
+            ? NetworkImage(image)
+            : AssetImage(image);
+      }),
+    ];
+
+    for (final provider in providers) {
+      await precacheImage(provider, context);
+    }
+  }
+
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     final threshold = maxScroll * 0.85;
+    final progress = maxScroll == 0 ? 0.0 : (currentScroll / maxScroll).clamp(0.0, 1.0);
 
+    _scrollProgress.value = progress;
     if (currentScroll > threshold && _showScrollIndicator) {
       setState(() => _showScrollIndicator = false);
     } else if (currentScroll <= threshold && !_showScrollIndicator) {
@@ -65,6 +102,7 @@ class _HomePageState extends State<HomePage>
   void dispose() {
     _animationController.dispose();
     _scrollController.dispose();
+    _scrollProgress.dispose();
     super.dispose();
   }
 
@@ -123,6 +161,30 @@ class _HomePageState extends State<HomePage>
                 const Footer(),
               ],
             ),
+          ),
+          ValueListenableBuilder<double>(
+            valueListenable: _scrollProgress,
+            builder: (context, progress, _) {
+              return Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: AnimatedOpacity(
+                    opacity: progress > 0.02 ? 1 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 2,
+                      backgroundColor: AppTheme.backgroundColor.withOpacity(0.35),
+                      valueColor: const AlwaysStoppedAnimation(
+                        AppTheme.primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
           if (_showScrollIndicator)
             Positioned(

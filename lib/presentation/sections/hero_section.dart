@@ -1,5 +1,4 @@
-import 'dart:ui';
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'dart:async';
 import 'package:dotlottie_flutter/dotlottie_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +11,50 @@ import '../../core/utils/constants.dart';
 import '../../core/utils/responsive.dart';
 import '../widgets/section_container.dart';
 
-class HeroSection extends StatelessWidget {
+class HeroSection extends StatefulWidget {
   const HeroSection({super.key});
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection> {
+  static const List<String> _headlines = <String>[
+    'I build mobile experiences.',
+    'I am a Flutter Expert.',
+    'I solve complex problems.',
+    'I bring ideas to life.',
+  ];
+
+  Timer? _headlineTimer;
+  bool _showDecorations = false;
+  int _headlineIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
+      setState(() => _showDecorations = true);
+      _headlineTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _headlineIndex = (_headlineIndex + 1) % _headlines.length;
+        });
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _headlineTimer?.cancel();
+    super.dispose();
+  }
 
   static const String _resumeUrl =
       'https://docs.google.com/document/d/1YGXdKA7stmvtRi9U9OLfecD_jILYI2DYRTR49HrdLOA/edit?tab=t.0';
@@ -50,7 +91,7 @@ class HeroSection extends StatelessWidget {
       child: Stack(
         children: [
           // Subtle decorative glow
-          if (isDesktop) ...[
+          if (isDesktop && _showDecorations) ...[
             // Lottie animation on left side as background decoration
             Positioned(
               left: 10,
@@ -234,13 +275,7 @@ class HeroSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
-                  Icons.waving_hand,
-                  color: AppTheme.primaryColor,
-                  size: 22,
-                )
-                .animate(onPlay: (c) => c.repeat())
-                .shake(duration: 2500.ms, hz: 3, curve: Curves.easeInOut),
+            const Icon(Icons.waving_hand, color: AppTheme.primaryColor, size: 22),
           ],
         )
         .animate()
@@ -276,35 +311,32 @@ class HeroSection extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: isDesktop ? 520 : 320),
-              child: DefaultTextStyle(
-                style: GoogleFonts.inter(
-                  color: AppTheme.secondaryColor,
-                  fontSize: isDesktop ? 42 : 28,
-                  fontWeight: FontWeight.w700,
-                  height: 1.15,
-                  letterSpacing: -0.8,
-                ),
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  pause: const Duration(milliseconds: 1200),
-                  animatedTexts: [
-                    TypewriterAnimatedText(
-                      'I build mobile experiences.',
-                      speed: const Duration(milliseconds: 70),
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 320),
+                switchInCurve: Curves.easeOutCubic,
+                switchOutCurve: Curves.easeInCubic,
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 0.15),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
                     ),
-                    TypewriterAnimatedText(
-                      'I am a Flutter Expert.',
-                      speed: const Duration(milliseconds: 70),
-                    ),
-                    TypewriterAnimatedText(
-                      'I solve complex problems.',
-                      speed: const Duration(milliseconds: 70),
-                    ),
-                    TypewriterAnimatedText(
-                      'I bring ideas to life.',
-                      speed: const Duration(milliseconds: 70),
-                    ),
-                  ],
+                  );
+                },
+                child: Text(
+                  _headlines[_headlineIndex],
+                  key: ValueKey<int>(_headlineIndex),
+                  style: GoogleFonts.inter(
+                    color: AppTheme.secondaryColor,
+                    fontSize: isDesktop ? 42 : 28,
+                    fontWeight: FontWeight.w700,
+                    height: 1.15,
+                    letterSpacing: -0.8,
+                  ),
                 ),
               ),
             ),
@@ -567,12 +599,6 @@ class HeroSection extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-        )
-        .animate(onPlay: (c) => c.repeat(reverse: true))
-        .shimmer(
-          delay: 3500.ms,
-          duration: 1500.ms,
-          color: AppTheme.primaryColor.withOpacity(0.15),
         );
   }
 
@@ -589,9 +615,7 @@ class HeroSection extends StatelessWidget {
               ),
             ),
           ),
-        )
-        .animate(onPlay: (c) => c.repeat(reverse: true))
-        .moveY(begin: 0, end: -4, duration: 2.seconds, curve: Curves.easeInOut);
+        );
   }
 
   Widget _buildHeroProfileImage(bool isDesktop) {
@@ -635,6 +659,8 @@ class HeroSection extends StatelessWidget {
                     child: Image.asset(
                       AppConstants.profileImage,
                       fit: BoxFit.cover,
+                      filterQuality: FilterQuality.low,
+                      gaplessPlayback: true,
                       errorBuilder: (_, __, ___) => Container(
                         color: AppTheme.cardColor,
                         child: const Icon(
@@ -655,37 +681,6 @@ class HeroSection extends StatelessWidget {
                 ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildScrollIndicator(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Scroll',
-            style: GoogleFonts.firaCode(
-              color: AppTheme.secondaryColor.withOpacity(0.7),
-              fontSize: 12,
-              letterSpacing: 2,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: AppTheme.primaryColor.withOpacity(0.8),
-                size: 28,
-              )
-              .animate(onPlay: (c) => c.repeat(reverse: true))
-              .moveY(
-                begin: 0,
-                end: 6,
-                duration: 1.5.seconds,
-                curve: Curves.easeInOut,
-              ),
-        ],
       ),
     );
   }

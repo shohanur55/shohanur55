@@ -79,14 +79,10 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                             options: CarouselOptions(
                               height: 400.h,
                               viewportFraction: 1.0,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
-                              autoPlayAnimationDuration: const Duration(
-                                milliseconds: 800,
-                              ),
-                              autoPlayCurve: Curves.easeInOut,
+                              autoPlay: false,
                               enlargeCenterPage: false,
-                              enableInfiniteScroll: true,
+                              enableInfiniteScroll:
+                                  widget.project.images.length > 1,
                               onPageChanged: (index, reason) {
                                 setState(() => _currentImageIndex = index);
                               },
@@ -105,13 +101,44 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                                       offset: const Offset(0, 2),
                                     ),
                                   ],
-                                  image: DecorationImage(
-                                    image: image.startsWith('http')
-                                        ? NetworkImage(image) as ImageProvider
-                                        : AssetImage(image),
-                                    fit: BoxFit.contain,
-                                    alignment: Alignment.center,
-                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(4.r),
+                                  child: image.startsWith('http')
+                                      ? Image.network(
+                                          image,
+                                          fit: BoxFit.contain,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          filterQuality: FilterQuality.low,
+                                          loadingBuilder: (
+                                            context,
+                                            child,
+                                            loadingProgress,
+                                          ) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Container(
+                                              color: AppTheme.primaryColor
+                                                  .withOpacity(0.08),
+                                              alignment: Alignment.center,
+                                              child:
+                                                  const CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                                color: AppTheme.primaryColor,
+                                              ),
+                                            );
+                                          },
+                                        )
+                                      : Image.asset(
+                                          image,
+                                          fit: BoxFit.contain,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          filterQuality: FilterQuality.low,
+                                          gaplessPlayback: true,
+                                        ),
                                 ),
                               );
                             },
