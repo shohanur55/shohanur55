@@ -10,10 +10,20 @@ class StaticPortfolioData {
       description:
           "A Flutter CRM software for efficient customer relationship management.",
       technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
-      imageUrl:
-          "https://ui-avatars.com/api/?name=Jogajog&background=e74c3c&color=fff&size=512",
+      imageUrl: "assets/images/projects/jogajog/1.png",
       images: [
-        "https://ui-avatars.com/api/?name=Jogajog&background=e74c3c&color=fff&size=512",
+        "assets/images/projects/jogajog/1.png",
+        "assets/images/projects/jogajog/2.png",
+        "assets/images/projects/jogajog/3.png",
+        "assets/images/projects/jogajog/4.png",
+        "assets/images/projects/jogajog/5.png",
+        "assets/images/projects/jogajog/6.png",
+        "assets/images/projects/jogajog/7.png",
+        "assets/images/projects/jogajog/8.png",
+        "assets/images/projects/jogajog/9.png",
+        "assets/images/projects/jogajog/10.png",
+        "assets/images/projects/jogajog/11.png",
+        "assets/images/projects/jogajog/12.png",
       ],
       githubUrl: null,
       liveUrl: null,

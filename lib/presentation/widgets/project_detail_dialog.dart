@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,61 @@ class ProjectDetailDialog extends StatefulWidget {
 
 class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
   int _currentImageIndex = 0;
+  final Map<String, double> _imageAspectRatios = {};
+  final Set<String> _pendingAspectRatioLoads = {};
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _primeImageAspectRatios();
+  }
+
+  void _primeImageAspectRatios() {
+    for (final image in widget.project.images) {
+      if (_imageAspectRatios.containsKey(image) ||
+          _pendingAspectRatioLoads.contains(image)) {
+        continue;
+      }
+
+      _pendingAspectRatioLoads.add(image);
+
+      final ImageProvider provider = image.startsWith('http')
+          ? NetworkImage(image)
+          : AssetImage(image);
+      final stream = provider.resolve(createLocalImageConfiguration(context));
+
+      late final ImageStreamListener listener;
+      listener = ImageStreamListener(
+        (ImageInfo info, bool synchronousCall) {
+          if (!mounted) {
+            return;
+          }
+
+          setState(() {
+            _imageAspectRatios[image] = info.image.width / info.image.height;
+            _pendingAspectRatioLoads.remove(image);
+          });
+
+          stream.removeListener(listener);
+        },
+        onError: (Object error, StackTrace? stackTrace) {
+          _pendingAspectRatioLoads.remove(image);
+          stream.removeListener(listener);
+        },
+      );
+
+      stream.addListener(listener);
+    }
+  }
+
+  double _currentImageAspectRatio() {
+    if (widget.project.images.isEmpty) {
+      return 9 / 16;
+    }
+
+    return _imageAspectRatios[widget.project.images[_currentImageIndex]] ??
+        9 / 16;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +82,11 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
     final double dialogWidth = MediaQuery.of(context).size.width > 800
         ? 800.w
         : MediaQuery.of(context).size.width * 0.9;
+
+    // Compute taller image height for phone-like screenshots (cap to avoid overflow)
+    final double screenH = MediaQuery.of(context).size.height;
+    final double imageHeight = math.min(screenH * 1.2, 700.h); // 1.2x screen height or max 400h
+    final double currentImageAspectRatio = _currentImageAspectRatio();
 
     return Dialog(
       backgroundColor: AppTheme.cardColor,
@@ -70,76 +132,144 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     // Image Carousel - same design as project card (multiple images, dots outside)
                     if (widget.project.images.isNotEmpty) ...[
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(8.r),
+                        borderRadius: BorderRadius.circular(16.r),
                         child: SizedBox(
-                          height: 400.h,
+                          height: imageHeight,
                           width: double.infinity,
-                          child: CarouselSlider.builder(
-                            itemCount: widget.project.images.length,
-                            options: CarouselOptions(
-                              height: 400.h,
-                              viewportFraction: 1.0,
-                              autoPlay: false,
-                              enlargeCenterPage: false,
-                              enableInfiniteScroll:
-                                  widget.project.images.length > 1,
-                              onPageChanged: (index, reason) {
-                                setState(() => _currentImageIndex = index);
-                              },
-                            ),
-                            itemBuilder: (context, index, realIndex) {
-                              final image = widget.project.images[index];
-                              return Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppTheme.primaryColor.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(4.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.15),
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 2),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final imageCount = widget.project.images.length;
+                              final targetImageWidth =
+                                  imageHeight * currentImageAspectRatio;
+                              final viewportFraction =
+                                  (targetImageWidth / constraints.maxWidth)
+                                      .clamp(0.18, 0.95)
+                                  .toDouble();
+
+                              return CarouselSlider.builder(
+                                itemCount: imageCount,
+                                options: CarouselOptions(
+                                  height: imageHeight,
+                                  viewportFraction: viewportFraction,
+                                  autoPlay: true,
+                                  autoPlayInterval: const Duration(seconds: 4),
+                                  autoPlayAnimationDuration: const Duration(
+                                    milliseconds: 750,
+                                  ),
+                                  autoPlayCurve: Curves.easeInOutCubic,
+                                  enlargeCenterPage: true,
+                                  enlargeFactor: 0.18,
+                                  enableInfiniteScroll: imageCount > 1,
+                                  padEnds: true,
+                                  onPageChanged: (index, reason) {
+                                    setState(() => _currentImageIndex = index);
+                                  },
+                                ),
+                                itemBuilder: (context, index, realIndex) {
+                                  final image = widget.project.images[index];
+                                  final isSelected =
+                                      index == _currentImageIndex;
+                                  return AnimatedPadding(
+                                    duration: const Duration(milliseconds: 220),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 4.w,
+                                      vertical: 0,
                                     ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(4.r),
-                                  child: image.startsWith('http')
-                                      ? Image.network(
-                                          image,
-                                          fit: BoxFit.contain,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          filterQuality: FilterQuality.low,
-                                          loadingBuilder: (
-                                            context,
-                                            child,
-                                            loadingProgress,
-                                          ) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Container(
-                                              color: AppTheme.primaryColor
-                                                  .withOpacity(0.08),
-                                              alignment: Alignment.center,
-                                              child:
-                                                  const CircularProgressIndicator(
-                                                strokeWidth: 2,
-                                                color: AppTheme.primaryColor,
-                                              ),
-                                            );
-                                          },
-                                        )
-                                      : Image.asset(
-                                          image,
-                                          fit: BoxFit.contain,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          filterQuality: FilterQuality.low,
-                                          gaplessPlayback: true,
+                                    child: AnimatedContainer(
+                                      duration: const Duration(
+                                        milliseconds: 220,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                          14.r,
                                         ),
-                                ),
+                                        border: Border.all(
+                                          color: isSelected
+                                              ? AppTheme.primaryColor
+                                              : Colors.white.withOpacity(0.10),
+                                          width: isSelected ? 1.6 : 1,
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: isSelected
+                                                ? AppTheme.primaryColor
+                                                      .withOpacity(0.18)
+                                                : Colors.black.withOpacity(
+                                                    0.10,
+                                                  ),
+                                            blurRadius: isSelected ? 18 : 8,
+                                            offset: Offset(
+                                              0,
+                                              isSelected ? 10.h : 4.h,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                          13.r,
+                                        ),
+                                        child: image.startsWith('http')
+                                            ? Image.network(
+                                                image,
+                                                fit: BoxFit.contain,
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                filterQuality:
+                                                    FilterQuality.medium,
+                                                loadingBuilder:
+                                                    (
+                                                      context,
+                                                      child,
+                                                      loadingProgress,
+                                                    ) {
+                                                      if (loadingProgress ==
+                                                          null) {
+                                                        return child;
+                                                      }
+                                                      return const Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                              strokeWidth: 2,
+                                                              color: AppTheme
+                                                                  .primaryColor,
+                                                            ),
+                                                      );
+                                                    },
+                                                errorBuilder: (_, __, ___) =>
+                                                    const Center(
+                                                      child: Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                        color: AppTheme
+                                                            .primaryColor,
+                                                        size: 36,
+                                                      ),
+                                                    ),
+                                              )
+                                            : Image.asset(
+                                                image,
+                                                fit: BoxFit.contain,
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                filterQuality:
+                                                    FilterQuality.high,
+                                                gaplessPlayback: true,
+                                                errorBuilder: (_, __, ___) =>
+                                                    const Center(
+                                                      child: Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                        color: AppTheme
+                                                            .primaryColor,
+                                                        size: 36,
+                                                      ),
+                                                    ),
+                                              ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               );
                             },
                           ),
@@ -169,14 +299,25 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     ],
 
                     // Description
-                    Text(
-                      widget.project.description,
-                      style: GoogleFonts.roboto(
-                        color: AppTheme.textColor,
-                        fontSize: 16.sp.clamp(14.0, 18.0),
-                        height: 1.6,
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(18.r),
+                      decoration: BoxDecoration(
+                        color: AppTheme.backgroundColor.withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Border.all(
+                          color: AppTheme.primaryColor.withOpacity(0.12),
+                        ),
                       ),
-                      textAlign: TextAlign.justify,
+                      child: Text(
+                        widget.project.description,
+                        style: GoogleFonts.roboto(
+                          color: AppTheme.textColor,
+                          fontSize: 16.sp.clamp(14.0, 18.0),
+                          height: 1.7,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
                     ),
                     SizedBox(height: 24.h),
 
@@ -191,8 +332,8 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                     ),
                     SizedBox(height: 12.h),
                     Wrap(
-                      spacing: 8.w,
-                      runSpacing: 8.h,
+                      spacing: 10.w,
+                      runSpacing: 10.h,
                       children: widget.project.technologies
                           .map(
                             (tech) => Chip(
@@ -201,11 +342,17 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                                 style: GoogleFonts.robotoMono(
                                   color: AppTheme.primaryColor,
                                   fontSize: 12.sp.clamp(10.0, 16.0),
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               backgroundColor: AppTheme.primaryColor
-                                  .withOpacity(0.1),
-                              side: BorderSide.none,
+                                  .withOpacity(0.08),
+                              side: BorderSide(
+                                color: AppTheme.primaryColor.withOpacity(0.15),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(999),
+                              ),
                             ),
                           )
                           .toList(),

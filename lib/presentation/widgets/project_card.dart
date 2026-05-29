@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,7 +49,7 @@ class _ProjectCardState extends State<ProjectCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image Slider Area - multiple images visible together
+              // Image slider area
               Stack(
                 children: [
                   ClipRRect(
@@ -54,25 +57,107 @@ class _ProjectCardState extends State<ProjectCard> {
                       top: Radius.circular(8.r),
                     ),
                     child: SizedBox(
-                      height: 280.h,
+                      height: 340.h,
                       width: double.infinity,
                       child: widget.project.images.isEmpty
                           ? _buildFallbackImage()
-                          : Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                _buildProjectImage(widget.project.images.first),
-                                if (widget.project.images.length > 1)
-                                  Positioned(
-                                    left: 12.w,
-                                    right: 12.w,
-                                    bottom: 12.h,
-                                    child: _buildThumbnailStrip(),
+                          : LayoutBuilder(
+                              builder: (context, constraints) {
+                                final imageCount = widget.project.images.length;
+                                final maxVisible = math.max(
+                                  1,
+                                  math.min(
+                                    imageCount,
+                                    (constraints.maxWidth / 112.w).floor(),
                                   ),
-                              ],
+                                );
+                                final viewportFraction = (1 / maxVisible)
+                                    .clamp(0.18, 1.0)
+                                    .toDouble();
+
+                                return CarouselSlider.builder(
+                                  itemCount: imageCount,
+                                  options: CarouselOptions(
+                                    height: 340.h,
+                                    viewportFraction: viewportFraction,
+                                    autoPlay: true,
+                                    autoPlayInterval:
+                                        const Duration(seconds: 4),
+                                    autoPlayAnimationDuration: const Duration(
+                                      milliseconds: 750,
+                                    ),
+                                    autoPlayCurve: Curves.easeInOutCubic,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.18,
+                                    enableInfiniteScroll: imageCount > 1,
+                                    padEnds: true,
+                                    onPageChanged: (index, reason) {
+                                      setState(() => _currentImageIndex = index);
+                                    },
+                                  ),
+                                  itemBuilder: (context, index, realIndex) {
+                                    final imagePath = widget.project.images[index];
+                                    final isSelected = index == _currentImageIndex;
+                                    return AnimatedPadding(
+                                      duration: const Duration(milliseconds: 220),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 4.w,
+                                        vertical: isSelected ? 0 : 10.h,
+                                      ),
+                                      child: AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 220),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(14.r),
+                                          border: Border.all(
+                                            color: isSelected
+                                                ? AppTheme.primaryColor
+                                                : Colors.white.withOpacity(0.10),
+                                            width: isSelected ? 1.6 : 1,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: isSelected
+                                                  ? AppTheme.primaryColor
+                                                      .withOpacity(0.18)
+                                                  : Colors.black.withOpacity(
+                                                      0.10,
+                                                    ),
+                                              blurRadius: isSelected ? 18 : 8,
+                                              offset: Offset(
+                                                0,
+                                                isSelected ? 10.h : 4.h,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(13.r),
+                                          child: _buildProjectImage(
+                                            imagePath,
+                                            fit: BoxFit.contain,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10.w,
+                                              vertical: 8.h,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                     ),
                   ),
+                  if (widget.project.images.length > 1)
+                    Positioned(
+                      top: 12.h,
+                      left: 12.w,
+                      child: _buildImageCounter(),
+                    ),
                   // GitHub Link Overlay
                   if (widget.project.githubUrl != null)
                     Positioned(
@@ -100,7 +185,7 @@ class _ProjectCardState extends State<ProjectCard> {
               // Dot indicators - outside/below the image area
               if (widget.project.images.length > 1)
                 Padding(
-                  padding: EdgeInsets.only(top: 12.h, bottom: 4.h),
+                  padding: EdgeInsets.only(top: 10.h, bottom: 6.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -122,7 +207,7 @@ class _ProjectCardState extends State<ProjectCard> {
 
               // Content Area
               Padding(
-                padding: EdgeInsets.all(16.r),
+                padding: EdgeInsets.fromLTRB(16.r, 14.r, 16.r, 16.r),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,7 +218,7 @@ class _ProjectCardState extends State<ProjectCard> {
                           child: Text(
                             widget.project.title,
                             style: GoogleFonts.roboto(
-                              color: AppTheme.secondaryColor,
+                              color: AppTheme.textColor,
                               fontSize: 20.sp.clamp(16.0, 24.0),
                               fontWeight: FontWeight.bold,
                             ),
@@ -163,8 +248,9 @@ class _ProjectCardState extends State<ProjectCard> {
                     Text(
                       widget.project.technologies.join(', '),
                       style: GoogleFonts.robotoMono(
-                        color: AppTheme.primaryColor,
+                        color: AppTheme.primaryColor.withOpacity(0.95),
                         fontSize: 12.sp.clamp(10.0, 16.0),
+                        letterSpacing: 0.2,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -175,11 +261,11 @@ class _ProjectCardState extends State<ProjectCard> {
                     Text(
                       widget.project.description,
                       style: GoogleFonts.roboto(
-                        color: AppTheme.textColor,
+                        color: AppTheme.secondaryColor.withOpacity(0.95),
                         fontSize: 14,
-                        height: 1.5,
+                        height: 1.6,
                       ),
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.justify,
                     ),
@@ -203,7 +289,7 @@ class _ProjectCardState extends State<ProjectCard> {
                               'Read More',
                               style: GoogleFonts.robotoMono(
                                 fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
+                                decoration: TextDecoration.none,
                               ),
                             ),
                             SizedBox(width: 4.w),
@@ -239,9 +325,18 @@ class _ProjectCardState extends State<ProjectCard> {
     }
   }
 
-  Widget _buildFallbackImage() {
+  Widget _buildFallbackImage() {                                                                                                                                                                                                                                                                                                                                                
     return Container(
-      color: AppTheme.primaryColor.withOpacity(0.08),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppTheme.cardColor.withOpacity(0.95),
+            AppTheme.backgroundColor.withOpacity(0.95),
+          ],
+        ),
+      ),
       alignment: Alignment.center,
       child: Image.asset(
         AppConstants.profileImage,
@@ -253,85 +348,69 @@ class _ProjectCardState extends State<ProjectCard> {
     );
   }
 
-  Widget _buildProjectImage(String imagePath) {
+  Widget _buildProjectImage(
+    String imagePath, {
+    BoxFit fit = BoxFit.contain,
+    EdgeInsetsGeometry padding = EdgeInsets.zero,
+  }) {
     return Container(
-      color: AppTheme.primaryColor.withOpacity(0.08),
-      child: imagePath.startsWith('http')
-          ? Image.network(
-              imagePath,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-              filterQuality: FilterQuality.low,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  color: AppTheme.primaryColor.withOpacity(0.08),
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: AppTheme.primaryColor,
-                  ),
-                );
-              },
-              errorBuilder: (_, __, ___) => _buildFallbackImage(),
-            )
-          : Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: double.infinity,
-              filterQuality: FilterQuality.low,
-              gaplessPlayback: true,
-              errorBuilder: (_, __, ___) => _buildFallbackImage(),
-            ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppTheme.backgroundColor.withOpacity(0.95),
+            AppTheme.cardColor.withOpacity(0.95),
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: padding,
+        child: imagePath.startsWith('http')
+            ? Image.network(
+                imagePath,
+                fit: fit,
+                width: double.infinity,
+                height: double.infinity,
+                filterQuality: FilterQuality.medium,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppTheme.primaryColor,
+                    ),
+                  );
+                },
+                errorBuilder: (_, __, ___) => _buildFallbackImage(),
+              )
+            : Image.asset(
+                imagePath,
+                fit: fit,
+                width: double.infinity,
+                height: double.infinity,
+                filterQuality: FilterQuality.high,
+                gaplessPlayback: true,
+                errorBuilder: (_, __, ___) => _buildFallbackImage(),
+              ),
+      ),
     );
   }
 
-  Widget _buildThumbnailStrip() {
-    return SizedBox(
-      height: 64.h,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.12),
-          borderRadius: BorderRadius.circular(10.r),
-        ),
-        child: ListView.separated(
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.all(6.r),
-          itemCount: widget.project.images.length,
-          separatorBuilder: (_, __) => SizedBox(width: 6.w),
-          itemBuilder: (context, index) {
-            final imagePath = widget.project.images[index];
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(8.r),
-              child: Container(
-                width: 54.w,
-                color: AppTheme.backgroundColor.withOpacity(0.55),
-                child: imagePath.startsWith('http')
-                    ? Image.network(
-                        imagePath,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.low,
-                        errorBuilder: (_, __, ___) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          color: AppTheme.primaryColor,
-                          size: 18,
-                        ),
-                      )
-                    : Image.asset(
-                        imagePath,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.low,
-                        errorBuilder: (_, __, ___) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          color: AppTheme.primaryColor,
-                          size: 18,
-                        ),
-                      ),
-              ),
-            );
-          },
+  Widget _buildImageCounter() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.45),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: Colors.white.withOpacity(0.1)),
+      ),
+      child: Text(
+        '${_currentImageIndex + 1}/${widget.project.images.length}',
+        style: GoogleFonts.robotoMono(
+          color: Colors.white,
+          fontSize: 11.sp.clamp(10.0, 14.0),
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
@@ -348,7 +427,7 @@ class _ProjectCardState extends State<ProjectCard> {
           decoration: BoxDecoration(
             border: Border.all(color: AppTheme.primaryColor.withOpacity(0.5)),
             borderRadius: BorderRadius.circular(6.r),
-            color: AppTheme.primaryColor.withOpacity(0.1),
+            color: AppTheme.primaryColor.withOpacity(0.14),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

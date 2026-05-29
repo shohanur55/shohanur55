@@ -46,7 +46,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.sp.clamp(24.0, 40.0),
+                  fontSize: 22.sp.clamp(24.0, 42.0),
+                  letterSpacing: -0.4,
                 ),
               ),
               SizedBox(width: 20.w),
@@ -78,9 +79,9 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    mainAxisExtent: 522.h,
+                    mainAxisExtent: 620.h,
                     crossAxisSpacing: 24.w,
-                    mainAxisSpacing: 24.h,
+                    mainAxisSpacing: 28.h,
                   ),
                   itemCount: _projects.length,
                   itemBuilder: (context, index) {

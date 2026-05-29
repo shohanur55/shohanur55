@@ -15,7 +15,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       title: Text(
-        '<Shohan/>',
+        'Md. Shohanur Rahaman',
         style: GoogleFonts.robotoMono(
           color: AppTheme.primaryColor,
           fontWeight: FontWeight.bold,

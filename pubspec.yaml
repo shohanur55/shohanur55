@@ -69,6 +69,7 @@ flutter:
   assets:
     - assets/data/
     - assets/images/
+    - assets/images/projects/jogajog/
     - assets/images/projects/multifix/
     - assets/images/projects/halda/
     - assets/images/projects/atrai/
