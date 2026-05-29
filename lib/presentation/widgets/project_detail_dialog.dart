@@ -85,7 +85,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
 
     // Compute taller image height for phone-like screenshots (cap to avoid overflow)
     final double screenH = MediaQuery.of(context).size.height;
-    final double imageHeight = math.min(screenH * 1.2, 700.h); // 1.2x screen height or max 400h
+    final double imageHeight = math.min(screenH * 1.2, 700.h); // 1.2x screen height or max 700h .700 height thik ase.
     final double currentImageAspectRatio = _currentImageAspectRatio();
 
     return Dialog(

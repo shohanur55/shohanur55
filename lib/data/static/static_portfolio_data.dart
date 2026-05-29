@@ -33,6 +33,29 @@ class StaticPortfolioData {
 
     Project(
       id: "2",
+      title: "Multifix",
+      description:
+          "Easily manage home repairs — connect customers, contractors & consultants.",
+      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      imageUrl: "assets/images/projects/multifix/1.jpg",
+      images: [
+        "assets/images/projects/multifix/1.jpg",
+        "assets/images/projects/multifix/2.jpg",
+        "assets/images/projects/multifix/3.jpg",
+        "assets/images/projects/multifix/4.jpg",
+        "assets/images/projects/multifix/5.jpg",
+        "assets/images/projects/multifix/6.jpg",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+      playStoreUrl:
+          "https://play.google.com/store/apps/details?id=com.app.multifix.multifix&pcampaignid=web_share",
+      appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
+    ),
+
+
+    Project(
+      id: "3",
       title: "Halda",
       description:
           "HR app for attendance tracking and management. Users can give/view attendance and perform admin tasks like employee management.",
@@ -49,7 +72,7 @@ class StaticPortfolioData {
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
     ),
     Project(
-      id: "3",
+      id: "4",
       title: "Atrai",
       description:
           "Streamlined accounting software simplifies financial data management for individuals and businesses, ensuring a seamless user experience.",
@@ -71,7 +94,7 @@ class StaticPortfolioData {
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.atrai",
     ),
     Project(
-      id: "4",
+      id: "5",
       title: "Shuttle Bus",
       description:
           "Any organization transportation service that operates on a fixed route. Live location sharing for hosts and specific user tracking.",
@@ -96,7 +119,7 @@ class StaticPortfolioData {
       liveUrl: null,
     ),
     Project(
-      id: "5",
+      id: "6",
       title: "Easy HR",
       description:
           '''Empower your workforce with our Flutter-based HR application. Seamlessly manage attendance, view records, and access a range of functionalities. Whether you're an admin or employee, easily maintain and monitor your team. Contact the app owner for access. Built with Flutter, GetX, and API integration for a streamlined experience.
@@ -134,42 +157,25 @@ class StaticPortfolioData {
       ],
       githubUrl: null,
       liveUrl: null,
+        playStoreUrl:
+          "https://play.google.com/store/apps/details?id=dev.gtrbd.easyhrflutter&pcampaignid=web_share",
+      
     ),
-    Project(
-      id: "6",
-      title: "Office Management System",
-      description:
-          "A system that includes attendance, leave application, leave approval, salary management, and task management for various departments.",
-      technologies: ["Dart", "Flutter", "Firebase", "GetX"],
-      imageUrl:
-          "https://ui-avatars.com/api/?name=OMS&background=2ecc71&color=fff&size=512",
-      images: [
-        "https://ui-avatars.com/api/?name=OMS&background=2ecc71&color=fff&size=512",
-      ],
-      githubUrl: null,
-      liveUrl: null,
-    ),
-    Project(
-      id: "7",
-      title: "Multifix",
-      description:
-          "Easily manage home repairs — connect customers, contractors & consultants.",
-      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
-      imageUrl: "assets/images/projects/multifix/1.jpg",
-      images: [
-        "assets/images/projects/multifix/1.jpg",
-        "assets/images/projects/multifix/2.jpg",
-        "assets/images/projects/multifix/3.jpg",
-        "assets/images/projects/multifix/4.jpg",
-        "assets/images/projects/multifix/5.jpg",
-        "assets/images/projects/multifix/6.jpg",
-      ],
-      githubUrl: null,
-      liveUrl: null,
-      playStoreUrl:
-          "https://play.google.com/store/apps/details?id=com.app.multifix.multifix&pcampaignid=web_share",
-      appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
-    ),
+    // Project(
+    //   id: "7",
+    //   title: "Office Management System",
+    //   description:
+    //       "A system that includes attendance, leave application, leave approval, salary management, and task management for various departments.",
+    //   technologies: ["Dart", "Flutter", "Firebase", "GetX"],
+    //   imageUrl:
+    //       "https://ui-avatars.com/api/?name=OMS&background=2ecc71&color=fff&size=512",
+    //   images: [
+    //     "https://ui-avatars.com/api/?name=OMS&background=2ecc71&color=fff&size=512",
+    //   ],
+    //   githubUrl: null,
+    //   liveUrl: null,
+    // ),
+
   ];
 
   static final List<ExperienceModel> experience = [
