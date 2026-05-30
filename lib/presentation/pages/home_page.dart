@@ -143,6 +143,10 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+    final isTablet = screenWidth >= 600 && screenWidth < 1024;
+
     return Scaffold(
       appBar: NavBar(onNavTap: _scrollToSection),
       endDrawer: MobileDrawer(onNavTap: _scrollToSection),
@@ -198,7 +202,18 @@ class _HomePageState extends State<HomePage>
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isMobile
+                      ? 6.w
+                      : isTablet
+                          ? 8.w
+                          : 10.w,
+                  vertical: isMobile
+                      ? 8.h
+                      : isTablet
+                          ? 10.h
+                          : 12.h,
+                ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -218,21 +233,33 @@ class _HomePageState extends State<HomePage>
                   ],
                   border: Border.all(
                     color: AppTheme.primaryColor.withOpacity(0.6),
-                    width: 1.5.r,
+                    width: 1.5,
                   ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.flutter_dash, color: Colors.white, size: 18.sp),
-                    SizedBox(width: 8.w),
+                    Icon(
+                      Icons.flutter_dash,
+                      color: Colors.white,
+                      size: isMobile
+                          ? 14.sp
+                          : isTablet
+                              ? 16.sp
+                              : 18.sp,
+                    ),
+                    SizedBox(width: isMobile ? 4.w : 8.w),
                     Text(
                       'Created with Flutter',
                       style: GoogleFonts.robotoMono(
                         color: Colors.white,
-                        fontSize: 16.sp.clamp(10.0, 18.0),
+                        fontSize: isMobile
+                            ? 10.sp.clamp(9.0, 11.0)
+                            : isTablet
+                                ? 12.sp.clamp(11.0, 13.0)
+                                : 16.sp.clamp(13.0, 18.0),
                         fontWeight: FontWeight.bold,
-                        letterSpacing: 0.5,
+                        letterSpacing: isMobile ? 0.2 : 0.5,
                       ),
                     ),
                   ],
