@@ -182,18 +182,31 @@ class StaticPortfolioData {
   ];
 
   static final List<ExperienceModel> experience = [
-    ExperienceModel(
+     ExperienceModel(
       id: "1",
+      company: "SM Technology, Betopia Group",
+      role: "Team Leader",
+      duration: "Dec 2024 - present",
+      description: [
+        "Career progression: Flutter Mobile App Developer → Co-Leader → Team Leader.",
+        "Started as a Flutter Mobile App Developer and gradually took ownership of larger modules and team responsibilities.",
+        "Led feature delivery across key products including Jogajog, Halda, and Atrai.",
+        "Implemented features using GetX, MVC/MVVM patterns, REST APIs, Firebase, C#, and ASP.NET.",
+      ],
+      technologies: ["Flutter", "Dart", "GetX", "REST API", "Firebase","C#", "ASP.NET"],
+    ),
+    ExperienceModel(
+      id: "2",
       company: "Genuine Technology and Research Ltd (GTR)",
       role: "Flutter Mobile App Developer - Jr. Programmer",
-      duration: "Nov 2023 - Present",
+      duration: "Nov 2023 - Dec 2024",
       description: [
         "Working as a Flutter Mobile App Developer.",
         "Contributed to key projects including Jogajog, Halda, and Atrai.",
         "Implemented features using GetX for state management and MVC/MVVM patterns.",
         "Integrated REST APIs and Firebase for backend connectivity.",
       ],
-      technologies: ["Flutter", "Dart", "GetX", "REST API", "Firebase"],
+      technologies: ["Flutter", "Dart", "GetX", "REST API", "Firebase","C#", "ASP.NET"],
     ),
   ];
 
@@ -268,5 +281,34 @@ class StaticPortfolioData {
       proficiency: 0.70,
       iconUrl: "",
     ),
+    SkillModel(
+      id: "11",
+      name: "Real-time Chat via WebSockets",
+      category: "Realtime Communication",
+      proficiency: 0.85,
+      iconUrl: "",
+    ),
+    SkillModel(
+      id: "12",
+      name: "WebRTC,Zegocloud- Audio/Video Calling",
+      category: "Realtime Communication",
+      proficiency: 0.80,
+      iconUrl: "",
+    ),
+    SkillModel(
+      id: "13",
+      name: "Push Notifications",
+      category: "Mobile Engagement",
+      proficiency: 0.88,
+      iconUrl: "",
+    ),
+    SkillModel(
+      id: "14",
+      name: "Android & iOS Deployment",
+      category: "App Delivery",
+      proficiency: 0.85,
+      iconUrl: "",
+    ),
+  
   ];
 }

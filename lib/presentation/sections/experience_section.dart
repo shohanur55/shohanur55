@@ -153,6 +153,40 @@ class _ExperienceSectionState extends State<ExperienceSection> {
   }
 
   Widget _buildDescriptionPoint(String text) {
+    if (text.startsWith('Career progression:')) {
+      final progressionText = text.replaceFirst('Career progression:', '').trim();
+
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: AppTheme.primaryColor.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(
+            color: AppTheme.primaryColor.withOpacity(0.18),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.timeline, color: AppTheme.primaryColor, size: 20),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Text(
+                progressionText,
+                style: GoogleFonts.inter(
+                  color: AppTheme.textColor,
+                  fontSize: 15.sp.clamp(13.0, 17.0),
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

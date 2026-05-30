@@ -35,7 +35,7 @@ class ContactSection extends StatelessWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),
             child: Text(
-              'Although I’m not currently looking for any new opportunities, my inbox is always open. Whether you have a question or just want to say hi, I’ll try my best to get back to you!',
+              'I’m currently open to new opportunities as a Flutter developer. If your team needs someone who can build clean, reliable mobile experiences and move fast with ownership, I’d love to connect and discuss how I can contribute.',
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 color: AppTheme.secondaryColor,
@@ -45,24 +45,50 @@ class ContactSection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 50.h),
-          OutlinedButton(
-            onPressed: () {
-              _launchURL('mailto:mshohan088@gmail.com');
-            },
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 22.h),
-              side: const BorderSide(color: AppTheme.primaryColor, width: 1.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.r),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 16.w,
+            runSpacing: 16.h,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  _launchURL('mailto:mshohan088@gmail.com');
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 22.h),
+                  side: const BorderSide(color: AppTheme.primaryColor, width: 1.5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
+                child: Text(
+                  'Say Hello',
+                  style: GoogleFonts.firaCode(
+                    color: AppTheme.primaryColor,
+                    fontSize: 16.sp.clamp(14.0, 20.0),
+                  ),
+                ),
               ),
-            ),
-            child: Text(
-              'Say Hello',
-              style: GoogleFonts.firaCode(
-                color: AppTheme.primaryColor,
-                fontSize: 16.sp.clamp(14.0, 20.0),
+              OutlinedButton(
+                onPressed: () {
+                  _launchURL('https://wa.me/8801853205092');
+                },
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 22.h),
+                  side: const BorderSide(color: AppTheme.primaryColor, width: 1.5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
+                child: Text(
+                  'WhatsApp Me',
+                  style: GoogleFonts.firaCode(
+                    color: AppTheme.primaryColor,
+                    fontSize: 16.sp.clamp(14.0, 20.0),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
