@@ -1,18 +1,68 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&height=320&color=0:000000,40:001a00,100:000000&text=Md.%20Shohanur%20Rahaman&fontSize=40&fontColor=00FF41&stroke=00FF41&strokeWidth=2&animation=fadeIn&desc=Senior%20Flutter%20Developer%20%7C%20Mobile%20App%20Engineer&descSize=18&descAlignY=73&descFontColor=39FF14" width="100%"/>
+<!-- PURE BLACK SVG HEADER — works on BOTH light & dark mode -->
+<svg width="100%" height="280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="matrixGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000"/>
+      <stop offset="50%" style="stop-color:#001200"/>
+      <stop offset="100%" style="stop-color:#000000"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Black background -->
+  <rect width="100%" height="280" fill="url(#matrixGrad)" rx="12"/>
+  <!-- Grid lines -->
+  <line x1="0" y1="70" x2="100%" y2="70" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.15"/>
+  <line x1="0" y1="140" x2="100%" y2="140" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.15"/>
+  <line x1="0" y1="210" x2="100%" y2="210" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.15"/>
+  <line x1="200" y1="0" x2="200" y2="280" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.1"/>
+  <line x1="600" y1="0" x2="600" y2="280" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.1"/>
+  <line x1="1000" y1="0" x2="1000" y2="280" stroke="#00FF41" stroke-width="0.3" stroke-opacity="0.1"/>
+  <!-- Corner accents -->
+  <rect x="20" y="20" width="40" height="3" fill="#00FF41" rx="2" opacity="0.8"/>
+  <rect x="20" y="20" width="3" height="40" fill="#00FF41" rx="2" opacity="0.8"/>
+  <!-- Top-right corner -->
+  <rect x="calc(100%-60)" y="20" width="40" height="3" fill="#00FF41" rx="2" opacity="0.8"/>
+  <!-- Name text -->
+  <text x="50%" y="115" font-family="'Courier New', monospace" font-size="42" font-weight="900"
+        fill="#00FF41" text-anchor="middle" filter="url(#glow)" letter-spacing="3">
+    Md. Shohanur Rahaman
+  </text>
+  <!-- Underline -->
+  <line x1="25%" y1="130" x2="75%" y2="130" stroke="#00FF41" stroke-width="1.5" stroke-opacity="0.6"/>
+  <!-- Subtitle -->
+  <text x="50%" y="165" font-family="'Courier New', monospace" font-size="18" font-weight="400"
+        fill="#39FF14" text-anchor="middle" letter-spacing="2" opacity="0.9">
+    Senior Flutter Developer  |  Mobile App Engineer
+  </text>
+  <!-- Tag line -->
+  <text x="50%" y="210" font-family="'Courier New', monospace" font-size="13"
+        fill="#00FF41" text-anchor="middle" opacity="0.55" letter-spacing="4">
+    [ ANDROID  ·  iOS  ·  FIREBASE  ·  CLEAN ARCHITECTURE ]
+  </text>
+  <!-- Bottom border glow -->
+  <rect x="0" y="272" width="100%" height="3" fill="#00FF41" rx="0" opacity="0.7"/>
+  <!-- Dot accents -->
+  <circle cx="50" cy="250" r="3" fill="#00FF41" opacity="0.4"/>
+  <circle cx="70" cy="250" r="3" fill="#00FF41" opacity="0.4"/>
+  <circle cx="90" cy="250" r="3" fill="#00FF41" opacity="0.4"/>
+</svg>
 
 </div>
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=22&duration=2800&pause=1000&color=00FF41&background=000000&center=true&vCenter=true&multiline=true&width=750&height=110&lines=🚀+3%2B+Years+of+Flutter+Excellence;📱+Cross-Platform+Mobile+App+Engineer;⚡+Clean+Architecture+%7C+Scalable+Code;🌍+Open+to+Work+—+Let's+Build+Together!)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=20&duration=2800&pause=1000&color=00FF41&background=000000&center=true&vCenter=true&multiline=true&width=750&height=100&lines=🚀+3%2B+Years+of+Flutter+Excellence;📱+Cross-Platform+Mobile+App+Engineer;⚡+Clean+Architecture+%7C+Scalable+Code;🌍+Open+to+Work+—+Let's+Build+Together!)](https://git.io/typing-svg)
 
 </div>
 
 <div align="center">
 
-![Open to Work](https://img.shields.io/badge/🟢_OPEN_TO_WORK-000000?style=for-the-badge&color=000000&logoColor=00FF41)
+![Open to Work](https://img.shields.io/badge/🟢_OPEN_TO_WORK-00FF41?style=for-the-badge&color=000000&logoColor=00FF41)
 ![Profile Views](https://komarev.com/ghpvc/?username=shohanur55&color=00FF41&style=for-the-badge&label=PROFILE+VIEWS)
 [![Followers](https://img.shields.io/github/followers/shohanur55?color=00FF41&logo=github&style=for-the-badge&label=FOLLOWERS)](https://github.com/shohanur55?tab=followers)
 
@@ -20,9 +70,13 @@
 
 ---
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
+<!-- BLACK DIVIDER SVG -->
+<svg width="100%" height="4" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="4" fill="#000000"/>
+  <rect width="100%" height="1" y="1.5" fill="#00FF41" opacity="0.5"/>
+</svg>
 
-## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="28px"> `whoami`
+## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="26px"> `whoami`
 
 ```yaml
 # ================================
@@ -52,8 +106,6 @@ currently_learning:
 
 fun_fact: "I turn chai ☕ into production-ready apps 📱"
 ```
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 ---
 
@@ -87,8 +139,6 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 </td>
 </tr>
 </table>
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 ---
 
@@ -126,8 +176,6 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 
 </div>
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-
 ---
 
 ## 📊 GitHub Analytics
@@ -154,8 +202,6 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 <img src="https://github-profile-trophy.vercel.app/?username=shohanur55&theme=matrix&no-frame=true&margin-w=12&margin-h=12&column=6" />
 
 </div>
-
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
 
 ---
 
@@ -189,8 +235,6 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 
 </div>
 
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%">
-
 ---
 
 ## 📬 Contact Me
@@ -204,9 +248,9 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 
 <br/>
 
-[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-000000?style=for-the-badge&logoColor=00FF41&color=001a00)](https://shohanur55.github.io/shohanur55/)
-[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=ffffff&color=001a00)](https://github.com/shohanur55)
-[![Location](https://img.shields.io/badge/📍_Bangladesh-000000?style=for-the-badge&color=001a00)](https://maps.google.com/?q=Munshiganj,Bangladesh)
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-000000?style=for-the-badge&logoColor=00FF41&color=000000)](https://shohanur55.github.io/shohanur55/)
+[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=ffffff&color=000000)](https://github.com/shohanur55)
+[![Location](https://img.shields.io/badge/📍_Bangladesh-000000?style=for-the-badge&color=000000)](https://maps.google.com/?q=Munshiganj,Bangladesh)
 
 <br/>
 
@@ -216,23 +260,31 @@ fun_fact: "I turn chai ☕ into production-ready apps 📱"
 
 ---
 
+<!-- PURE BLACK SVG FOOTER -->
 <div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,50:001a00,100:00FF41&height=130&section=footer&text=Thanks+for+visiting+my+profile!&fontSize=22&fontColor=000000&animation=twinkling&fontAlignY=65"/>
-
+<svg width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100" fill="#000000" rx="0"/>
+  <rect width="100%" height="2" y="0" fill="#00FF41" opacity="0.7"/>
+  <text x="50%" y="45" font-family="'Courier New', monospace" font-size="16" font-weight="700"
+        fill="#00FF41" text-anchor="middle" letter-spacing="3" opacity="0.9">
+    Thanks for visiting my profile!
+  </text>
+  <text x="50%" y="72" font-family="'Courier New', monospace" font-size="12"
+        fill="#39FF14" text-anchor="middle" letter-spacing="2" opacity="0.6">
+    ⭐ Star my repos if you find them useful · Built with ❤️ in Bangladesh 🇧🇩
+  </text>
+</svg>
 </div>
 
 <div align="center">
 
 ```
- ██████╗██╗      ██████╗ ███████╗███████╗    ████████╗ ██████╗     ██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗
-██╔════╝██║     ██╔═══██╗██╔════╝██╔════╝    ╚══██╔══╝██╔═══██╗    ██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝
-██║     ██║     ██║   ██║███████╗█████╗         ██║   ██║   ██║    ██║ █╗ ██║██║   ██║██████╔╝█████╔╝
-██║     ██║     ██║   ██║╚════██║██╔══╝         ██║   ██║   ██║    ██║███╗██║██║   ██║██╔══██╗██╔═██╗
-╚██████╗███████╗╚██████╔╝███████║███████╗       ██║   ╚██████╔╝    ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗
- ╚═════╝╚══════╝ ╚═════╝ ╚══════╝╚══════╝       ╚═╝    ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+███████╗██╗  ██╗ ██████╗ ██╗  ██╗ █████╗ ███╗  ██╗
+██╔════╝██║  ██║██╔═══██╗██║  ██║██╔══██╗████╗ ██║
+███████╗███████║██║   ██║███████║███████║██╔██╗██║
+╚════██║██╔══██║██║   ██║██╔══██║██╔══██║██║╚████║
+███████║██║  ██║╚██████╔╝██║  ██║██║  ██║██║ ╚███║
+╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚══╝
 ```
-
-*⭐ Star my repos if you find them useful! | Built with passion in Bangladesh 🇧🇩*
 
 </div>
