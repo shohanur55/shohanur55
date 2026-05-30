@@ -367,27 +367,27 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                       children: [
                         if (widget.project.githubUrl != null)
                           _LinkButton(
-                            icon: Icons.code,
+                            icon: Icon(Icons.code, size: 18.sp.clamp(16.0, 24.0)),
                             label: 'View Code',
                             url: widget.project.githubUrl!,
                           ),
                         if (widget.project.liveUrl != null)
                           _LinkButton(
-                            icon: Icons.open_in_new,
+                            icon: Icon(Icons.open_in_new, size: 18.sp.clamp(16.0, 24.0)),
                             label: 'Live Demo',
                             url: widget.project.liveUrl!,
                             isPrimary: true,
                           ),
                         if (widget.project.playStoreUrl != null)
                           _LinkButton(
-                            icon: FontAwesomeIcons.googlePlay,
+                            icon: FaIcon(FontAwesomeIcons.googlePlay, size: 18.sp.clamp(16.0, 24.0)),
                             label: 'Play Store',
                             url: widget.project.playStoreUrl!,
                             isPrimary: true,
                           ),
                         if (widget.project.appStoreUrl != null)
                           _LinkButton(
-                            icon: FontAwesomeIcons.appStoreIos,
+                            icon: FaIcon(FontAwesomeIcons.appStoreIos, size: 18.sp.clamp(16.0, 24.0)),
                             label: 'App Store',
                             url: widget.project.appStoreUrl!,
                             isPrimary: true,
@@ -406,7 +406,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
 }
 
 class _LinkButton extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final String label;
   final String url;
   final bool isPrimary;
@@ -429,7 +429,7 @@ class _LinkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: _launchUrl,
-      icon: Icon(icon, size: 18.sp.clamp(16.0, 24.0)),
+      icon: icon,
       label: Text(label),
       style: ElevatedButton.styleFrom(
         backgroundColor: isPrimary ? AppTheme.primaryColor : Colors.transparent,

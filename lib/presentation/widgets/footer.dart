@@ -47,7 +47,7 @@ class Footer extends StatelessWidget {
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, String url) {
+  Widget _buildSocialIcon(FaIconData icon, String url) {
     return IconButton(
       onPressed: () => _launchURL(url),
       icon: FaIcon(

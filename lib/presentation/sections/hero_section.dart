@@ -512,7 +512,7 @@ class _HeroSectionState extends State<HeroSection> {
     String value,
     String label,
     bool isDesktop, {
-    IconData? icon,
+    FaIconData? icon,
   }) {
     return Container(
       padding: EdgeInsets.symmetric(
@@ -602,7 +602,7 @@ class _HeroSectionState extends State<HeroSection> {
         );
   }
 
-  Widget _buildSocialIcon(IconData icon, String url) {
+  Widget _buildSocialIcon(FaIconData icon, String url) {
     return MouseRegion(
           cursor: SystemMouseCursors.click,
           child: IconButton(

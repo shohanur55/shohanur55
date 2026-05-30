@@ -416,7 +416,7 @@ class _ProjectCardState extends State<ProjectCard> {
     );
   }
 
-  Widget _buildStoreIcon({required IconData icon, required String url}) {
+  Widget _buildStoreIcon({required FaIconData icon, required String url}) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
