@@ -46,7 +46,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                 style: GoogleFonts.inter(
                   color: AppTheme.textColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 22.sp.clamp(24.0, 42.0),
+                  fontSize: 22.sp.clamp(12.0, 42.0),
                   letterSpacing: -0.4,
                 ),
               ),

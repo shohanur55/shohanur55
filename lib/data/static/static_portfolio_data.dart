@@ -117,6 +117,9 @@ class StaticPortfolioData {
       ],
       githubUrl: null,
       liveUrl: null,
+      playStoreUrl:
+      "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
+
     ),
     Project(
       id: "6",

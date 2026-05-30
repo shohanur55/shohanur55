@@ -193,12 +193,12 @@ class _HomePageState extends State<HomePage>
               child: _buildScrollIndicator(),
             ),
           Positioned(
-            bottom: 20,
-            right: 20,
+            bottom: 20.h,
+            right: 20.w,
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -218,7 +218,7 @@ class _HomePageState extends State<HomePage>
                   ],
                   border: Border.all(
                     color: AppTheme.primaryColor.withOpacity(0.6),
-                    width: 1.5,
+                    width: 1.5.r,
                   ),
                 ),
                 child: Row(
@@ -230,7 +230,7 @@ class _HomePageState extends State<HomePage>
                       'Created with Flutter',
                       style: GoogleFonts.robotoMono(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 16.sp.clamp(10.0, 18.0),
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.5,
                       ),
