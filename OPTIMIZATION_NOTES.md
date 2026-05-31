@@ -2,6 +2,9 @@
 
 ## ✅ Automated changes made by Copilot Agent:
 - Build command updated to use the current Flutter stable web flags with tree-shake-icons
+
+### GitHub Actions Node.js note
+- The workflow has been opted into Node.js 24 for JavaScript actions by setting `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` in the job environment to avoid Node 20 deprecation issues. Review action compatibility periodically and remove the opt-in when upstream actions officially support Node.js 24.
 - GitHub Actions workflow created for auto-deployment
 - index.html: splash screen added, meta tags added, viewport fixed
 - manifest.json updated for PWA
