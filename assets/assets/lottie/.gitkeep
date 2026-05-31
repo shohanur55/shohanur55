@@ -1,0 +1,8 @@
+# Lottie animations for Hero section (optional but recommended)
+#
+# Add these JSON files from https://lottiefiles.com (free):
+#   1. wave.json   - search "waving hand" → use in greeting next to "Hi, my name is"
+#   2. scroll.json - search "scroll down" or "arrow down" → use in scroll indicator
+#   3. coding.json - search "coding" or "developer" → subtle background on desktop
+#
+# If files are missing, the app shows the default icons (no errors).

@@ -1,0 +1,72 @@
+[
+    {
+        "id": "1",
+        "name": "Flutter",
+        "category": "Mobile",
+        "proficiency": 0.95,
+        "iconUrl": ""
+    },
+    {
+        "id": "2",
+        "name": "Dart",
+        "category": "Languages",
+        "proficiency": 0.95,
+        "iconUrl": ""
+    },
+    {
+        "id": "3",
+        "name": "GetX",
+        "category": "State Management",
+        "proficiency": 0.90,
+        "iconUrl": ""
+    },
+    {
+        "id": "4",
+        "name": "Provider",
+        "category": "State Management",
+        "proficiency": 0.85,
+        "iconUrl": ""
+    },
+    {
+        "id": "5",
+        "name": "API Integration",
+        "category": "Backend",
+        "proficiency": 0.90,
+        "iconUrl": ""
+    },
+    {
+        "id": "6",
+        "name": "Firebase",
+        "category": "Backend",
+        "proficiency": 0.85,
+        "iconUrl": ""
+    },
+    {
+        "id": "7",
+        "name": "SQL / PostgreSQL",
+        "category": "Database",
+        "proficiency": 0.80,
+        "iconUrl": ""
+    },
+    {
+        "id": "8",
+        "name": "C# / ASP.NET",
+        "category": "Backend",
+        "proficiency": 0.75,
+        "iconUrl": ""
+    },
+    {
+        "id": "9",
+        "name": "Git / GitHub",
+        "category": "Tools",
+        "proficiency": 0.90,
+        "iconUrl": ""
+    },
+    {
+        "id": "10",
+        "name": "C / C++",
+        "category": "Languages",
+        "proficiency": 0.70,
+        "iconUrl": ""
+    }
+]
