@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/utils/constants.dart';
-import '../../data/repositories/portfolio_repository.dart';
 
 import '../widgets/nav_bar.dart';
 import '../widgets/footer.dart';
@@ -27,7 +25,6 @@ class _HomePageState extends State<HomePage>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   bool _showScrollIndicator = true;
-  bool _assetsPrecached = false;
   final ValueNotifier<double> _scrollProgress = ValueNotifier(0);
 
   // Keys for scrolling to sections
@@ -51,37 +48,6 @@ class _HomePageState extends State<HomePage>
     );
 
     _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (!_assetsPrecached) {
-      _assetsPrecached = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) {
-          return;
-        }
-        _precacheStartupAssets(context);
-      });
-    }
-  }
-
-  Future<void> _precacheStartupAssets(BuildContext context) async {
-    final providers = <ImageProvider<Object>>[
-      const AssetImage(AppConstants.profileImage),
-      ...PortfolioRepository().getProjects().map((project) {
-        final image = project.imageUrl;
-        return image.startsWith('http')
-            ? NetworkImage(image)
-            : AssetImage(image);
-      }),
-    ];
-
-    for (final provider in providers) {
-      await precacheImage(provider, context);
-    }
   }
 
   void _onScroll() {
