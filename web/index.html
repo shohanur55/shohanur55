@@ -153,9 +153,26 @@
   </div>
 
   <script>
-    window.addEventListener('load', function() {
+    (function() {
       var serviceWorkerVersion = null;
       var scriptLoaded = false;
+      var splashShownAt = Date.now();
+      var minimumSplashDuration = 700;
+
+      function hideSplashScreen() {
+        var splash = document.getElementById('splash-screen');
+        if (!splash) return;
+
+        var elapsed = Date.now() - splashShownAt;
+        var delay = Math.max(0, minimumSplashDuration - elapsed);
+
+        setTimeout(function() {
+          splash.style.opacity = '0';
+          splash.style.transition = 'opacity 0.4s ease';
+          setTimeout(function() { splash.remove(); }, 400);
+        }, delay);
+      }
+
       function loadMainDartJs() {
         if (scriptLoaded) return;
         scriptLoaded = true;
@@ -164,23 +181,23 @@
         scriptTag.type = 'application/javascript';
         document.body.appendChild(scriptTag);
       }
+
+      window.addEventListener('flutter-first-frame', hideSplashScreen);
+
       if ('serviceWorker' in navigator) {
         window.addEventListener('flutter-first-frame', function() {
           navigator.serviceWorker.register('flutter_service_worker.js?v=' + serviceWorkerVersion);
         });
       }
-      loadMainDartJs();
-    });
 
-    // Hide splash screen when Flutter renders first frame
-    window.addEventListener('flutter-first-frame', function() {
-      var splash = document.getElementById('splash-screen');
-      if (splash) {
-        splash.style.opacity = '0';
-        splash.style.transition = 'opacity 0.4s ease';
-        setTimeout(function() { splash.remove(); }, 400);
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        requestAnimationFrame(loadMainDartJs);
+      } else {
+        window.addEventListener('DOMContentLoaded', function() {
+          requestAnimationFrame(loadMainDartJs);
+        });
       }
-    });
+    })();
   </script>
 </body>
 </html>

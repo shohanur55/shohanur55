@@ -20,10 +20,12 @@ class HeroSection extends StatefulWidget {
 
 class _HeroSectionState extends State<HeroSection> {
   static const List<String> _headlines = <String>[
-    'I build mobile experiences.',
-    'I am a Flutter Expert.',
-    'I solve complex problems.',
-    'I bring ideas to life.',
+    'App Developer',
+    'Problem Solver',
+    'Programmer',
+    'Tech Enthusiast',
+    'Bug fixer',
+    'Lifelong Learner',
   ];
 
   Timer? _headlineTimer;
