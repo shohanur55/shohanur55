@@ -152,7 +152,7 @@ class _ProjectDetailDialogState extends State<ProjectDetailDialog> {
                                   height: imageHeight,
                                   viewportFraction: viewportFraction,
                                   autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 4),
+                                  autoPlayInterval: const Duration(seconds: 3),
                                   autoPlayAnimationDuration: const Duration(
                                     milliseconds: 750,
                                   ),

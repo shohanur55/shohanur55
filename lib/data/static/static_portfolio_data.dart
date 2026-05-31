@@ -10,6 +10,7 @@ class StaticPortfolioData {
       description:
           "A Flutter CRM software for efficient customer relationship management.",
       technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/jogajog/1.png, 2.png, 3.png, 6.png, 9.png, 11.png
       imageUrl: "assets/images/projects/jogajog/1.png",
       images: [
         "assets/images/projects/jogajog/1.png",
@@ -37,6 +38,7 @@ class StaticPortfolioData {
       description:
           "Easily manage home repairs — connect customers, contractors & consultants.",
       technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/multifix/4.jpg, 5.jpg
       imageUrl: "assets/images/projects/multifix/1.jpg",
       images: [
         "assets/images/projects/multifix/1.jpg",
@@ -77,6 +79,7 @@ class StaticPortfolioData {
       description:
           "Streamlined accounting software simplifies financial data management for individuals and businesses, ensuring a seamless user experience.",
       technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/atrai/1.png, 3.png, 4.png, 6.png
       imageUrl: "assets/images/projects/atrai/1.png",
       images: [
         "assets/images/projects/atrai/1.png",
@@ -99,6 +102,7 @@ class StaticPortfolioData {
       description:
           "Any organization transportation service that operates on a fixed route. Live location sharing for hosts and specific user tracking.",
       technologies: ["Dart", "Flutter", "Firebase", "GetX"],
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/shuttle_bus/1.png, 2.png, 3.png, 4.png, 5.png, 9.png, 10.png, 11.png, 12.png, 13.png
       imageUrl: "assets/images/projects/shuttle_bus/1.png",
       images: [
         "assets/images/projects/shuttle_bus/1.png",
@@ -149,6 +153,7 @@ class StaticPortfolioData {
 
 * Open-sourced the app to foster community exploration and feedback.''',
       technologies: ["Dart", "Flutter", "Rest API", "GetX"],
+  // TODO: Compress these images to WebP format for better performance: assets/images/projects/easy_hr/1.png
       imageUrl: "assets/images/projects/easy_hr/1.png",
       images: [
         "assets/images/projects/easy_hr/1.png",

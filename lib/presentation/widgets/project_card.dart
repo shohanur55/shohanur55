@@ -82,7 +82,7 @@ class _ProjectCardState extends State<ProjectCard> {
                                     viewportFraction: viewportFraction,
                                     autoPlay: true,
                                     autoPlayInterval:
-                                        const Duration(seconds: 4),
+                                        const Duration(seconds: 2),
                                     autoPlayAnimationDuration: const Duration(
                                       milliseconds: 750,
                                     ),

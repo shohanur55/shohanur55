@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       designSize: designSize,
       minTextAdapt: true,
       builder: (_, child) => MaterialApp(
-        title: 'Shohan Project',
+        title: 'Md. Shohanur Rahman Portfolio',
         scrollBehavior: const PortfolioScrollBehavior(),
         theme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
