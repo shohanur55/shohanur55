@@ -75999,7 +75999,7 @@ n.push(m.zU(B.lK,"https://github.com/shohanur55"))
 n.push(m.zU(B.lJ,u.m))
 n.push(m.zU(B.lI,"mailto:mshohan088@gmail.com"))
 return A.d1(A.c([i,B.h1,q,B.wU,r,B.wV,s,B.wV,p,B.h1,o,B.wW,A.z2(A.nc(A.mB(A.lT(B.b0,n,B.xz,14,14)),A.bH(75e4,0),A.bH(k,0)),0.08,B.bu,0)],j),B.Z,B.w,B.aS)},
-Zr(a){var s=null,r=a?64:52,q=a?520:320,p=this.f,o=B.E1[p]
+Zr(a){var s=null,r=a?64:52,q=a?520:320,p=this.f,o=B.DW[p]
 return A.z2(A.nc(A.mB(A.bf(new A.fu(B.kn,s,s,new A.dS(new A.ah(0,q,0,1/0),A.akP(A.bi(o,new A.cX(p,t.f3),s,s,A.cL().$5$color$fontSize$fontWeight$height$letterSpacing(B.y,a?42:28,B.a1,1.15,-0.8),s),B.Bk,B.bu,B.AJ,new A.adH()),s),s),r,s)),A.bH(3e5,0),A.bH(5e5,0)),0.1,B.bu,0)},
 Za(a,b){return A.a_I(new A.adB(b))},
 Zb(a){var s,r=null,q=A.c(["Flutter","Dart","GetX","REST APIs","Firebase"],t.s),p=A.a_(B.c.ah(229.5),B.y.m()>>>16&255,B.y.m()>>>8&255,B.y.m()&255)
@@ -76047,7 +76047,7 @@ s.av(new A.adI(s))},
 $S:118}
 A.adI.prototype={
 $0(){var s=this.a
-s.f=(s.f+1)%4},
+s.f=(s.f+1)%6},
 $S:0}
 A.adF.prototype={
 $0(){return this.a.mR("mailto:mshohan088@gmail.com")},
@@ -80159,6 +80159,7 @@ B.aN=new A.iV(1,"avatar")
 B.c0=new A.iV(2,"deleteIcon")
 B.DT=s([B.bd,B.aN,B.c0],A.ak("y<iV>"))
 B.DU=s([1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298],t.t)
+B.DW=s(["App Developer","Problem Solver","Programmer","Tech Enthusiast","Bug fixer","Lifelong Learner"],t.s)
 B.ET=new A.jw("en",null,"US")
 B.m8=s([B.ET],t.ss)
 B.m9=s([0,41,61,101,131,181,251,301,360],t.n)
@@ -80170,7 +80171,6 @@ B.QT=new A.kc(8,0.12)
 B.QS=new A.kc(12,0.14)
 B.ma=s([B.QR,B.QW,B.QU,B.QV,B.QT,B.QS],A.ak("y<kc>"))
 B.mb=s([0,21,51,121,151,191,271,321,360],t.n)
-B.E1=s(["I build mobile experiences.","I am a Flutter Expert.","I solve complex problems.","I bring ideas to life."],t.s)
 B.E2=s([-1,0,0,1,0,0,-1,0,1,0,0,0,-1,1,0,1,1,1,1,0],t.n)
 B.x1=new A.zi(0,"left")
 B.x2=new A.zi(1,"right")
@@ -80811,22 +80811,22 @@ B.Ez=s([B.r2,null,null,B.ch],t.L)
 B.EA=s([B.r3,null,null,B.dV],t.L)
 B.DI=s([B.dQ,B.dQ,B.fq,null],t.L)
 B.EI=s([B.fm,null,B.fm,null],t.L)
-B.DW=s([B.bj,null,null,B.ce],t.L)
-B.DX=s([B.b8,null,null,B.cf],t.L)
-B.DY=s([B.b9,null,null,B.cg],t.L)
+B.DX=s([B.bj,null,null,B.ce],t.L)
+B.DY=s([B.b8,null,null,B.cf],t.L)
+B.DZ=s([B.b9,null,null,B.cg],t.L)
 B.EM=s([B.bk,null,null,B.ch],t.L)
 B.EB=s([B.j0,null,null,B.j7],t.L)
 B.DJ=s([B.dP,B.dP,B.fp,null],t.L)
 B.Ei=s([B.aw,null,null,B.cd],t.L)
-B.DZ=s([B.ca,null,null,B.dS],t.L)
+B.E_=s([B.ca,null,null,B.dS],t.L)
 B.DD=s([B.fl,null,null,B.j5],t.L)
-B.E_=s([B.cb,null,null,B.dU],t.L)
+B.E0=s([B.cb,null,null,B.dU],t.L)
 B.EC=s([B.dO,null,null,B.j6],t.L)
 B.DK=s([B.dR,B.dR,B.fr,null],t.L)
-B.E0=s([B.dM,null,null,B.dT],t.L)
+B.E1=s([B.dM,null,null,B.dT],t.L)
 B.Em=s([B.dN,null,null,B.dV],t.L)
 B.DL=s([B.cc,B.cc,B.cK,null],t.L)
-B.Gy=new A.dk(["*",B.DA,"+",B.Ey,"-",B.DV,".",B.Eb,"/",B.D0,"0",B.EH,"1",B.EE,"2",B.DG,"3",B.EN,"4",B.ED,"5",B.DE,"6",B.D6,"7",B.DO,"8",B.Ez,"9",B.EA,"Alt",B.DI,"AltGraph",B.EI,"ArrowDown",B.DW,"ArrowLeft",B.DX,"ArrowRight",B.DY,"ArrowUp",B.EM,"Clear",B.EB,"Control",B.DJ,"Delete",B.Ei,"End",B.DZ,"Enter",B.DD,"Home",B.E_,"Insert",B.EC,"Meta",B.DK,"PageDown",B.E0,"PageUp",B.Em,"Shift",B.DL],A.ak("dk<A,V<e?>>"))
+B.Gy=new A.dk(["*",B.DA,"+",B.Ey,"-",B.DV,".",B.Eb,"/",B.D0,"0",B.EH,"1",B.EE,"2",B.DG,"3",B.EN,"4",B.ED,"5",B.DE,"6",B.D6,"7",B.DO,"8",B.Ez,"9",B.EA,"Alt",B.DI,"AltGraph",B.EI,"ArrowDown",B.DX,"ArrowLeft",B.DY,"ArrowRight",B.DZ,"ArrowUp",B.EM,"Clear",B.EB,"Control",B.DJ,"Delete",B.Ei,"End",B.E_,"Enter",B.DD,"Home",B.E0,"Insert",B.EC,"Meta",B.DK,"PageDown",B.E1,"PageUp",B.Em,"Shift",B.DL],A.ak("dk<A,V<e?>>"))
 B.H2={KeyA:0,KeyB:1,KeyC:2,KeyD:3,KeyE:4,KeyF:5,KeyG:6,KeyH:7,KeyI:8,KeyJ:9,KeyK:10,KeyL:11,KeyM:12,KeyN:13,KeyO:14,KeyP:15,KeyQ:16,KeyR:17,KeyS:18,KeyT:19,KeyU:20,KeyV:21,KeyW:22,KeyX:23,KeyY:24,KeyZ:25,Digit1:26,Digit2:27,Digit3:28,Digit4:29,Digit5:30,Digit6:31,Digit7:32,Digit8:33,Digit9:34,Digit0:35,Minus:36,Equal:37,BracketLeft:38,BracketRight:39,Backslash:40,Semicolon:41,Quote:42,Backquote:43,Comma:44,Period:45,Slash:46}
 B.rh=new A.bN(B.H2,["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","-","=","[","]","\\",";","'","`",",",".","/"],t.li)
 B.GZ={Abort:0,Again:1,AltLeft:2,AltRight:3,ArrowDown:4,ArrowLeft:5,ArrowRight:6,ArrowUp:7,AudioVolumeDown:8,AudioVolumeMute:9,AudioVolumeUp:10,Backquote:11,Backslash:12,Backspace:13,BracketLeft:14,BracketRight:15,BrightnessDown:16,BrightnessUp:17,BrowserBack:18,BrowserFavorites:19,BrowserForward:20,BrowserHome:21,BrowserRefresh:22,BrowserSearch:23,BrowserStop:24,CapsLock:25,Comma:26,ContextMenu:27,ControlLeft:28,ControlRight:29,Convert:30,Copy:31,Cut:32,Delete:33,Digit0:34,Digit1:35,Digit2:36,Digit3:37,Digit4:38,Digit5:39,Digit6:40,Digit7:41,Digit8:42,Digit9:43,DisplayToggleIntExt:44,Eject:45,End:46,Enter:47,Equal:48,Escape:49,Esc:50,F1:51,F10:52,F11:53,F12:54,F13:55,F14:56,F15:57,F16:58,F17:59,F18:60,F19:61,F2:62,F20:63,F21:64,F22:65,F23:66,F24:67,F3:68,F4:69,F5:70,F6:71,F7:72,F8:73,F9:74,Find:75,Fn:76,FnLock:77,GameButton1:78,GameButton10:79,GameButton11:80,GameButton12:81,GameButton13:82,GameButton14:83,GameButton15:84,GameButton16:85,GameButton2:86,GameButton3:87,GameButton4:88,GameButton5:89,GameButton6:90,GameButton7:91,GameButton8:92,GameButton9:93,GameButtonA:94,GameButtonB:95,GameButtonC:96,GameButtonLeft1:97,GameButtonLeft2:98,GameButtonMode:99,GameButtonRight1:100,GameButtonRight2:101,GameButtonSelect:102,GameButtonStart:103,GameButtonThumbLeft:104,GameButtonThumbRight:105,GameButtonX:106,GameButtonY:107,GameButtonZ:108,Help:109,Home:110,Hyper:111,Insert:112,IntlBackslash:113,IntlRo:114,IntlYen:115,KanaMode:116,KeyA:117,KeyB:118,KeyC:119,KeyD:120,KeyE:121,KeyF:122,KeyG:123,KeyH:124,KeyI:125,KeyJ:126,KeyK:127,KeyL:128,KeyM:129,KeyN:130,KeyO:131,KeyP:132,KeyQ:133,KeyR:134,KeyS:135,KeyT:136,KeyU:137,KeyV:138,KeyW:139,KeyX:140,KeyY:141,KeyZ:142,KeyboardLayoutSelect:143,Lang1:144,Lang2:145,Lang3:146,Lang4:147,Lang5:148,LaunchApp1:149,LaunchApp2:150,LaunchAssistant:151,LaunchControlPanel:152,LaunchMail:153,LaunchScreenSaver:154,MailForward:155,MailReply:156,MailSend:157,MediaFastForward:158,MediaPause:159,MediaPlay:160,MediaPlayPause:161,MediaRecord:162,MediaRewind:163,MediaSelect:164,MediaStop:165,MediaTrackNext:166,MediaTrackPrevious:167,MetaLeft:168,MetaRight:169,MicrophoneMuteToggle:170,Minus:171,NonConvert:172,NumLock:173,Numpad0:174,Numpad1:175,Numpad2:176,Numpad3:177,Numpad4:178,Numpad5:179,Numpad6:180,Numpad7:181,Numpad8:182,Numpad9:183,NumpadAdd:184,NumpadBackspace:185,NumpadClear:186,NumpadClearEntry:187,NumpadComma:188,NumpadDecimal:189,NumpadDivide:190,NumpadEnter:191,NumpadEqual:192,NumpadMemoryAdd:193,NumpadMemoryClear:194,NumpadMemoryRecall:195,NumpadMemoryStore:196,NumpadMemorySubtract:197,NumpadMultiply:198,NumpadParenLeft:199,NumpadParenRight:200,NumpadSubtract:201,Open:202,PageDown:203,PageUp:204,Paste:205,Pause:206,Period:207,Power:208,PrintScreen:209,PrivacyScreenToggle:210,Props:211,Quote:212,Resume:213,ScrollLock:214,Select:215,SelectTask:216,Semicolon:217,ShiftLeft:218,ShiftRight:219,ShowAllWindows:220,Slash:221,Sleep:222,Space:223,Super:224,Suspend:225,Tab:226,Turbo:227,Undo:228,WakeUp:229,ZoomToggle:230}
