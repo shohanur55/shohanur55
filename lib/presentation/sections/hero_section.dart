@@ -59,7 +59,7 @@ class _HeroSectionState extends State<HeroSection> {
   }
 
   static const String _resumeUrl =
-      'https://docs.google.com/document/d/1YGXdKA7stmvtRi9U9OLfecD_jILYI2DYRTR49HrdLOA/edit?tab=t.0';
+      'https://docs.google.com/document/d/1QljZoLos6xVS8WLQTUuA8mxplKdXZAPGdnDQL81n2_o/edit?tab=t.0';
   static const String _githubUrl = 'https://github.com/shohanur55';
   static const String _linkedInUrl =
       'https://www.linkedin.com/in/md-shohanur-rahaman-a56999292/';
