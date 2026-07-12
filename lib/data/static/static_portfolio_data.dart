@@ -7,8 +7,15 @@ class StaticPortfolioData {
     Project(
       id: "1",
       title: "Jogajog",
-      description:
-          "A Flutter CRM software for efficient customer relationship management.",
+      description: '''
+Jogajog is a Flutter-based communication and business collaboration application designed for both personal and professional use.
+
+• Developed a comprehensive communication and collaboration app for managing family, friends, and workplace connections.
+• Implemented real-time location sharing, meeting scheduling, and training management features.
+• Built a lead management system to track lead stages, assigned products, and overall sales progress.
+• Designed dashboards to monitor upcoming meetings, training sessions, and lead generation activities.
+• Integrated business workflow features to organize appointments, manage clients, and improve team productivity.
+''',
       technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/jogajog/1.png, 2.png, 3.png, 6.png, 9.png, 11.png
       imageUrl: "assets/images/projects/jogajog/1.png",
@@ -35,8 +42,15 @@ class StaticPortfolioData {
     Project(
       id: "2",
       title: "Multifix",
-      description:
-          "Easily manage home repairs — connect customers, contractors & consultants.",
+      description: '''
+A cross-platform home service application built with Flutter for Android and iOS, connecting customers with professional contractors and consultants.
+
+- Developed a role-based platform with Customer, Contractor, and Consultant modules.
+- Implemented a ticket management system for reporting and tracking home service requests such as plumbing, electrical, and maintenance issues.
+- Built task management features enabling contractors to accept, update, and complete assigned jobs efficiently.
+- Integrated admin-controlled authentication and role-based access for secure user management.
+- Designed a streamlined workflow for home service requests, communication, and service delivery.
+''',
       technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/multifix/4.jpg, 5.jpg
       imageUrl: "assets/images/projects/multifix/1.jpg",
@@ -55,29 +69,48 @@ class StaticPortfolioData {
       appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
     ),
 
-
     Project(
       id: "3",
-      title: "Halda",
-      description:
-          "HR app for attendance tracking and management. Users can give/view attendance and perform admin tasks like employee management.",
-      technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
-      imageUrl: "assets/images/projects/halda/1.png",
+      title: "Maziwa Hub",
+      description: '''
+A cross-platform dairy farm and supply chain management application built with Flutter, designed to streamline dairy operations from milk production to market distribution.
+
+- Developed a multi-role platform supporting Milk Producers, Milk Processors, Suppliers, Financial Institutions, and Public Users with role-based access control.
+- Built dairy management modules for milk production tracking, product listings, certifications, inventory, and sales management.
+- Implemented supply chain features to connect farmers, processors, suppliers, and other stakeholders through a unified platform.
+- Integrated market insights, pricing updates, analytics, and reporting to support business decision-making.
+- Developed features for financial services, advertisements, stakeholder engagement, and service provider connectivity.
+- Built a responsive Flutter application with REST API integration, secure authentication, and a user-friendly interface.
+''',
+      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/maziwa_hub/4.jpg, 5.jpg
+      imageUrl: "assets/images/projects/maziwa_hub/1.png",
       images: [
-        "assets/images/projects/halda/1.png",
-        "assets/images/projects/halda/2.png",
-        "assets/images/projects/halda/3.png",
+        "assets/images/projects/maziwa_hub/1.png",
+        "assets/images/projects/maziwa_hub/2.png",
+        "assets/images/projects/maziwa_hub/3.png",
+        "assets/images/projects/maziwa_hub/4.png",
+        "assets/images/projects/maziwa_hub/5.png",
+        "assets/images/projects/maziwa_hub/6.png",
       ],
       githubUrl: null,
       liveUrl: null,
-      playStoreUrl:
-          "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
+      appStoreUrl: "https://apps.apple.com/gb/app/maziwa-hub/id6761703840",
     ),
+
     Project(
       id: "4",
       title: "Atrai",
-      description:
-          "Streamlined accounting software simplifies financial data management for individuals and businesses, ensuring a seamless user experience.",
+      description: '''
+A Flutter-based financial and accounting management application designed to help businesses monitor income, expenses, revenue, and overall financial performance.
+
+- Developed modules to track company income, expenses, and cash flow across multiple business operations.
+- Implemented financial dashboards with weekly, monthly, quarterly, and yearly revenue and expense analytics.
+- Built transaction history features for monitoring all income and expense records with detailed reports.
+- Enabled expense categorization and financial insights to improve budgeting and business decision-making.
+- Integrated employee reimbursement and requisition management for handling internal financial requests.
+- Developed responsive dashboards with REST API integration for real-time financial data management.
+''',
       technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/atrai/1.png, 3.png, 4.png, 6.png
       imageUrl: "assets/images/projects/atrai/1.png",
@@ -98,9 +131,42 @@ class StaticPortfolioData {
     ),
     Project(
       id: "5",
+      title: "Halda",
+      description: '''
+A Flutter-based HR management application for employee and workforce management.
+
+- Attendance management with check-in, check-out, and attendance tracking.
+- Leave request and approval management.
+- Salary and payroll information management.
+- Employee management with role-based access for Admin and Employees.
+- REST API integration with a responsive and user-friendly interface.
+''',
+      technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
+      imageUrl: "assets/images/projects/halda/1.png",
+      images: [
+        "assets/images/projects/halda/1.png",
+        "assets/images/projects/halda/2.png",
+        "assets/images/projects/halda/3.png",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+      playStoreUrl:
+          "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
+    ),
+
+    Project(
+      id: "6",
       title: "Shuttle Bus",
-      description:
-          "Any organization transportation service that operates on a fixed route. Live location sharing for hosts and specific user tracking.",
+      description: '''
+A cross-platform transportation management application built with Flutter for Android and iOS, enabling organizations and communities to manage shuttle services with real-time location tracking.
+
+- Developed a live GPS tracking system using Google Maps and Supabase Realtime, allowing hosts and passengers to share and monitor locations instantly.
+- Implemented background location updates with real-time synchronization, providing accurate bus locations, member tracking, distance calculations, and ETA.
+- Built a role-based transportation system where users can create or join shuttle services as Hosts or Passengers using unique service codes.
+- Designed features for pickup point selection, destination management, custom routes, and live member tracking to improve transportation coordination.
+- Integrated secure Google Sign-In, session management, and role-based access control with Supabase Authentication.
+- Built a responsive and scalable Flutter application with real-time communication, delivering a smooth and reliable user experience.
+''',
       technologies: ["Dart", "Flutter", "Firebase", "GetX"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/shuttle_bus/1.png, 2.png, 3.png, 4.png, 5.png, 9.png, 10.png, 11.png, 12.png, 13.png
       imageUrl: "assets/images/projects/shuttle_bus/1.png",
@@ -122,11 +188,10 @@ class StaticPortfolioData {
       githubUrl: null,
       liveUrl: null,
       playStoreUrl:
-      "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
-
+          "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
     ),
     Project(
-      id: "6",
+      id: "7",
       title: "Easy HR",
       description:
           '''Empower your workforce with our Flutter-based HR application. Seamlessly manage attendance, view records, and access a range of functionalities. Whether you're an admin or employee, easily maintain and monitor your team. Contact the app owner for access. Built with Flutter, GetX, and API integration for a streamlined experience.
@@ -153,7 +218,7 @@ class StaticPortfolioData {
 
 * Open-sourced the app to foster community exploration and feedback.''',
       technologies: ["Dart", "Flutter", "Rest API", "GetX"],
-  // TODO: Compress these images to WebP format for better performance: assets/images/projects/easy_hr/1.png
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/easy_hr/1.png
       imageUrl: "assets/images/projects/easy_hr/1.png",
       images: [
         "assets/images/projects/easy_hr/1.png",
@@ -165,10 +230,10 @@ class StaticPortfolioData {
       ],
       githubUrl: null,
       liveUrl: null,
-        playStoreUrl:
+      playStoreUrl:
           "https://play.google.com/store/apps/details?id=dev.gtrbd.easyhrflutter&pcampaignid=web_share",
-      
     ),
+
     // Project(
     //   id: "7",
     //   title: "Office Management System",
@@ -183,11 +248,10 @@ class StaticPortfolioData {
     //   githubUrl: null,
     //   liveUrl: null,
     // ),
-
   ];
 
   static final List<ExperienceModel> experience = [
-     ExperienceModel(
+    ExperienceModel(
       id: "1",
       company: "SM Technology, Betopia Group",
       role: "Team Leader",
@@ -198,7 +262,15 @@ class StaticPortfolioData {
         "Led feature delivery across key products including Jogajog, Halda, and Atrai.",
         "Implemented features using GetX, MVC/MVVM patterns, REST APIs, Firebase, C#, and ASP.NET.",
       ],
-      technologies: ["Flutter", "Dart", "GetX", "REST API", "Firebase","C#", "ASP.NET"],
+      technologies: [
+        "Flutter",
+        "Dart",
+        "GetX",
+        "REST API",
+        "Firebase",
+        "C#",
+        "ASP.NET",
+      ],
     ),
     ExperienceModel(
       id: "2",
@@ -211,7 +283,15 @@ class StaticPortfolioData {
         "Implemented features using GetX for state management and MVC/MVVM patterns.",
         "Integrated REST APIs and Firebase for backend connectivity.",
       ],
-      technologies: ["Flutter", "Dart", "GetX", "REST API", "Firebase","C#", "ASP.NET"],
+      technologies: [
+        "Flutter",
+        "Dart",
+        "GetX",
+        "REST API",
+        "Firebase",
+        "C#",
+        "ASP.NET",
+      ],
     ),
   ];
 
@@ -314,6 +394,5 @@ class StaticPortfolioData {
       proficiency: 0.85,
       iconUrl: "",
     ),
-  
   ];
 }

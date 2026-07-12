@@ -277,7 +277,11 @@ class _HeroSectionState extends State<HeroSection> {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(Icons.waving_hand, color: AppTheme.primaryColor, size: 22),
+            const Icon(
+              Icons.waving_hand,
+              color: AppTheme.primaryColor,
+              size: 22,
+            ),
           ],
         )
         .animate()
@@ -581,43 +585,39 @@ class _HeroSectionState extends State<HeroSection> {
 
   Widget _buildResumeButton(bool isDesktop) {
     return OutlinedButton(
-          onPressed: () => _launchURL(_resumeUrl),
-          style: OutlinedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-              horizontal: isDesktop ? 28 : 24,
-              vertical: isDesktop ? 20 : 18,
-            ),
-            side: const BorderSide(color: AppTheme.primaryColor, width: 2),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-            backgroundColor: AppTheme.primaryColor.withOpacity(0.06),
-          ),
-          child: Text(
-            'Download Resume',
-            style: GoogleFonts.firaCode(
-              color: AppTheme.primaryColor,
-              fontSize: (isDesktop ? 15.0 : 14.sp).clamp(12.0, 18.0),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        );
+      onPressed: () => _launchURL(_resumeUrl),
+      style: OutlinedButton.styleFrom(
+        padding: EdgeInsets.symmetric(
+          horizontal: isDesktop ? 28 : 24,
+          vertical: isDesktop ? 20 : 18,
+        ),
+        side: const BorderSide(color: AppTheme.primaryColor, width: 2),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        backgroundColor: AppTheme.primaryColor.withOpacity(0.06),
+      ),
+      child: Text(
+        'Download Resume',
+        style: GoogleFonts.firaCode(
+          color: AppTheme.primaryColor,
+          fontSize: (isDesktop ? 15.0 : 14.sp).clamp(12.0, 18.0),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
   }
 
   Widget _buildSocialIcon(FaIconData icon, String url) {
     return MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: IconButton(
-            onPressed: () => _launchURL(url),
-            icon: FaIcon(icon, color: AppTheme.secondaryColor, size: 22),
-            style: IconButton.styleFrom(
-              backgroundColor: AppTheme.cardColor.withOpacity(0.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-        );
+      cursor: SystemMouseCursors.click,
+      child: IconButton(
+        onPressed: () => _launchURL(url),
+        icon: FaIcon(icon, color: AppTheme.secondaryColor, size: 22),
+        style: IconButton.styleFrom(
+          backgroundColor: AppTheme.cardColor.withOpacity(0.5),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+    );
   }
 
   Widget _buildHeroProfileImage(bool isDesktop) {
