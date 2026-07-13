@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:dotlottie_flutter/dotlottie_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -147,8 +146,6 @@ class _HeroSectionState extends State<HeroSection> {
               ),
             ),
           ],
-          // Left sidebar email (desktop)
-          if (isDesktop) _buildSidebarEmail(context),
           // Main content
           SectionContainer(
             color: Colors.transparent,
@@ -171,6 +168,8 @@ class _HeroSectionState extends State<HeroSection> {
               ),
             ),
           ),
+          // Left sidebar email (desktop) - Rendered last to avoid being blocked by main content hit tests
+          if (isDesktop) _buildSidebarEmail(context),
         ],
       ),
     );
