@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 const String resumeUrl =
-    'https://docs.google.com/document/d/1QljZoLos6xVS8WLQTUuA8mxplKdXZAPGdnDQL81n2_o/edit?tab=t.0';
+    'https://drive.google.com/file/d/15ZxnMprxGZFpmVnPvaCvjqH6z0ujCbZL/view?usp=drive_link';
 
 Future<void> launchURL(String url) async {
   final uri = Uri.parse(url);

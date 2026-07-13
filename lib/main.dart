@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/utils/constants.dart';
 import 'core/theme/app_theme.dart';
@@ -72,21 +73,30 @@ class _BootstrapShellState extends State<BootstrapShell> {
 
   Future<void> _warmUpApp(BuildContext context) async {
     await Future.delayed(const Duration(milliseconds: 700));
+    if (!context.mounted) return;
 
+    // 1. Precache the critical profile image which is immediately visible in the hero section.
+    // Wrap in try-catch to ensure any loading error doesn't block the app startup.
+    try {
+      await precacheImage(const AssetImage(AppConstants.profileImage), context);
+    } catch (e) {
+      debugPrint('Error precaching profile image: $e');
+    }
+
+    if (!context.mounted) return;
+
+    // 2. Precache the cover images of each project asynchronously in the background.
+    // This allows the home page to open instantly while cover images load concurrently.
     final repository = PortfolioRepository();
-    final providers = <ImageProvider<Object>>[
-      const AssetImage(AppConstants.profileImage),
-      ...repository.getProjects().expand((project) {
-        return project.images.map((image) {
-          return image.startsWith('http')
-              ? NetworkImage(image)
-              : AssetImage(image);
-        });
-      }),
-    ];
+    for (final project in repository.getProjects()) {
+      final coverImage = project.imageUrl;
+      final ImageProvider<Object> provider = coverImage.startsWith('http')
+          ? NetworkImage(coverImage)
+          : AssetImage(coverImage);
 
-    for (final provider in providers) {
-      await precacheImage(provider, context);
+      precacheImage(provider, context).catchError((e) {
+        debugPrint('Error precaching cover image for project ${project.title}: $e');
+      });
     }
   }
 
@@ -117,25 +127,67 @@ class _AppSplashScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 112,
-              height: 112,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF64FFDA).withOpacity(0.22),
-                  width: 4,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                // Outer Orbiting Arc (Clockwise)
+                SizedBox(
+                  width: 112,
+                  height: 112,
+                  child: const CircularProgressIndicator(
+                    value: 0.65, // partial circle (arc)
+                    strokeWidth: 2.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF64FFDA)),
+                    backgroundColor: Colors.transparent,
+                  )
+                      .animate(onPlay: (controller) => controller.repeat())
+                      .rotate(duration: 2200.ms),
                 ),
-              ),
-              child: Center(
-                child: Container(
-                  width: 82,
-                  height: 82,
+                // Inner Orbiting Arc (Counter-Clockwise)
+                SizedBox(
+                  width: 96,
+                  height: 96,
+                  child: CircularProgressIndicator(
+                    value: 0.35, // partial circle (arc)
+                    strokeWidth: 1.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(const Color(0xFF64FFDA).withOpacity(0.4)),
+                    backgroundColor: Colors.transparent,
+                  )
+                      .animate(onPlay: (controller) => controller.repeat())
+                      .rotate(duration: 1600.ms, begin: 1, end: 0), // opposite direction
+                ),
+                // Glowing Background Halo
+                Container(
+                  width: 76,
+                  height: 76,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF0A192F),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF64FFDA).withOpacity(0.08),
+                        blurRadius: 20,
+                        spreadRadius: 6,
+                      ),
+                    ],
+                  ),
+                )
+                    .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                    .scale(
+                      begin: const Offset(0.9, 0.9),
+                      end: const Offset(1.1, 1.1),
+                      duration: 1800.ms,
+                      curve: Curves.easeInOut,
+                    ),
+                // Central Logo Container
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0xFF0B1930), // Slightly lighter navy for contrast
                     border: Border.all(
-                      color: const Color(0xFF64FFDA).withOpacity(0.22),
+                      color: const Color(0xFF64FFDA).withOpacity(0.18),
+                      width: 1,
                     ),
                   ),
                   child: const Center(
@@ -143,23 +195,35 @@ class _AppSplashScreen extends StatelessWidget {
                       'S',
                       style: TextStyle(
                         color: Color(0xFFE6F1FF),
-                        fontSize: 36,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 34,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
-                ),
-              ),
+                )
+                    .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                    .shimmer(duration: 3.seconds, color: const Color(0xFF64FFDA).withOpacity(0.15))
+                    .scale(
+                      begin: const Offset(0.98, 0.98),
+                      end: const Offset(1.02, 1.02),
+                      duration: 1500.ms,
+                      curve: Curves.easeInOut,
+                    ),
+              ],
             ),
-            const SizedBox(height: 18),
-            const Text(
+            const SizedBox(height: 24),
+            Text(
               'Loading portfolio...',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFFCBD5E1),
                 fontSize: 16,
                 letterSpacing: 0.2,
               ),
-            ),
+            )
+                .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                .fadeIn(duration: 1.seconds)
+                .fadeOut(duration: 1.seconds, delay: 1.seconds),
           ],
         ),
       ),

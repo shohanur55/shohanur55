@@ -36,7 +36,7 @@ class Footer extends StatelessWidget {
           ),
           SizedBox(height: 24.h),
           Text(
-            'Designed & Built by Md. Shohanur Rahaman',
+            'Designed & Built with Flutter by Md. Shohanur Rahaman',
             style: GoogleFonts.firaCode(
               color: AppTheme.secondaryColor,
               fontSize: 14.sp.clamp(12.0, 18.0),
