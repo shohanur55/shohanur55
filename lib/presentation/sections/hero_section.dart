@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/constants.dart';
@@ -58,8 +57,6 @@ class _HeroSectionState extends State<HeroSection> {
     super.dispose();
   }
 
-  static const String _resumeUrl =
-      'https://docs.google.com/document/d/1QljZoLos6xVS8WLQTUuA8mxplKdXZAPGdnDQL81n2_o/edit?tab=t.0';
   static const String _githubUrl = 'https://github.com/shohanur55';
   static const String _linkedInUrl =
       'https://www.linkedin.com/in/md-shohanur-rahaman-a56999292/';
@@ -95,25 +92,25 @@ class _HeroSectionState extends State<HeroSection> {
           // Subtle decorative glow
           if (isDesktop && _showDecorations) ...[
             // Lottie animation on left side as background decoration
-            Positioned(
-              left: 10,
-              top: 100,
-              child: Opacity(
-                opacity: 0.15,
-                child: SizedBox(
-                  width: 400.w,
-                  height: 400.h,
-                  child: IgnorePointer(
-                    child: DotLottieView(
-                      sourceType: 'asset',
-                      source: 'assets/lottie/fnoDIUWfiv.lottie',
-                      autoplay: true,
-                      loop: true,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   left: 10,
+            //   top: 100,
+            //   child: Opacity(
+            //     opacity: 0.15,
+            //     child: SizedBox(
+            //       width: 400.w,
+            //       height: 400.h,
+            //       child: IgnorePointer(
+            //         child: DotLottieView(
+            //           sourceType: 'asset',
+            //           source: 'assets/lottie/fnoDIUWfiv.lottie',
+            //           autoplay: true,
+            //           loop: true,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Positioned(
               top: -80,
               right: -80,
@@ -197,7 +194,7 @@ class _HeroSectionState extends State<HeroSection> {
             RotatedBox(
               quarterTurns: 3,
               child: TextButton(
-                onPressed: () => _launchURL(_email),
+                onPressed: () => launchURL(_email),
                 child: Text(
                   'mshohan088@gmail.com',
                   style: GoogleFonts.firaCode(
@@ -436,7 +433,7 @@ class _HeroSectionState extends State<HeroSection> {
             _buildStatChip('4+ Years', 'Experience', isDesktop),
             _buildStatChip('16+ Apps', 'Delivered', isDesktop),
             _buildStatChip(
-              '3 Apps',
+              '4 Apps',
               'Live in App Store',
               isDesktop,
               icon: FontAwesomeIcons.appStoreIos,
@@ -585,7 +582,7 @@ class _HeroSectionState extends State<HeroSection> {
 
   Widget _buildResumeButton(bool isDesktop) {
     return OutlinedButton(
-      onPressed: () => _launchURL(_resumeUrl),
+      onPressed: () => launchURL(resumeUrl),
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.symmetric(
           horizontal: isDesktop ? 28 : 24,
@@ -610,7 +607,7 @@ class _HeroSectionState extends State<HeroSection> {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: IconButton(
-        onPressed: () => _launchURL(url),
+        onPressed: () => launchURL(url),
         icon: FaIcon(icon, color: AppTheme.secondaryColor, size: 22),
         style: IconButton.styleFrom(
           backgroundColor: AppTheme.cardColor.withOpacity(0.5),
@@ -685,10 +682,5 @@ class _HeroSectionState extends State<HeroSection> {
         ),
       ),
     );
-  }
-
-  Future<void> _launchURL(String url) async {
-    final uri = Uri.parse(url);
-    if (!await launchUrl(uri)) throw 'Could not launch $url';
   }
 }

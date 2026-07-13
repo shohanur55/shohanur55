@@ -75,11 +75,12 @@ flutter:
     - assets/images/projects/jogajog/
     - assets/images/projects/multifix/
     - assets/images/projects/maziwa_hub/
+    - assets/images/projects/neon_rover/
     - assets/images/projects/halda/
     - assets/images/projects/atrai/
     - assets/images/projects/shuttle_bus/
     - assets/images/projects/easy_hr/
-    - assets/lottie/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

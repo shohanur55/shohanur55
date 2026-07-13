@@ -16,7 +16,14 @@ Jogajog is a Flutter-based communication and business collaboration application 
 • Designed dashboards to monitor upcoming meetings, training sessions, and lead generation activities.
 • Integrated business workflow features to organize appointments, manage clients, and improve team productivity.
 ''',
-      technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
+      technologies: [
+        "Dart",
+        "Flutter",
+        "Google Map",
+        "REST API",
+        "Firebase",
+        "GetX",
+      ],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/jogajog/1.png, 2.png, 3.png, 6.png, 9.png, 11.png
       imageUrl: "assets/images/projects/jogajog/1.png",
       images: [
@@ -41,6 +48,44 @@ Jogajog is a Flutter-based communication and business collaboration application 
 
     Project(
       id: "2",
+      title: "Neon Rover",
+      description: '''
+A Flutter-based event discovery and event management platform designed to connect users with live music, concerts, festivals, and local entertainment.
+
+- Developed a location-aware event discovery system using Google Maps and geolocation services to recommend nearby events.
+- Implemented event creation, publishing, and management features for organizers, venues, and promoters.
+- Built advanced search and filtering by location, date, ZIP code, and event category for an improved discovery experience.
+- Integrated subscription-based premium features for unlimited event promotion and management.
+- Developed responsive cross-platform interfaces with REST API integration, secure authentication, and optimized performance.
+''',
+      technologies: [
+        "Flutter",
+        "GetX",
+        "REST API",
+        "Google Map",
+        "In-app Purchase",
+        "ReveuneCat",
+      ],
+      imageUrl: "assets/images/projects/neon_rover/1.png",
+      images: [
+        "assets/images/projects/neon_rover/1.png",
+        "assets/images/projects/neon_rover/2.png",
+        "assets/images/projects/neon_rover/3.png",
+        "assets/images/projects/neon_rover/4.png",
+        "assets/images/projects/neon_rover/5.png",
+        "assets/images/projects/neon_rover/6.png",
+        "assets/images/projects/neon_rover/7.png",
+      ],
+  
+      // TODO: Compress these images to WebP format for better performance: assets/images/projects/multifix/4.jpg, 5.jpg
+      githubUrl: null,
+      liveUrl: null,
+
+      appStoreUrl: "https://apps.apple.com/gb/app/neon-rover/id6754535849",
+    ),
+
+    Project(
+      id: "3",
       title: "Multifix",
       description: '''
 A cross-platform home service application built with Flutter for Android and iOS, connecting customers with professional contractors and consultants.
@@ -51,7 +96,7 @@ A cross-platform home service application built with Flutter for Android and iOS
 - Integrated admin-controlled authentication and role-based access for secure user management.
 - Designed a streamlined workflow for home service requests, communication, and service delivery.
 ''',
-      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      technologies: ["Dart", "Flutter", "GetX", "REST API"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/multifix/4.jpg, 5.jpg
       imageUrl: "assets/images/projects/multifix/1.jpg",
       images: [
@@ -70,7 +115,7 @@ A cross-platform home service application built with Flutter for Android and iOS
     ),
 
     Project(
-      id: "3",
+      id: "4",
       title: "Maziwa Hub",
       description: '''
 A cross-platform dairy farm and supply chain management application built with Flutter, designed to streamline dairy operations from milk production to market distribution.
@@ -99,7 +144,7 @@ A cross-platform dairy farm and supply chain management application built with F
     ),
 
     Project(
-      id: "4",
+      id: "5",
       title: "Atrai",
       description: '''
 A Flutter-based financial and accounting management application designed to help businesses monitor income, expenses, revenue, and overall financial performance.
@@ -111,7 +156,7 @@ A Flutter-based financial and accounting management application designed to help
 - Integrated employee reimbursement and requisition management for handling internal financial requests.
 - Developed responsive dashboards with REST API integration for real-time financial data management.
 ''',
-      technologies: ["Dart", "Flutter", "REST API", "Firebase", "GetX"],
+      technologies: ["Dart", "Flutter", "REST API", "GetX", "MVC"],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/atrai/1.png, 3.png, 4.png, 6.png
       imageUrl: "assets/images/projects/atrai/1.png",
       images: [
@@ -130,7 +175,7 @@ A Flutter-based financial and accounting management application designed to help
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.atrai",
     ),
     Project(
-      id: "5",
+      id: "6",
       title: "Halda",
       description: '''
 A Flutter-based HR management application for employee and workforce management.
@@ -155,7 +200,7 @@ A Flutter-based HR management application for employee and workforce management.
     ),
 
     Project(
-      id: "6",
+      id: "7",
       title: "Shuttle Bus",
       description: '''
 A cross-platform transportation management application built with Flutter for Android and iOS, enabling organizations and communities to manage shuttle services with real-time location tracking.
@@ -167,7 +212,13 @@ A cross-platform transportation management application built with Flutter for An
 - Integrated secure Google Sign-In, session management, and role-based access control with Supabase Authentication.
 - Built a responsive and scalable Flutter application with real-time communication, delivering a smooth and reliable user experience.
 ''',
-      technologies: ["Dart", "Flutter", "Firebase", "GetX"],
+      technologies: [
+        "Dart",
+        "Flutter",
+        "Google Map",
+        "Real-Time Transportation",
+        "Supabase",
+      ],
       // TODO: Compress these images to WebP format for better performance: assets/images/projects/shuttle_bus/1.png, 2.png, 3.png, 4.png, 5.png, 9.png, 10.png, 11.png, 12.png, 13.png
       imageUrl: "assets/images/projects/shuttle_bus/1.png",
       images: [
@@ -191,7 +242,7 @@ A cross-platform transportation management application built with Flutter for An
           "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
     ),
     Project(
-      id: "7",
+      id: "8",
       title: "Easy HR",
       description:
           '''Empower your workforce with our Flutter-based HR application. Seamlessly manage attendance, view records, and access a range of functionalities. Whether you're an admin or employee, easily maintain and monitor your team. Contact the app owner for access. Built with Flutter, GetX, and API integration for a streamlined experience.
