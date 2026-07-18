@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/constants.dart';
 import '../../core/utils/responsive.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
@@ -43,7 +44,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               SizedBox(width: 20.w),
               OutlinedButton(
                 onPressed: () {
-                  // Resume download or similar action
+                  launchURL(resumeUrl);
                 },
                 child: const Text('Resume'),
               ),
@@ -88,7 +89,12 @@ class MobileDrawer extends StatelessWidget {
             _buildDrawerLink(context, '04. Experience', 4),
             _buildDrawerLink(context, '05. Contact', 5),
             SizedBox(height: 40.h),
-            OutlinedButton(onPressed: () {}, child: const Text('Resume')),
+            OutlinedButton(
+              onPressed: () {
+                launchURL(resumeUrl);
+              },
+              child: const Text('Resume'),
+            ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +23,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
+  double _scrollTarget = 0.0;
+
+  void _handlePointerScroll(PointerEvent event) {
+    if (event is! PointerScrollEvent) return;
+
+    GestureBinding.instance.pointerSignalResolver.register(event, (resolvedEvent) {
+      if (resolvedEvent is! PointerScrollEvent) return;
+
+      final double maxScroll = _scrollController.position.maxScrollExtent;
+      final double minScroll = _scrollController.position.minScrollExtent;
+      final double currentOffset = _scrollController.offset;
+
+      // Reset scroll target if it has drifted (e.g. from manual scrollbar dragging or nav jumps)
+      if ((_scrollTarget - currentOffset).abs() > 120) {
+        _scrollTarget = currentOffset;
+      }
+
+      _scrollTarget = (_scrollTarget + resolvedEvent.scrollDelta.dy).clamp(minScroll, maxScroll);
+
+      _scrollController.animateTo(
+        _scrollTarget,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOutCubic,
+      );
+    });
+  }
+
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   bool _showScrollIndicator = true;
@@ -54,7 +82,9 @@ class _HomePageState extends State<HomePage>
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     final threshold = maxScroll * 0.85;
-    final progress = maxScroll == 0 ? 0.0 : (currentScroll / maxScroll).clamp(0.0, 1.0);
+    final progress = maxScroll == 0
+        ? 0.0
+        : (currentScroll / maxScroll).clamp(0.0, 1.0);
 
     _scrollProgress.value = progress;
     if (currentScroll > threshold && _showScrollIndicator) {
@@ -120,16 +150,19 @@ class _HomePageState extends State<HomePage>
         children: [
           SingleChildScrollView(
             controller: _scrollController,
-            child: Column(
-              children: [
-                HeroSection(key: _heroKey),
-                ProjectsSection(key: _projectsKey),
-                SkillsSection(key: _skillsKey),
-                AboutSection(key: _aboutKey),
-                ExperienceSection(key: _experienceKey),
-                ContactSection(key: _contactKey),
-                const Footer(),
-              ],
+            child: Listener(
+              onPointerSignal: _handlePointerScroll,
+              child: Column(
+                children: [
+                  HeroSection(key: _heroKey),
+                  ProjectsSection(key: _projectsKey),
+                  SkillsSection(key: _skillsKey),
+                  AboutSection(key: _aboutKey),
+                  ExperienceSection(key: _experienceKey),
+                  ContactSection(key: _contactKey),
+                  const Footer(),
+                ],
+              ),
             ),
           ),
           ValueListenableBuilder<double>(
@@ -146,7 +179,9 @@ class _HomePageState extends State<HomePage>
                     child: LinearProgressIndicator(
                       value: progress,
                       minHeight: 2,
-                      backgroundColor: AppTheme.backgroundColor.withOpacity(0.35),
+                      backgroundColor: AppTheme.backgroundColor.withOpacity(
+                        0.35,
+                      ),
                       valueColor: const AlwaysStoppedAnimation(
                         AppTheme.primaryColor,
                       ),
@@ -162,77 +197,77 @@ class _HomePageState extends State<HomePage>
               right: 30.w,
               child: _buildScrollIndicator(),
             ),
-          Positioned(
-            bottom: 20.h,
-            right: 20.w,
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isMobile
-                      ? 6.w
-                      : isTablet
-                          ? 8.w
-                          : 10.w,
-                  vertical: isMobile
-                      ? 8.h
-                      : isTablet
-                          ? 10.h
-                          : 12.h,
-                ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppTheme.primaryColor.withOpacity(0.8),
-                      AppTheme.primaryColor.withOpacity(0.5),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(20.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.primaryColor.withOpacity(0.3),
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                  border: Border.all(
-                    color: AppTheme.primaryColor.withOpacity(0.6),
-                    width: 1.5,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.flutter_dash,
-                      color: Colors.white,
-                      size: isMobile
-                          ? 14.sp
-                          : isTablet
-                              ? 16.sp
-                              : 18.sp,
-                    ),
-                    SizedBox(width: isMobile ? 4.w : 8.w),
-                    Text(
-                      'Created with Flutter',
-                      style: GoogleFonts.robotoMono(
-                        color: Colors.white,
-                        fontSize: isMobile
-                            ? 10.sp.clamp(9.0, 11.0)
-                            : isTablet
-                                ? 12.sp.clamp(11.0, 13.0)
-                                : 16.sp.clamp(13.0, 18.0),
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: isMobile ? 0.2 : 0.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 20.h,
+          //   right: 20.w,
+          //   child: FadeTransition(
+          //     opacity: _fadeAnimation,
+          //     child: Container(
+          //       padding: EdgeInsets.symmetric(
+          //         horizontal: isMobile
+          //             ? 6.w
+          //             : isTablet
+          //                 ? 8.w
+          //                 : 10.w,
+          //         vertical: isMobile
+          //             ? 8.h
+          //             : isTablet
+          //                 ? 10.h
+          //                 : 12.h,
+          //       ),
+          //       decoration: BoxDecoration(
+          //         gradient: LinearGradient(
+          //           colors: [
+          //             AppTheme.primaryColor.withOpacity(0.8),
+          //             AppTheme.primaryColor.withOpacity(0.5),
+          //           ],
+          //           begin: Alignment.topLeft,
+          //           end: Alignment.bottomRight,
+          //         ),
+          //         borderRadius: BorderRadius.circular(20.r),
+          //         boxShadow: [
+          //           BoxShadow(
+          //             color: AppTheme.primaryColor.withOpacity(0.3),
+          //             blurRadius: 12,
+          //             offset: const Offset(0, 4),
+          //           ),
+          //         ],
+          //         border: Border.all(
+          //           color: AppTheme.primaryColor.withOpacity(0.6),
+          //           width: 1.5,
+          //         ),
+          //       ),
+          //       child: Row(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Icon(
+          //             Icons.flutter_dash,
+          //             color: Colors.white,
+          //             size: isMobile
+          //                 ? 14.sp
+          //                 : isTablet
+          //                     ? 16.sp
+          //                     : 18.sp,
+          //           ),
+          //           SizedBox(width: isMobile ? 4.w : 8.w),
+          //           Text(
+          //             'Created with Flutter',
+          //             style: GoogleFonts.robotoMono(
+          //               color: Colors.white,
+          //               fontSize: isMobile
+          //                   ? 10.sp.clamp(9.0, 11.0)
+          //                   : isTablet
+          //                       ? 12.sp.clamp(11.0, 13.0)
+          //                       : 16.sp.clamp(13.0, 18.0),
+          //               fontWeight: FontWeight.bold,
+          //               letterSpacing: isMobile ? 0.2 : 0.5,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
