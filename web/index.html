@@ -63,6 +63,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <!-- Preload the 3 fonts used in the app: Inter, Fira Code, Roboto Mono -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap"></noscript>
 
   <title>Shohan | Flutter Developer Portfolio</title>
   <link rel="manifest" href="manifest.json">
@@ -157,7 +161,7 @@
       var serviceWorkerVersion = null;
       var scriptLoaded = false;
       var splashShownAt = Date.now();
-      var minimumSplashDuration = 700;
+      var minimumSplashDuration = 0; // Show app as soon as Flutter first-frame fires
 
       function hideSplashScreen() {
         var splash = document.getElementById('splash-screen');

@@ -10,7 +10,8 @@ import 'presentation/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  // dotenv is only needed when the contact form submits — no need to block startup.
+  dotenv.load(fileName: ".env").ignore();
   runApp(const MyApp());
 }
 
@@ -75,27 +76,26 @@ class _BootstrapShellState extends State<BootstrapShell> {
   }
 
   Future<void> _warmUpApp(BuildContext context) async {
-    await Future.delayed(const Duration(milliseconds: 700));
-    if (!context.mounted) return;
-
-    // 1. Precache the critical profile image which is immediately visible in the hero section.
-    // Wrap in try-catch to ensure any loading error doesn't block the app startup.
+    // 1. Precache the critical profile image asynchronously in the background.
+    // Use ResizeImage to decode only the required size, saving significant memory and CPU time.
     try {
-      await precacheImage(const AssetImage(AppConstants.profileImage), context);
+      precacheImage(
+        const ResizeImage(AssetImage(AppConstants.profileImage), width: 280),
+        context,
+      ).catchError((e) {
+        debugPrint('Error precaching profile image: $e');
+      });
     } catch (e) {
-      debugPrint('Error precaching profile image: $e');
+      debugPrint('Error initiating precache for profile image: $e');
     }
 
-    if (!context.mounted) return;
-
     // 2. Precache the cover images of each project asynchronously in the background.
-    // This allows the home page to open instantly while cover images load concurrently.
     final repository = PortfolioRepository();
     for (final project in repository.getProjects()) {
       final coverImage = project.imageUrl;
       final ImageProvider<Object> provider = coverImage.startsWith('http')
           ? NetworkImage(coverImage)
-          : AssetImage(coverImage);
+          : ResizeImage(AssetImage(coverImage), width: 400);
 
       precacheImage(provider, context).catchError((e) {
         debugPrint('Error precaching cover image for project ${project.title}: $e');
@@ -111,7 +111,7 @@ class _BootstrapShellState extends State<BootstrapShell> {
         final isReady = snapshot.connectionState == ConnectionState.done;
 
         return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 450),
+          duration: const Duration(milliseconds: 150),
           child: isReady ? const HomePage() : const _AppSplashScreen(),
         );
       },
@@ -153,7 +153,7 @@ class _AppSplashScreen extends StatelessWidget {
                   child: CircularProgressIndicator(
                     value: 0.35, // partial circle (arc)
                     strokeWidth: 1.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(const Color(0xFF64FFDA).withOpacity(0.4)),
+                    valueColor: AlwaysStoppedAnimation<Color>(const Color(0xFF64FFDA).withValues(alpha: 0.4)),
                     backgroundColor: Colors.transparent,
                   )
                       .animate(onPlay: (controller) => controller.repeat())
@@ -167,7 +167,7 @@ class _AppSplashScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF64FFDA).withOpacity(0.08),
+                        color: const Color(0xFF64FFDA).withValues(alpha: 0.08),
                         blurRadius: 20,
                         spreadRadius: 6,
                       ),
@@ -189,7 +189,7 @@ class _AppSplashScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: const Color(0xFF0B1930), // Slightly lighter navy for contrast
                     border: Border.all(
-                      color: const Color(0xFF64FFDA).withOpacity(0.18),
+                      color: const Color(0xFF64FFDA).withValues(alpha: 0.18),
                       width: 1,
                     ),
                   ),
@@ -206,7 +206,7 @@ class _AppSplashScreen extends StatelessWidget {
                   ),
                 )
                     .animate(onPlay: (controller) => controller.repeat(reverse: true))
-                    .shimmer(duration: 3.seconds, color: const Color(0xFF64FFDA).withOpacity(0.15))
+                    .shimmer(duration: 3.seconds, color: const Color(0xFF64FFDA).withValues(alpha: 0.15))
                     .scale(
                       begin: const Offset(0.98, 0.98),
                       end: const Offset(1.02, 1.02),

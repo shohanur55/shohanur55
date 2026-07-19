@@ -113,7 +113,6 @@ class _ContactSectionState extends State<ContactSection> {
 
         if (success) {
           _showSnackBar('Message sent!');
-          // Clear fields
           _nameController.clear();
           _phoneController.clear();
           _emailController.clear();
@@ -137,12 +136,10 @@ class _ContactSectionState extends State<ContactSection> {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final width = constraints.maxWidth;
-              final isMobile = width < 600;
-              final isTablet = width >= 600 && width < 1024;
-              final isDesktop = width >= 1024;
+              final isMobile = width < 768;
 
-              final horizontalPadding = isMobile ? 16.0 : (isTablet ? 32.0 : 48.0);
-              final verticalPadding = isMobile ? 40.0 : (isTablet ? 60.0 : 80.0);
+              final horizontalPadding = isMobile ? 16.0 : 48.0;
+              final verticalPadding = isMobile ? 40.0 : 80.0;
 
               return Padding(
                 padding: EdgeInsets.symmetric(
@@ -153,20 +150,17 @@ class _ContactSectionState extends State<ContactSection> {
                   key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // ── Section heading (centered) ──────────────────────
                       Align(
                         alignment: Alignment.center,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Row(
                               mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
                                   width: 24.w,
@@ -206,46 +200,12 @@ class _ContactSectionState extends State<ContactSection> {
                         ),
                       ),
                       SizedBox(height: 56.h),
-                      Align(
-                        alignment: Alignment.center,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: isDesktop ? 600.0 : double.infinity,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                'Send me a message',
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xFFD6DAF0),
-                                  fontSize: isMobile
-                                      ? 28.sp.clamp(24.0, 32.0)
-                                      : 34.sp.clamp(28.0, 34.0),
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.14,
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              _buildContactForm(isMobile: isMobile),
-                              const SizedBox(height: 48),
-                              Text(
-                                'Contact Information',
-                                style: GoogleFonts.poppins(
-                                  color: const Color(0xFFD6DAF0),
-                                  fontSize: isMobile
-                                      ? 28.sp.clamp(24.0, 32.0)
-                                      : 34.sp.clamp(28.0, 34.0),
-                                  fontWeight: FontWeight.w700,
-                                  height: 1.14,
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              _buildContactDetailsCard(isMobile: isMobile),
-                            ],
-                          ),
-                        ),
-                      ),
+
+                      // ── Body: mobile = stacked, desktop = side-by-side ──
+                      if (isMobile)
+                        _buildMobileLayout()
+                      else
+                        _buildDesktopLayout(),
                     ],
                   ),
                 ),
@@ -253,6 +213,200 @@ class _ContactSectionState extends State<ContactSection> {
             },
           ),
         ),
+      ),
+    );
+  }
+
+  // ── Mobile layout: form first, info cards below ─────────────────────────────
+  Widget _buildMobileLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          'Send me a message',
+          style: GoogleFonts.poppins(
+            color: const Color(0xFFD6DAF0),
+            fontSize: 28.sp.clamp(24.0, 32.0),
+            fontWeight: FontWeight.w700,
+            height: 1.14,
+          ),
+        ),
+        const SizedBox(height: 24),
+        _buildContactForm(isMobile: true),
+        const SizedBox(height: 48),
+        Text(
+          'Contact Information',
+          style: GoogleFonts.poppins(
+            color: const Color(0xFFD6DAF0),
+            fontSize: 28.sp.clamp(24.0, 32.0),
+            fontWeight: FontWeight.w700,
+            height: 1.14,
+          ),
+        ),
+        const SizedBox(height: 24),
+        _buildContactDetailsCard(isMobile: true),
+      ],
+    );
+  }
+
+  // ── Desktop / Tablet layout: form LEFT, info panel RIGHT ────────────────────
+  Widget _buildDesktopLayout() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // ── LEFT: Contact Form ────────────────────────────────────────────
+        Expanded(
+          flex: 6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Send me a message',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFFD6DAF0),
+                  fontSize: 34.sp.clamp(28.0, 34.0),
+                  fontWeight: FontWeight.w700,
+                  height: 1.14,
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildContactForm(isMobile: false),
+            ],
+          ),
+        ),
+
+        SizedBox(width: 48.w),
+
+        // ── RIGHT: Contact Information panel ─────────────────────────────
+        Expanded(
+          flex: 4,
+          child: _buildRightInfoPanel(),
+        ),
+      ],
+    );
+  }
+
+  // ── Right panel shown on desktop/tablet ─────────────────────────────────────
+  Widget _buildRightInfoPanel() {
+    return Container(
+      padding: EdgeInsets.all(32.r),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D1B35),
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(
+          color: AppTheme.primaryColor.withValues(alpha: 0.12),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.25),
+            blurRadius: 32,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Panel heading
+          Text(
+            'Contact Information',
+            style: GoogleFonts.poppins(
+              color: const Color(0xFFD6DAF0),
+              fontSize: 24.sp.clamp(20.0, 28.0),
+              fontWeight: FontWeight.w700,
+              height: 1.2,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Feel free to reach out through\nany of these channels.',
+            style: GoogleFonts.poppins(
+              color: AppTheme.secondaryColor,
+              fontSize: 14.sp.clamp(12.0, 16.0),
+              fontWeight: FontWeight.w400,
+              height: 1.6,
+            ),
+          ),
+          SizedBox(height: 32.h),
+
+          // Teal accent divider
+          Container(
+            height: 2,
+            width: 48,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppTheme.primaryColor,
+                  AppTheme.primaryColor.withValues(alpha: 0.0),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(1),
+            ),
+          ),
+          SizedBox(height: 32.h),
+
+          // Email card
+          _ContactInfoCard(
+            icon: FontAwesomeIcons.envelope,
+            title: 'Email Communication',
+            label: 'Send inquiries to:',
+            value: 'mshohan088@gmail.com',
+            actionText: 'Send Email',
+            onTap: () => _launchURL('mailto:mshohan088@gmail.com'),
+          ),
+          SizedBox(height: 20.h),
+
+          // WhatsApp card
+          _ContactInfoCard(
+            icon: FontAwesomeIcons.whatsapp,
+            title: 'WhatsApp Contact',
+            label: 'Instant text / call:',
+            value: '+8801853205092',
+            actionText: 'Chat on WhatsApp',
+            onTap: () => _launchURL('https://wa.me/8801853205092'),
+          ),
+
+          SizedBox(height: 32.h),
+
+          // Bottom availability badge
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: AppTheme.primaryColor.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(
+                color: AppTheme.primaryColor.withValues(alpha: 0.20),
+                width: 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF64FFDA),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text(
+                    'Available for freelance & full-time roles',
+                    style: GoogleFonts.poppins(
+                      color: AppTheme.primaryColor,
+                      fontSize: 13.sp.clamp(11.0, 14.0),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -350,7 +504,8 @@ class _ContactSectionState extends State<ContactSection> {
         ),
         const SizedBox(height: 30),
         Row(
-          mainAxisAlignment: !isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
+          mainAxisAlignment:
+              !isMobile ? MainAxisAlignment.start : MainAxisAlignment.center,
           children: [
             _buildSubmitButton(),
           ],
@@ -387,11 +542,12 @@ class _ContactSectionState extends State<ContactSection> {
         ),
         filled: true,
         fillColor: const Color(0xFF0E223F),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
-            color: Colors.white.withOpacity(0.10),
+            color: Colors.white.withValues(alpha: 0.10),
           ),
           borderRadius: BorderRadius.circular(radius),
         ),
@@ -424,7 +580,8 @@ class _ContactSectionState extends State<ContactSection> {
     return _isSending
         ? const Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
             ),
           )
         : MouseRegion(
@@ -478,167 +635,194 @@ class _ContactSectionState extends State<ContactSection> {
   }
 
   Widget _buildContactDetailsCard({required bool isMobile}) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(24.r),
-      decoration: BoxDecoration(
-        color: const Color(0xFF0E223F).withOpacity(0.4),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.05),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+    if (isMobile) {
+      return Column(
         children: [
-          // Mail details
-          _buildDetailItem(
+          _ContactInfoCard(
             icon: FontAwesomeIcons.envelope,
-            title: 'Communication With Mail',
-            label: 'Email Address 01: ',
+            title: 'Email Communication',
+            label: 'Send inquiries to:',
             value: 'mshohan088@gmail.com',
+            actionText: 'Send Email',
             onTap: () => _launchURL('mailto:mshohan088@gmail.com'),
           ),
-          SizedBox(height: 32.h),
-          // WhatsApp details
-          _buildDetailItem(
+          const SizedBox(height: 20),
+          _ContactInfoCard(
             icon: FontAwesomeIcons.whatsapp,
-            title: 'Contact What-app',
-            label: 'What-app Number: ',
+            title: 'WhatsApp Contact',
+            label: 'Instant text / call:',
             value: '+8801853205092',
+            actionText: 'Chat on WhatsApp',
             onTap: () => _launchURL('https://wa.me/8801853205092'),
           ),
         ],
-      ),
-    );
+      );
+    }
+    // Desktop/tablet: cards are embedded in the right panel — not rendered here.
+    return const SizedBox.shrink();
   }
+}
 
-  Widget _buildDetailItem({
-    required FaIconData icon,
-    required String title,
-    required String label,
-    required String value,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8.r),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildLayeredCircleIcon(icon),
-            SizedBox(height: 16.h),
-            Text(
-              title,
-              style: GoogleFonts.poppins(
-                color: const Color(0xFFD6DAF0),
-                fontSize: 24.sp.clamp(18.0, 26.0),
-                fontWeight: FontWeight.w700,
-                height: 1.03,
-              ),
+class _ContactInfoCard extends StatefulWidget {
+  final dynamic icon;
+  final String title;
+  final String label;
+  final String value;
+  final String actionText;
+  final VoidCallback onTap;
+
+  const _ContactInfoCard({
+    required this.icon,
+    required this.title,
+    required this.label,
+    required this.value,
+    required this.actionText,
+    required this.onTap,
+  });
+
+  @override
+  State<_ContactInfoCard> createState() => _ContactInfoCardState();
+}
+
+class _ContactInfoCardState extends State<_ContactInfoCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutCubic,
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: _isHovered
+                ? const Color(0xFF0E223F).withValues(alpha: 0.8)
+                : const Color(0xFF0E223F).withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(
+              color: _isHovered
+                  ? AppTheme.primaryColor
+                  : Colors.white.withValues(alpha: 0.05),
+              width: _isHovered ? 1.5 : 1,
             ),
-            SizedBox(height: 10.h),
-            Text.rich(
-              TextSpan(
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered
+                    ? AppTheme.primaryColor.withValues(alpha: 0.12)
+                    : Colors.black.withValues(alpha: 0.05),
+                blurRadius: _isHovered ? 20.r : 8.r,
+                offset: Offset(0, _isHovered ? 8.h : 4.h),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  TextSpan(
-                    text: label,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFFD6DAF0),
-                      fontSize: 14.sp.clamp(12.0, 16.0),
-                      fontWeight: FontWeight.w500,
-                      height: 1.43,
-                    ),
-                  ),
-                  TextSpan(
-                    text: value,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFFD7D9FF),
-                      fontSize: 14.sp.clamp(12.0, 16.0),
-                      fontWeight: FontWeight.w400,
-                      height: 1.43,
+                  _buildAnimatedIcon(),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                      style: GoogleFonts.poppins(
+                        color: const Color(0xFFD6DAF0),
+                        fontSize: 18.sp.clamp(16.0, 22.0),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(height: 16.h),
+              Text(
+                widget.label,
+                style: GoogleFonts.poppins(
+                  color: AppTheme.secondaryColor,
+                  fontSize: 13.sp.clamp(11.0, 15.0),
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                widget.value,
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFFD7D9FF),
+                  fontSize: 14.sp.clamp(12.0, 16.0),
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(height: 18.h),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                decoration: BoxDecoration(
+                  color: _isHovered
+                      ? AppTheme.primaryColor.withValues(alpha: 0.15)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(
+                    color: AppTheme.primaryColor,
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        widget.actionText,
+                        style: GoogleFonts.poppins(
+                          color: AppTheme.primaryColor,
+                          fontSize: 13.sp.clamp(11.0, 15.0),
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(
+                      Icons.arrow_forward_rounded,
+                      color: AppTheme.primaryColor,
+                      size: 14.sp.clamp(12.0, 16.0),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildLayeredCircleIcon(FaIconData icon) {
-    return SizedBox(
-      width: 44.w,
-      height: 44.h,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          // Layer 1: Outer container
-          Opacity(
-            opacity: 0.20,
-            child: Container(
-              width: 44.w,
-              height: 44.h,
-              decoration: ShapeDecoration(
-                color: Colors.white.withOpacity(0.10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(322.22),
-                ),
-              ),
-            ),
-          ),
-          // Layer 2: White background circle
-          Container(
-            width: 40.09.w,
-            height: 40.09.h,
-            decoration: ShapeDecoration(
-              color: const Color(0xFFFDFEFF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(322.22),
-              ),
-            ),
-          ),
-          // Layer 3: Middle opacity circle
-          Opacity(
-            opacity: 0.50,
-            child: Container(
-              width: 36.18.w,
-              height: 36.18.h,
-              decoration: ShapeDecoration(
-                color: Colors.white.withOpacity(0.10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(322.22),
-                ),
-              ),
-            ),
-          ),
-          // Layer 4: Primary Color circle with negative space icon
-          Container(
-            width: 32.27.w,
-            height: 32.27.h,
-            decoration: ShapeDecoration(
-              color: const Color(0xFF64FFDA),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(322.22),
-              ),
-            ),
-            child: Center(
-              child: FaIcon(
-                icon,
-                color: const Color(0xFF0A192F),
-                size: 16.sp.clamp(12.0, 18.0),
-              ),
-            ),
-          ),
-        ],
+  Widget _buildAnimatedIcon() {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      width: 42.w,
+      height: 42.h,
+      decoration: BoxDecoration(
+        color: _isHovered
+            ? AppTheme.primaryColor
+            : const Color(0xFF64FFDA).withValues(alpha: 0.15),
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: FaIcon(
+          widget.icon,
+          color: _isHovered ? const Color(0xFF0A192F) : AppTheme.primaryColor,
+          size: 18.sp.clamp(14.0, 20.0),
+        ),
       ),
     );
   }
 }
-

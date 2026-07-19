@@ -343,6 +343,7 @@ class _ProjectCardState extends State<ProjectCard> {
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
+        cacheWidth: 280,
         filterQuality: FilterQuality.low,
       ),
     );
@@ -389,7 +390,8 @@ class _ProjectCardState extends State<ProjectCard> {
                 fit: fit,
                 width: double.infinity,
                 height: double.infinity,
-                filterQuality: FilterQuality.high,
+                cacheWidth: 400,
+                filterQuality: FilterQuality.medium,
                 gaplessPlayback: true,
                 errorBuilder: (_, __, ___) => _buildFallbackImage(),
               ),

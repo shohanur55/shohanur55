@@ -657,6 +657,7 @@ class _HeroSectionState extends State<HeroSection> {
                     child: Image.asset(
                       AppConstants.profileImage,
                       fit: BoxFit.cover,
+                      cacheWidth: 280,
                       filterQuality: FilterQuality.low,
                       gaplessPlayback: true,
                       errorBuilder: (_, __, ___) => Container(

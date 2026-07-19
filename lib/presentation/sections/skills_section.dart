@@ -70,6 +70,9 @@ class _SkillsSectionState extends State<SkillsSection> {
 
   Widget _buildSkillChip(SkillModel skill) {
     return Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width - 40.w,
+      ),
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
       decoration: BoxDecoration(
         color: AppTheme.cardColor,
@@ -92,12 +95,15 @@ class _SkillsSectionState extends State<SkillsSection> {
             size: 20.sp.clamp(16.0, 24.0),
           ),
           SizedBox(width: 8.w),
-          Text(
-            skill.name,
-            style: GoogleFonts.firaCode(
-              color: AppTheme.primaryColor,
-              fontSize: 15.sp.clamp(13.0, 18.0),
-              fontWeight: FontWeight.w500,
+          Flexible(
+            child: Text(
+              skill.name,
+              style: GoogleFonts.firaCode(
+                color: AppTheme.primaryColor,
+                fontSize: 15.sp.clamp(13.0, 18.0),
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
