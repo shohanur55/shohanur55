@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage>
       final double currentOffset = _scrollController.offset;
 
       // Reset scroll target if it has drifted (e.g. from manual scrollbar dragging or nav jumps)
-      if ((_scrollTarget - currentOffset).abs() > 120) {
+      if ((_scrollTarget - currentOffset).abs() > 200) {
         _scrollTarget = currentOffset;
       }
 
@@ -44,8 +44,8 @@ class _HomePageState extends State<HomePage>
 
       _scrollController.animateTo(
         _scrollTarget,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOutCubic,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOutQuart,
       );
     });
   }
@@ -150,6 +150,9 @@ class _HomePageState extends State<HomePage>
         children: [
           SingleChildScrollView(
             controller: _scrollController,
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
             child: Listener(
               onPointerSignal: _handlePointerScroll,
               child: Column(

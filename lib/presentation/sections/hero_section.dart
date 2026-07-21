@@ -621,12 +621,16 @@ class _HeroSectionState extends State<HeroSection>
                                 color: AppTheme.primaryColor.withOpacity(0.10),
                                 borderRadius: BorderRadius.circular(7),
                                 border: Border.all(
-                                  color: AppTheme.primaryColor.withOpacity(0.22),
+                                  color: AppTheme.primaryColor.withOpacity(
+                                    0.22,
+                                  ),
                                   width: 1,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppTheme.primaryColor.withOpacity(0.12),
+                                    color: AppTheme.primaryColor.withOpacity(
+                                      0.12,
+                                    ),
                                     blurRadius: 8,
                                     spreadRadius: 0,
                                   ),
@@ -898,19 +902,7 @@ class _HeroSectionState extends State<HeroSection>
                 ),
               ),
             ),
-            Text(
-              'Available for work',
-              style: GoogleFonts.firaCode(
-                color: AppTheme.primaryColor,
-                fontSize: fontSize,
-                letterSpacing: 0.9,
-              ),
-            ),
-            Container(
-              width: 1,
-              height: 12,
-              color: AppTheme.secondaryColor.withOpacity(0.35),
-            ),
+
             const Icon(
               Icons.waving_hand_rounded,
               color: Color(0xFFFFC107),
