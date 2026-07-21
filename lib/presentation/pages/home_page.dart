@@ -154,7 +154,28 @@ class _HomePageState extends State<HomePage>
               onPointerSignal: _handlePointerScroll,
               child: Column(
                 children: [
-                  HeroSection(key: _heroKey),
+                  HeroSection(
+                    key: _heroKey,
+                    onContactTap: () {
+                      final ctx = _contactKey.currentContext;
+                      if (ctx == null) return;
+                      final box = ctx.findRenderObject() as RenderBox?;
+                      if (box == null || !box.attached) return;
+                      // Get the global position of the contact section
+                      final globalPos = box.localToGlobal(Offset.zero);
+                      // Add current scroll offset to get the absolute position in the scroll view
+                      final target = (_scrollController.offset + globalPos.dy)
+                          .clamp(
+                            _scrollController.position.minScrollExtent,
+                            _scrollController.position.maxScrollExtent,
+                          );
+                      _scrollController.animateTo(
+                        target,
+                        duration: const Duration(milliseconds: 700),
+                        curve: Curves.easeInOutCubic,
+                      );
+                    },
+                  ),
                   ProjectsSection(key: _projectsKey),
                   SkillsSection(key: _skillsKey),
                   AboutSection(key: _aboutKey),
