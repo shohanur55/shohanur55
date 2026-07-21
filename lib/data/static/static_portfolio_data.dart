@@ -75,7 +75,7 @@ A Flutter-based event discovery and event management platform designed to connec
         "assets/images/projects/neon_rover/6.webp",
         "assets/images/projects/neon_rover/7.webp",
       ],
-  
+
       githubUrl: null,
       liveUrl: null,
 
@@ -335,6 +335,28 @@ A cross-platform transportation management application built with Flutter for An
         "Firebase",
         "C#",
         "ASP.NET",
+      ],
+    ),
+    ExperienceModel(
+      id: "3",
+      company: "Freelance",
+      role: "Full-Stack Web & Mobile Developer",
+      duration: "Mar 2021 - Nov 2023",
+      description: [
+        "Designed and developed cross-platform mobile applications using Flutter, Dart, GetX, and Firebase.",
+        "Built fully customized WordPress websites, custom themes, and optimized landing pages.",
+        "Utilized PHP, HTML5, CSS3, and JavaScript to deliver responsive, cross-browser compatible, and high-performance web applications.",
+      ],
+      technologies: [
+        "Flutter",
+        "Dart",
+        "GetX",
+        "Firebase",
+        "WordPress",
+        "PHP",
+        "HTML5",
+        "CSS3",
+        "JavaScript",
       ],
     ),
   ];

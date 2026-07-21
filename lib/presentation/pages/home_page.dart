@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:particles_network/particles_network.dart';
 import '../../core/theme/app_theme.dart';
 
 import '../widgets/nav_bar.dart';
@@ -148,6 +149,37 @@ class _HomePageState extends State<HomePage>
       endDrawer: MobileDrawer(onNavTap: _scrollToSection),
       body: Stack(
         children: [
+          // ── Page-wide Fixed Background Particle Network ──
+          Positioned.fill(
+            child: ParticleNetwork(
+              particleCount: isMobile
+                  ? 40
+                  : isTablet
+                      ? 70
+                      : 110,
+              maxSpeed: 0.35,
+              maxSize: isMobile ? 1.4 : 1.8,
+              lineWidth: 0.55,
+              lineDistance: isMobile
+                  ? 90
+                  : isTablet
+                      ? 110
+                      : 130,
+              particleColor: AppTheme.primaryColor.withOpacity(0.18),
+              lineColor: AppTheme.primaryColor.withOpacity(0.06),
+              touchColor: AppTheme.primaryColor,
+              touchActivation: true,
+              hoverEffect: !isMobile,
+              fill: true,
+              drawNetwork: true,
+              isComplex: false,
+              gravityType: GravityType.none,
+              gravityStrength: 0.0,
+              gravityDirection: const Offset(0, 1),
+              gravityCenter: null,
+            ),
+          ),
+
           SingleChildScrollView(
             controller: _scrollController,
             physics: const BouncingScrollPhysics(
