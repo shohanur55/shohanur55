@@ -1,9 +1,10 @@
 class SkillModel {
   final String id;
   final String name;
-  final String category; // e.g., "Languages", "Frameworks", "Tools"
+  final String category; // e.g., "Mobile Development", "Realtime & APIs", etc.
   final double proficiency; // 0.0 to 1.0
   final String iconUrl;
+  final bool isFeatured;
 
   SkillModel({
     required this.id,
@@ -11,6 +12,7 @@ class SkillModel {
     required this.category,
     required this.proficiency,
     required this.iconUrl,
+    this.isFeatured = false,
   });
 
   factory SkillModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class SkillModel {
       category: json['category'] as String,
       proficiency: (json['proficiency'] as num).toDouble(),
       iconUrl: json['iconUrl'] as String,
+      isFeatured: json['isFeatured'] as bool? ?? false,
     );
   }
 
@@ -30,6 +33,7 @@ class SkillModel {
       'category': category,
       'proficiency': proficiency,
       'iconUrl': iconUrl,
+      'isFeatured': isFeatured,
     };
   }
 }
