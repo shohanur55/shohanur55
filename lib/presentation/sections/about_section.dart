@@ -1,13 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/constants.dart';
-import '../../core/utils/responsive.dart';
 import '../widgets/section_container.dart';
+
+// ─── Screen Size Breakpoints Helper ─────────────────────────────────────────
+enum _ScreenSize { smallPhone, largePhone, tablet, desktop }
+
+_ScreenSize _getScreenSize(BuildContext context) {
+  final w = MediaQuery.of(context).size.width;
+  if (w >= 1100) return _ScreenSize.desktop;
+  if (w >= 850) return _ScreenSize.tablet;
+  if (w >= 480) return _ScreenSize.largePhone;
+  return _ScreenSize.smallPhone;
+}
 
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
@@ -21,16 +30,18 @@ class _AboutSectionState extends State<AboutSection> {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = Responsive.isDesktop(context) || Responsive.isTablet(context);
-    final isMobile = Responsive.isMobile(context);
+    final screenSize = _getScreenSize(context);
+    final isDesktop =
+        screenSize == _ScreenSize.desktop || screenSize == _ScreenSize.tablet;
+    final isMobile = !isDesktop;
 
     return SectionContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Section Title Header (03. About Me)
-          _buildSectionHeader(context),
-          SizedBox(height: isMobile ? 24.h : 40.h),
+          _buildSectionHeader(context, screenSize),
+          SizedBox(height: isMobile ? 24 : 40),
 
           // Main Responsive Content Layout
           if (isDesktop)
@@ -39,23 +50,21 @@ class _AboutSectionState extends State<AboutSection> {
               children: [
                 // Left Side: Cyber Avatar Card & Status Badge
                 SizedBox(
-                  width: 320,
-                  child: _buildAvatarCard(context),
+                  width: screenSize == _ScreenSize.desktop ? 320 : 260,
+                  child: _buildAvatarCard(context, screenSize),
                 ),
-                const SizedBox(width: 48),
+                SizedBox(width: screenSize == _ScreenSize.desktop ? 48 : 32),
                 // Right Side: Bio Content & Career Cards
-                Expanded(
-                  child: _buildRightContent(context),
-                ),
+                Expanded(child: _buildRightContent(context, screenSize)),
               ],
             )
           else
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildAvatarCard(context),
-                SizedBox(height: 28.h),
-                _buildRightContent(context),
+                _buildAvatarCard(context, screenSize),
+                const SizedBox(height: 28),
+                _buildRightContent(context, screenSize),
               ],
             ),
         ],
@@ -64,14 +73,23 @@ class _AboutSectionState extends State<AboutSection> {
   }
 
   // ─── Section Header ──────────────────────────────────────────────────────────
-  Widget _buildSectionHeader(BuildContext context) {
+  Widget _buildSectionHeader(BuildContext context, _ScreenSize screenSize) {
+    final numFontSize = screenSize == _ScreenSize.smallPhone
+        ? 18.0
+        : (screenSize == _ScreenSize.largePhone ? 20.0 : 22.0);
+    final titleFontSize = screenSize == _ScreenSize.smallPhone
+        ? 22.0
+        : (screenSize == _ScreenSize.largePhone
+              ? 26.0
+              : (screenSize == _ScreenSize.tablet ? 30.0 : 34.0));
+
     return Row(
       children: [
         Text(
           '03. ',
           style: GoogleFonts.firaCode(
             color: AppTheme.primaryColor,
-            fontSize: 22.sp.clamp(18.0, 24.0),
+            fontSize: numFontSize,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -80,11 +98,11 @@ class _AboutSectionState extends State<AboutSection> {
           style: GoogleFonts.inter(
             color: AppTheme.textColor,
             fontWeight: FontWeight.bold,
-            fontSize: 32.sp.clamp(24.0, 40.0),
+            fontSize: titleFontSize,
             letterSpacing: -0.5,
           ),
         ),
-        SizedBox(width: 20.w),
+        const SizedBox(width: 16),
         Expanded(
           child: Container(
             height: 1,
@@ -104,10 +122,28 @@ class _AboutSectionState extends State<AboutSection> {
   }
 
   // ─── Left Side: Avatar Card & Status Badge ─────────────────────────────────
-  Widget _buildAvatarCard(BuildContext context) {
-    final isMobile = Responsive.isMobile(context);
-    final outerDiameter = isMobile ? 200.0 : 230.0;
-    final innerDiameter = isMobile ? 180.0 : 205.0;
+  Widget _buildAvatarCard(BuildContext context, _ScreenSize screenSize) {
+    final double outerDiameter;
+    final double innerDiameter;
+
+    switch (screenSize) {
+      case _ScreenSize.smallPhone:
+        outerDiameter = 160.0;
+        innerDiameter = 145.0;
+        break;
+      case _ScreenSize.largePhone:
+        outerDiameter = 185.0;
+        innerDiameter = 168.0;
+        break;
+      case _ScreenSize.tablet:
+        outerDiameter = 205.0;
+        innerDiameter = 185.0;
+        break;
+      case _ScreenSize.desktop:
+        outerDiameter = 230.0;
+        innerDiameter = 205.0;
+        break;
+    }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -124,30 +160,30 @@ class _AboutSectionState extends State<AboutSection> {
               children: [
                 // Glowing Outer Ambient Halo
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  width: outerDiameter + 24,
-                  height: outerDiameter + 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: RadialGradient(
-                      colors: [
-                        AppTheme.primaryColor.withValues(
-                          alpha: _isAvatarHovered ? 0.35 : 0.18,
+                      duration: const Duration(milliseconds: 400),
+                      width: outerDiameter + 20,
+                      height: outerDiameter + 20,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: RadialGradient(
+                          colors: [
+                            AppTheme.primaryColor.withValues(
+                              alpha: _isAvatarHovered ? 0.35 : 0.18,
+                            ),
+                            Colors.transparent,
+                          ],
                         ),
-                        Colors.transparent,
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppTheme.primaryColor.withValues(
-                          alpha: _isAvatarHovered ? 0.45 : 0.2,
-                        ),
-                        blurRadius: _isAvatarHovered ? 35 : 20,
-                        spreadRadius: _isAvatarHovered ? 6 : 2,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.primaryColor.withValues(
+                              alpha: _isAvatarHovered ? 0.45 : 0.2,
+                            ),
+                            blurRadius: _isAvatarHovered ? 35 : 20,
+                            spreadRadius: _isAvatarHovered ? 6 : 2,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
+                    )
                     .animate(
                       onPlay: (controller) => controller.repeat(reverse: true),
                     )
@@ -188,7 +224,7 @@ class _AboutSectionState extends State<AboutSection> {
                           color: AppTheme.cardColor,
                           child: const Icon(
                             Icons.person,
-                            size: 80,
+                            size: 64,
                             color: AppTheme.primaryColor,
                           ),
                         );
@@ -211,10 +247,10 @@ class _AboutSectionState extends State<AboutSection> {
             ),
           ),
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 16),
 
         // Glowing "Open to Work" Badge
-        _buildAvailabilityBadge(),
+        _buildAvailabilityBadge(screenSize),
       ],
     ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.08, end: 0);
   }
@@ -232,9 +268,14 @@ class _AboutSectionState extends State<AboutSection> {
     );
   }
 
-  Widget _buildAvailabilityBadge() {
+  Widget _buildAvailabilityBadge(_ScreenSize screenSize) {
+    final fontSize = screenSize == _ScreenSize.smallPhone ? 11.5 : 12.5;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: screenSize == _ScreenSize.smallPhone ? 12 : 16,
+        vertical: 8,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A).withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(20),
@@ -255,32 +296,32 @@ class _AboutSectionState extends State<AboutSection> {
         children: [
           // Live Pulsing Green/Cyan Indicator
           Container(
-            width: 9,
-            height: 9,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppTheme.primaryColor,
-              boxShadow: [
-                BoxShadow(
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
                   color: AppTheme.primaryColor,
-                  blurRadius: 8,
-                  spreadRadius: 2,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primaryColor,
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
+              )
               .animate(onPlay: (controller) => controller.repeat(reverse: true))
               .scale(
                 begin: const Offset(0.8, 0.8),
                 end: const Offset(1.3, 1.3),
                 duration: 1000.ms,
               ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 8),
           Text(
             'Open to Opportunities',
             style: GoogleFonts.firaCode(
               color: AppTheme.textColor,
-              fontSize: 12.sp.clamp(11.0, 13.0),
+              fontSize: fontSize,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -290,19 +331,26 @@ class _AboutSectionState extends State<AboutSection> {
   }
 
   // ─── Right Content: Bio, Role, Timeline & Skill Chips ────────────────────────
-  Widget _buildRightContent(BuildContext context) {
-    final isMobile = Responsive.isMobile(context);
+  Widget _buildRightContent(BuildContext context, _ScreenSize screenSize) {
+    final roleFontSize = screenSize == _ScreenSize.smallPhone
+        ? 18.0
+        : (screenSize == _ScreenSize.largePhone
+              ? 20.0
+              : (screenSize == _ScreenSize.tablet ? 22.0 : 24.0));
+
+    final subtitleFontSize = screenSize == _ScreenSize.smallPhone
+        ? 12.5
+        : (screenSize == _ScreenSize.largePhone ? 13.5 : 14.5);
 
     return Column(
-      crossAxisAlignment:
-          isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Role Title with Typing Animation
         _TypingRoleText(
           text: 'Flutter Developer & Team Lead',
           style: GoogleFonts.inter(
             color: AppTheme.primaryColor,
-            fontSize: isMobile ? 20.sp : 24.sp,
+            fontSize: roleFontSize,
             fontWeight: FontWeight.w700,
             letterSpacing: -0.3,
           ),
@@ -311,53 +359,55 @@ class _AboutSectionState extends State<AboutSection> {
         Text(
           'Shohanur Rahaman (Shohan) • 4+ Years Experience (Since 2020)',
           style: GoogleFonts.inter(
-            color: AppTheme.textColor.withValues(alpha: 0.8),
-            fontSize: isMobile ? 13.sp : 14.sp,
+            color: const Color(0xFFCBD5E1),
+            fontSize: subtitleFontSize,
             fontWeight: FontWeight.w500,
           ),
-          textAlign: isMobile ? TextAlign.center : TextAlign.start,
+          textAlign: TextAlign.start,
         ),
         const SizedBox(height: 20),
 
         // Bio Text Paragraphs
-        _buildBioParagraphs(isMobile),
+        _buildBioParagraphs(screenSize),
         const SizedBox(height: 28),
 
         // Career Experience Cards
-        _buildCompanyTimelineCards(context),
+        _buildCompanyTimelineCards(context, screenSize),
         const SizedBox(height: 28),
-
-        // Key Technical Stack Chips
-        _buildSkillChipsSection(context),
       ],
     );
   }
 
   // ─── Bio Paragraphs ──────────────────────────────────────────────────────────
-  Widget _buildBioParagraphs(bool isMobile) {
+  Widget _buildBioParagraphs(_ScreenSize screenSize) {
+    final fontSize = screenSize == _ScreenSize.smallPhone
+        ? 14.0
+        : (screenSize == _ScreenSize.largePhone
+              ? 14.8
+              : (screenSize == _ScreenSize.tablet ? 15.5 : 16.0));
+
     final textStyle = GoogleFonts.inter(
-      color: AppTheme.secondaryColor,
-      fontSize: isMobile ? 15.sp.clamp(13.5, 16.0) : 16.sp.clamp(14.0, 17.0),
+      color: const Color(
+        0xFFCBD5E1,
+      ), // High contrast off-white for crisp readability
+      fontSize: fontSize,
       height: 1.65,
     );
-    final align = isMobile ? TextAlign.left : TextAlign.justify;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
-          textAlign: align,
+          textAlign: TextAlign.start,
           text: TextSpan(
             style: textStyle,
             children: const [
-              TextSpan(
-                text: 'Senior Flutter Developer and Team Lead with ',
-              ),
+              TextSpan(text: 'Senior Flutter Developer and Team Lead with '),
               TextSpan(
                 text: '4+ years of experience ',
                 style: TextStyle(
                   color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               TextSpan(
@@ -368,7 +418,7 @@ class _AboutSectionState extends State<AboutSection> {
                 text:
                     'CRM, HRM, Accounting, E-commerce, Government, and Ride-Sharing ',
                 style: TextStyle(
-                  color: AppTheme.textColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -381,7 +431,7 @@ class _AboutSectionState extends State<AboutSection> {
         ),
         const SizedBox(height: 14),
         RichText(
-          textAlign: align,
+          textAlign: TextAlign.start,
           text: TextSpan(
             style: textStyle,
             children: const [
@@ -390,17 +440,15 @@ class _AboutSectionState extends State<AboutSection> {
                 text: '20+ production applications',
                 style: TextStyle(
                   color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              TextSpan(
-                text: ', led cross-functional engineering teams, and ',
-              ),
+              TextSpan(text: ', led cross-functional engineering teams, and '),
               TextSpan(
                 text: 'improved app load times by up to 20%',
                 style: TextStyle(
                   color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               TextSpan(
@@ -412,13 +460,21 @@ class _AboutSectionState extends State<AboutSection> {
         ),
         const SizedBox(height: 14),
         RichText(
-          textAlign: align,
+          textAlign: TextAlign.start,
           text: TextSpan(
             style: textStyle,
             children: const [
+              TextSpan(text: 'I place strong emphasis on '),
+              TextSpan(
+                text: 'clean architecture (MVVM/Clean)',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               TextSpan(
                 text:
-                    'I place strong emphasis on clean architecture (MVVM/Clean), robust state management, and writing maintainable code that other engineers genuinely enjoy working with.',
+                    ', robust state management, and writing maintainable code that other engineers genuinely enjoy working with.',
               ),
             ],
           ),
@@ -428,32 +484,22 @@ class _AboutSectionState extends State<AboutSection> {
   }
 
   // ─── Company Experience & App Showcase ────────────────────────────────────────
-  Widget _buildCompanyTimelineCards(BuildContext context) {
+  Widget _buildCompanyTimelineCards(
+    BuildContext context,
+    _ScreenSize screenSize,
+  ) {
+    final titleFontSize = screenSize == _ScreenSize.smallPhone
+        ? 16.0
+        : (screenSize == _ScreenSize.largePhone ? 17.5 : 19.0);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Icon(
-              Icons.work_history_outlined,
-              color: AppTheme.primaryColor,
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Experience & Key Contributions',
-              style: GoogleFonts.inter(
-                color: AppTheme.textColor,
-                fontSize: 18.sp.clamp(16.0, 20.0),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
         const SizedBox(height: 14),
 
         // Company 1: SM Technology (Current)
         _buildCompanyCard(
+          screenSize: screenSize,
           role: 'Flutter Developer & Team Lead',
           company: 'SM Technology',
           period: 'Currently Working',
@@ -463,29 +509,12 @@ class _AboutSectionState extends State<AboutSection> {
           apps: [],
         ),
         const SizedBox(height: 12),
-
-        // Company 2: Genuine Technology & Research Ltd (GTR)
-        _buildCompanyCard(
-          role: 'Senior Flutter Developer',
-          company: 'Genuine Technology & Research Ltd (GTR)',
-          period: 'Previously Worked',
-          isCurrent: false,
-          description:
-              'Contributed to live production mobile applications published on Play Store & App Store:',
-          apps: [
-            {'name': 'Jogajog', 'store': 'Play Store'},
-            {'name': 'Halda', 'store': 'Play Store'},
-            {'name': 'Atrai', 'store': 'Play Store'},
-            {'name': 'Shuttle Bus', 'store': 'Play Store'},
-            {'name': 'Neon Rover', 'store': 'App Store'},
-            {'name': 'Multifix', 'store': 'App Store'},
-          ],
-        ),
       ],
     ).animate().fadeIn(duration: 800.ms, delay: 250.ms);
   }
 
   Widget _buildCompanyCard({
+    required _ScreenSize screenSize,
     required String role,
     required String company,
     required String period,
@@ -493,22 +522,32 @@ class _AboutSectionState extends State<AboutSection> {
     required String description,
     required List<Map<String, String>> apps,
   }) {
-    final isMobile = Responsive.isMobile(context);
+    final isSmallPhone = screenSize == _ScreenSize.smallPhone;
+
+    final roleFontSize = isSmallPhone
+        ? 14.0
+        : (screenSize == _ScreenSize.largePhone ? 15.0 : 16.0);
+    final companyFontSize = isSmallPhone
+        ? 13.5
+        : (screenSize == _ScreenSize.largePhone ? 14.5 : 15.0);
+    final descFontSize = isSmallPhone
+        ? 13.0
+        : (screenSize == _ScreenSize.largePhone ? 13.5 : 14.0);
 
     return Container(
-      padding: EdgeInsets.all(isMobile ? 14 : 18),
+      padding: EdgeInsets.all(isSmallPhone ? 14 : 18),
       decoration: BoxDecoration(
-        color: AppTheme.cardColor.withValues(alpha: 0.6),
+        color: AppTheme.cardColor.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: isCurrent
-              ? AppTheme.primaryColor.withValues(alpha: 0.4)
-              : AppTheme.primaryColor.withValues(alpha: 0.12),
+              ? AppTheme.primaryColor.withValues(alpha: 0.5)
+              : AppTheme.primaryColor.withValues(alpha: 0.15),
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -517,67 +556,129 @@ class _AboutSectionState extends State<AboutSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
-            runSpacing: 6,
-            children: [
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text(
+          // Role, Company & Period Header
+          if (isSmallPhone) ...[
+            // Stacked for small mobile screens to prevent text overlap
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
                     role,
                     style: GoogleFonts.inter(
-                      color: AppTheme.textColor,
-                      fontSize: isMobile ? 14.5.sp : 16.sp,
+                      color: Colors.white,
+                      fontSize: roleFontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    ' @ $company',
-                    style: GoogleFonts.inter(
-                      color: AppTheme.primaryColor,
-                      fontSize: isMobile ? 13.5.sp : 15.sp,
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isCurrent
+                        ? AppTheme.primaryColor.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: isCurrent
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryColor.withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(
+                    period,
+                    style: GoogleFonts.firaCode(
+                      color: isCurrent
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryColor,
+                      fontSize: 10.5,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 2),
+            Text(
+              '@ $company',
+              style: GoogleFonts.inter(
+                color: AppTheme.primaryColor,
+                fontSize: companyFontSize,
+                fontWeight: FontWeight.w600,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: isCurrent
-                      ? AppTheme.primaryColor.withValues(alpha: 0.15)
-                      : Colors.white.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: isCurrent
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryColor.withValues(alpha: 0.3),
-                    width: 1,
+            ),
+          ] else ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: role,
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: roleFontSize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' @ $company',
+                          style: GoogleFonts.inter(
+                            color: AppTheme.primaryColor,
+                            fontSize: companyFontSize,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                child: Text(
-                  period,
-                  style: GoogleFonts.firaCode(
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
                     color: isCurrent
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryColor,
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w600,
+                        ? AppTheme.primaryColor.withValues(alpha: 0.15)
+                        : Colors.white.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isCurrent
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryColor.withValues(alpha: 0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: Text(
+                    period,
+                    style: GoogleFonts.firaCode(
+                      color: isCurrent
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryColor,
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
           const SizedBox(height: 8),
           Text(
             description,
             style: GoogleFonts.inter(
-              color: AppTheme.secondaryColor,
-              fontSize: isMobile ? 13.sp : 14.sp,
-              height: 1.45,
+              color: const Color(0xFFCBD5E1),
+              fontSize: descFontSize,
+              height: 1.5,
             ),
           ),
           if (apps.isNotEmpty) ...[
@@ -588,15 +689,15 @@ class _AboutSectionState extends State<AboutSection> {
               children: apps.map((app) {
                 final isAppStore = app['store'] == 'App Store';
                 return Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: isSmallPhone ? 8 : 10,
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF0F172A),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: AppTheme.primaryColor.withValues(alpha: 0.25),
+                      color: AppTheme.primaryColor.withValues(alpha: 0.3),
                       width: 1,
                     ),
                   ),
@@ -608,14 +709,14 @@ class _AboutSectionState extends State<AboutSection> {
                             ? FontAwesomeIcons.apple
                             : FontAwesomeIcons.googlePlay,
                         color: AppTheme.primaryColor,
-                        size: 11.sp,
+                        size: isSmallPhone ? 11.5 : 12.5,
                       ),
                       const SizedBox(width: 6),
                       Text(
                         app['name']!,
                         style: GoogleFonts.inter(
-                          color: AppTheme.textColor,
-                          fontSize: 12.sp,
+                          color: Colors.white,
+                          fontSize: isSmallPhone ? 11.5 : 12.5,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -628,102 +729,6 @@ class _AboutSectionState extends State<AboutSection> {
         ],
       ),
     );
-  }
-
-  // ─── Skill Chips Section ──────────────────────────────────────────────────────
-  Widget _buildSkillChipsSection(BuildContext context) {
-    final skills = [
-      'Flutter',
-      'Dart',
-      'Firebase',
-      'Supabase',
-      'Kotlin',
-      'Swift',
-      'REST API',
-      'Bloc',
-      'Riverpod',
-      'GetX',
-      'WebRTC',
-      'ZegoCloud',
-      'ML Kit',
-      'BLE',
-      'CI/CD',
-      'GitHub Actions',
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            const Icon(
-              Icons.code_rounded,
-              color: AppTheme.primaryColor,
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Tech Stack Highlights',
-              style: GoogleFonts.inter(
-                color: AppTheme.textColor,
-                fontSize: 18.sp.clamp(16.0, 20.0),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 14),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: List.generate(skills.length, (index) {
-            final skill = skills[index];
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              decoration: BoxDecoration(
-                color: AppTheme.cardColor.withValues(alpha: 0.8),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppTheme.primaryColor.withValues(alpha: 0.2),
-                  width: 1,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.primaryColor.withValues(alpha: 0.05),
-                    blurRadius: 6,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    '▸ ',
-                    style: GoogleFonts.firaCode(
-                      color: AppTheme.primaryColor,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    skill,
-                    style: GoogleFonts.firaCode(
-                      color: AppTheme.textColor,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            )
-                .animate()
-                .fadeIn(delay: (35 * index).ms)
-                .slideX(begin: 0.15, end: 0);
-          }),
-        ),
-      ],
-    ).animate().fadeIn(duration: 800.ms, delay: 350.ms);
   }
 }
 
