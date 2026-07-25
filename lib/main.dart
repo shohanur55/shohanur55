@@ -245,14 +245,20 @@ class _AppSplashScreen extends StatelessWidget {
                           width: 1,
                         ),
                       ),
-                      child: const Center(
-                        child: Text(
-                          'S',
-                          style: TextStyle(
-                            color: Color(0xFFE6F1FF),
-                            fontSize: 34,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 0.5,
+                      child: ClipOval(
+                        child: Image.asset(
+                          AppConstants.profileImage,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => const Center(
+                            child: Text(
+                              'S',
+                              style: TextStyle(
+                                color: Color(0xFFE6F1FF),
+                                fontSize: 34,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
                           ),
                         ),
                       ),
