@@ -4,8 +4,115 @@ import '../models/skill_model.dart';
 
 class StaticPortfolioData {
   static final List<Project> projects = [
-    Project(
+        Project(
       id: "1",
+      title: "Shuttle Bus",
+      description: '''
+A cross-platform transportation management application built with Flutter for Android and iOS, enabling organizations and communities to manage shuttle services with real-time location tracking.
+
+- Developed a live GPS tracking system using Google Maps and Supabase Realtime, allowing hosts and passengers to share and monitor locations instantly.
+- Implemented background location updates with real-time synchronization, providing accurate bus locations, member tracking, distance calculations, and ETA.
+- Built a role-based transportation system where users can create or join shuttle services as Hosts or Passengers using unique service codes.
+- Designed features for pickup point selection, destination management, custom routes, and live member tracking to improve transportation coordination.
+- Integrated secure Google Sign-In, session management, and role-based access control with Supabase Authentication.
+- Built a responsive and scalable Flutter application with real-time communication, delivering a smooth and reliable user experience.
+''',
+      technologies: [
+        "Dart",
+        "Flutter",
+        "Google Map",
+        "Real-Time Transportation",
+        "Supabase",
+      ],
+      imageUrl: "assets/images/projects/shuttle_bus/1.webp",
+      images: [
+        "assets/images/projects/shuttle_bus/1.webp",
+        "assets/images/projects/shuttle_bus/2.webp",
+        "assets/images/projects/shuttle_bus/3.webp",
+        "assets/images/projects/shuttle_bus/4.webp",
+        "assets/images/projects/shuttle_bus/5.webp",
+        "assets/images/projects/shuttle_bus/6.webp",
+        "assets/images/projects/shuttle_bus/7.webp",
+        "assets/images/projects/shuttle_bus/8.webp",
+        "assets/images/projects/shuttle_bus/9.webp",
+        "assets/images/projects/shuttle_bus/10.webp",
+        "assets/images/projects/shuttle_bus/11.webp",
+        "assets/images/projects/shuttle_bus/12.webp",
+        "assets/images/projects/shuttle_bus/13.webp",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+      playStoreUrl:
+          "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
+    ),
+   
+    Project(
+      id: "2",
+      title: "Neon Rover",
+      description: '''
+A Flutter-based event discovery and event management platform designed to connect users with live music, concerts, festivals, and local entertainment.
+
+- Developed a location-aware event discovery system using Google Maps and geolocation services to recommend nearby events.
+- Implemented event creation, publishing, and management features for organizers, venues, and promoters.
+- Built advanced search and filtering by location, date, ZIP code, and event category for an improved discovery experience.
+- Integrated subscription-based premium features for unlimited event promotion and management.
+- Developed responsive cross-platform interfaces with REST API integration, secure authentication, and optimized performance.
+''',
+      technologies: [
+        "Flutter",
+        "GetX",
+        "REST API",
+        "Google Map",
+        "In-app Purchase",
+        "ReveuneCat",
+      ],
+      imageUrl: "assets/images/projects/neon_rover/1.webp",
+      images: [
+        "assets/images/projects/neon_rover/1.webp",
+        "assets/images/projects/neon_rover/2.webp",
+        "assets/images/projects/neon_rover/3.webp",
+        "assets/images/projects/neon_rover/4.webp",
+        "assets/images/projects/neon_rover/5.webp",
+        "assets/images/projects/neon_rover/6.webp",
+        "assets/images/projects/neon_rover/7.webp",
+      ],
+
+      githubUrl: null,
+      liveUrl: null,
+
+      appStoreUrl: "https://apps.apple.com/gb/app/neon-rover/id6754535849",
+    ),
+
+        Project(
+      id: "3",
+      title: "Maziwa Hub",
+      description: '''
+A cross-platform dairy farm and supply chain management application built with Flutter, designed to streamline dairy operations from milk production to market distribution.
+
+- Developed a multi-role platform supporting Milk Producers, Milk Processors, Suppliers, Financial Institutions, and Public Users with role-based access control.
+- Built dairy management modules for milk production tracking, product listings, certifications, inventory, and sales management.
+- Implemented supply chain features to connect farmers, processors, suppliers, and other stakeholders through a unified platform.
+- Integrated market insights, pricing updates, analytics, and reporting to support business decision-making.
+- Developed features for financial services, advertisements, stakeholder engagement, and service provider connectivity.
+- Built a responsive Flutter application with REST API integration, secure authentication, and a user-friendly interface.
+''',
+      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      imageUrl: "assets/images/projects/maziwa_hub/1.webp",
+      images: [
+        "assets/images/projects/maziwa_hub/1.webp",
+        "assets/images/projects/maziwa_hub/2.webp",
+        "assets/images/projects/maziwa_hub/3.webp",
+        "assets/images/projects/maziwa_hub/4.webp",
+        "assets/images/projects/maziwa_hub/5.webp",
+        "assets/images/projects/maziwa_hub/6.webp",
+      ],
+      githubUrl: null,
+      liveUrl: null,
+      appStoreUrl: "https://apps.apple.com/gb/app/maziwa-hub/id6761703840",
+    ),
+
+ Project(
+      id: "4",
       title: "Jogajog",
       description: '''
 Jogajog is a Flutter-based communication and business collaboration application designed for both personal and professional use.
@@ -46,44 +153,7 @@ Jogajog is a Flutter-based communication and business collaboration application 
     ),
 
     Project(
-      id: "2",
-      title: "Neon Rover",
-      description: '''
-A Flutter-based event discovery and event management platform designed to connect users with live music, concerts, festivals, and local entertainment.
-
-- Developed a location-aware event discovery system using Google Maps and geolocation services to recommend nearby events.
-- Implemented event creation, publishing, and management features for organizers, venues, and promoters.
-- Built advanced search and filtering by location, date, ZIP code, and event category for an improved discovery experience.
-- Integrated subscription-based premium features for unlimited event promotion and management.
-- Developed responsive cross-platform interfaces with REST API integration, secure authentication, and optimized performance.
-''',
-      technologies: [
-        "Flutter",
-        "GetX",
-        "REST API",
-        "Google Map",
-        "In-app Purchase",
-        "ReveuneCat",
-      ],
-      imageUrl: "assets/images/projects/neon_rover/1.webp",
-      images: [
-        "assets/images/projects/neon_rover/1.webp",
-        "assets/images/projects/neon_rover/2.webp",
-        "assets/images/projects/neon_rover/3.webp",
-        "assets/images/projects/neon_rover/4.webp",
-        "assets/images/projects/neon_rover/5.webp",
-        "assets/images/projects/neon_rover/6.webp",
-        "assets/images/projects/neon_rover/7.webp",
-      ],
-
-      githubUrl: null,
-      liveUrl: null,
-
-      appStoreUrl: "https://apps.apple.com/gb/app/neon-rover/id6754535849",
-    ),
-
-    Project(
-      id: "3",
+      id: "5",
       title: "Multifix",
       description: '''
 A cross-platform home service application built with Flutter for Android and iOS, connecting customers with professional contractors and consultants.
@@ -111,36 +181,10 @@ A cross-platform home service application built with Flutter for Android and iOS
       appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
     ),
 
-    Project(
-      id: "4",
-      title: "Maziwa Hub",
-      description: '''
-A cross-platform dairy farm and supply chain management application built with Flutter, designed to streamline dairy operations from milk production to market distribution.
 
-- Developed a multi-role platform supporting Milk Producers, Milk Processors, Suppliers, Financial Institutions, and Public Users with role-based access control.
-- Built dairy management modules for milk production tracking, product listings, certifications, inventory, and sales management.
-- Implemented supply chain features to connect farmers, processors, suppliers, and other stakeholders through a unified platform.
-- Integrated market insights, pricing updates, analytics, and reporting to support business decision-making.
-- Developed features for financial services, advertisements, stakeholder engagement, and service provider connectivity.
-- Built a responsive Flutter application with REST API integration, secure authentication, and a user-friendly interface.
-''',
-      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
-      imageUrl: "assets/images/projects/maziwa_hub/1.webp",
-      images: [
-        "assets/images/projects/maziwa_hub/1.webp",
-        "assets/images/projects/maziwa_hub/2.webp",
-        "assets/images/projects/maziwa_hub/3.webp",
-        "assets/images/projects/maziwa_hub/4.webp",
-        "assets/images/projects/maziwa_hub/5.webp",
-        "assets/images/projects/maziwa_hub/6.webp",
-      ],
-      githubUrl: null,
-      liveUrl: null,
-      appStoreUrl: "https://apps.apple.com/gb/app/maziwa-hub/id6761703840",
-    ),
 
     Project(
-      id: "5",
+      id: "6",
       title: "Atrai",
       description: '''
 A Flutter-based financial and accounting management application designed to help businesses monitor income, expenses, revenue, and overall financial performance.
@@ -170,7 +214,7 @@ A Flutter-based financial and accounting management application designed to help
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.atrai",
     ),
     Project(
-      id: "6",
+      id: "7",
       title: "Halda",
       description: '''
 A Flutter-based HR management application for employee and workforce management.
@@ -194,47 +238,7 @@ A Flutter-based HR management application for employee and workforce management.
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
     ),
 
-    Project(
-      id: "7",
-      title: "Shuttle Bus",
-      description: '''
-A cross-platform transportation management application built with Flutter for Android and iOS, enabling organizations and communities to manage shuttle services with real-time location tracking.
 
-- Developed a live GPS tracking system using Google Maps and Supabase Realtime, allowing hosts and passengers to share and monitor locations instantly.
-- Implemented background location updates with real-time synchronization, providing accurate bus locations, member tracking, distance calculations, and ETA.
-- Built a role-based transportation system where users can create or join shuttle services as Hosts or Passengers using unique service codes.
-- Designed features for pickup point selection, destination management, custom routes, and live member tracking to improve transportation coordination.
-- Integrated secure Google Sign-In, session management, and role-based access control with Supabase Authentication.
-- Built a responsive and scalable Flutter application with real-time communication, delivering a smooth and reliable user experience.
-''',
-      technologies: [
-        "Dart",
-        "Flutter",
-        "Google Map",
-        "Real-Time Transportation",
-        "Supabase",
-      ],
-      imageUrl: "assets/images/projects/shuttle_bus/1.webp",
-      images: [
-        "assets/images/projects/shuttle_bus/1.webp",
-        "assets/images/projects/shuttle_bus/2.webp",
-        "assets/images/projects/shuttle_bus/3.webp",
-        "assets/images/projects/shuttle_bus/4.webp",
-        "assets/images/projects/shuttle_bus/5.webp",
-        "assets/images/projects/shuttle_bus/6.webp",
-        "assets/images/projects/shuttle_bus/7.webp",
-        "assets/images/projects/shuttle_bus/8.webp",
-        "assets/images/projects/shuttle_bus/9.webp",
-        "assets/images/projects/shuttle_bus/10.webp",
-        "assets/images/projects/shuttle_bus/11.webp",
-        "assets/images/projects/shuttle_bus/12.webp",
-        "assets/images/projects/shuttle_bus/13.webp",
-      ],
-      githubUrl: null,
-      liveUrl: null,
-      playStoreUrl:
-          "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
-    ),
     Project(
       id: "8",
       title: "Easy HR",
