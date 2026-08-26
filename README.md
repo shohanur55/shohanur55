@@ -54,6 +54,8 @@ If you'd like to learn more about my work, projects, skills, and experience, ple
 ### Architecture & State Management
 
 * GetX
+* Riverpod
+* Provider
 * Clean Architecture
 * MVC
 * Repository Pattern
