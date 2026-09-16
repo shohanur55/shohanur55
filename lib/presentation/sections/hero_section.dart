@@ -484,7 +484,7 @@ class _HeroSectionState extends State<HeroSection>
           ctx: ctx,
         ),
         _buildStatCard(
-          '5 Apps',
+          '7 Apps',
           'Live on Play Store',
           FontAwesomeIcons.googlePlay,
           s,
@@ -1078,7 +1078,15 @@ class _HeroSectionState extends State<HeroSection>
   // ─── Core Skills Pills ────────────────────────────────────────────────────
   Widget _buildCoreSkills(_ScreenSize s) {
     final isSmall = s == _ScreenSize.smallPhone;
-    final skills = ['Flutter', 'Dart', 'GetX', 'REST APIs', 'Firebase', 'Git'];
+    final skills = [
+      'Flutter',
+      'Dart',
+      'RiverPod',
+      'REST APIs',
+      'Firebase',
+      'Clean Architecture',
+      "Github",
+    ];
 
     return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
