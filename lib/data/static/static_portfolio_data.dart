@@ -4,7 +4,7 @@ import '../models/skill_model.dart';
 
 class StaticPortfolioData {
   static final List<Project> projects = [
-        Project(
+    Project(
       id: "1",
       title: "Shuttle Bus",
       description: '''
@@ -45,7 +45,7 @@ A cross-platform transportation management application built with Flutter for An
       playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.app.shuttle_bus.shuttle_bus&pcampaignid=web_share",
     ),
-   
+
     Project(
       id: "2",
       title: "Neon Rover",
@@ -60,7 +60,6 @@ A Flutter-based event discovery and event management platform designed to connec
 ''',
       technologies: [
         "Flutter",
-        "GetX",
         "REST API",
         "Google Map",
         "In-app Purchase",
@@ -83,7 +82,7 @@ A Flutter-based event discovery and event management platform designed to connec
       appStoreUrl: "https://apps.apple.com/gb/app/neon-rover/id6754535849",
     ),
 
-        Project(
+    Project(
       id: "3",
       title: "Maziwa Hub",
       description: '''
@@ -96,7 +95,13 @@ A cross-platform dairy farm and supply chain management application built with F
 - Developed features for financial services, advertisements, stakeholder engagement, and service provider connectivity.
 - Built a responsive Flutter application with REST API integration, secure authentication, and a user-friendly interface.
 ''',
-      technologies: ["Dart", "Flutter", "Firebase", "GetX", "REST API"],
+      technologies: [
+        "Dart",
+        "Flutter",
+        "Firebase",
+        "Push Notification",
+        "REST API",
+      ],
       imageUrl: "assets/images/projects/maziwa_hub/1.webp",
       images: [
         "assets/images/projects/maziwa_hub/1.webp",
@@ -111,7 +116,7 @@ A cross-platform dairy farm and supply chain management application built with F
       appStoreUrl: "https://apps.apple.com/gb/app/maziwa-hub/id6761703840",
     ),
 
- Project(
+    Project(
       id: "4",
       title: "Jogajog",
       description: '''
@@ -127,9 +132,9 @@ Jogajog is a Flutter-based communication and business collaboration application 
         "Dart",
         "Flutter",
         "Google Map",
+        "SQL Lite",
         "REST API",
         "Firebase",
-        "GetX",
       ],
       imageUrl: "assets/images/projects/jogajog/1.webp",
       images: [
@@ -164,7 +169,7 @@ A cross-platform home service application built with Flutter for Android and iOS
 - Integrated admin-controlled authentication and role-based access for secure user management.
 - Designed a streamlined workflow for home service requests, communication, and service delivery.
 ''',
-      technologies: ["Dart", "Flutter", "GetX", "REST API"],
+      technologies: ["Dart", "Flutter", "Push Notification", "REST API"],
       imageUrl: "assets/images/projects/multifix/1.webp",
       images: [
         "assets/images/projects/multifix/1.webp",
@@ -181,8 +186,6 @@ A cross-platform home service application built with Flutter for Android and iOS
       appStoreUrl: "https://apps.apple.com/gb/app/multifix/id6756261630",
     ),
 
-
-
     Project(
       id: "6",
       title: "Atrai",
@@ -196,7 +199,7 @@ A Flutter-based financial and accounting management application designed to help
 - Integrated employee reimbursement and requisition management for handling internal financial requests.
 - Developed responsive dashboards with REST API integration for real-time financial data management.
 ''',
-      technologies: ["Dart", "Flutter", "REST API", "GetX", "MVC"],
+      technologies: ["Dart", "Flutter", "REST API", "MVC"],
       imageUrl: "assets/images/projects/atrai/1.webp",
       images: [
         "assets/images/projects/atrai/1.webp",
@@ -237,7 +240,6 @@ A Flutter-based HR management application for employee and workforce management.
       playStoreUrl:
           "https://play.google.com/store/apps/details?id=com.dev.androidteam.gtr.halda",
     ),
-
 
     Project(
       id: "8",
@@ -313,11 +315,10 @@ A Flutter-based HR management application for employee and workforce management.
       technologies: [
         "Flutter",
         "Dart",
-        "GetX",
         "REST API",
         "Firebase",
         "C#",
-        "ASP.NET",
+        "Riverpod",
       ],
     ),
     ExperienceModel(
